@@ -1,0 +1,16 @@
+{
+	"version": 3,
+	"file": "style.css",
+	"sources": [
+		"style/main.scss",
+		"style/base/_variables.scss",
+		"style/base/_layout.scss"
+	],
+	"sourcesContent": [
+		"@import \"base/variables\";\n@import \"base/layout\";\n",
+		"\n",
+		"\n"
+	],
+	"names": [],
+	"mappings": ""
+}

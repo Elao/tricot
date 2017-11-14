@@ -37,7 +37,8 @@ watch-js:
 	echo "TODO"
 
 watch-css:
-	./node_modules/.bin/node-sass -w -r --source-map true --source-map-contents --output-style compressed style/main.scss public/style.css
+	echo "Watching..."
+	./node_modules/.bin/node-sass -w -r --source-map true --source-map-contents --output-style compressed style/main.scss style.css
 
 ## Build application
 build: export NODE_ENV = production
@@ -47,4 +48,4 @@ build-js:
 	echo "TODO"
 
 build-css:
-	./node_modules/.bin/node-sass -x --output-style compressed style/main.scss public/style.css
+	./node_modules/.bin/node-sass -x --output-style compressed style/main.scss style.css

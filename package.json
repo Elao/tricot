@@ -1,0 +1,22 @@
+{
+  "name": "tricot",
+  "version": "1.0.0",
+  "description": "Jeu de tricot de Noël",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Elao/tricot.git"
+  },
+  "author": "élao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Elao/tricot/issues"
+  },
+  "homepage": "https://github.com/Elao/tricot#readme",
+  "dependencies": {
+    "node-sass": "^4.6.1"
+  }
+}

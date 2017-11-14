@@ -1,0 +1,13 @@
+.needle {
+    position: absolute;
+    z-index: 1;
+}
+
+.needle--left {
+    left: 30px;
+    transform: rotate(-2deg);
+}
+.needle--right {
+    right: 30px;
+    transform: rotate(1deg);
+}

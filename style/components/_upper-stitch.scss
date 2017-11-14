@@ -1,0 +1,8 @@
+.upper-stitch {
+    position: absolute;
+    top: -20px;
+}
+
+.upper-stitch--front { z-index: 2; }
+
+.upper-stitch--back { z-index: -2; }

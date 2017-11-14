@@ -1,0 +1,12 @@
+.rules {
+  height: 120px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary;
+  color: $text;
+  text-transform: uppercase;
+  font-size: 21px;
+  letter-spacing: .07em;
+}

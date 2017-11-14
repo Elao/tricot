@@ -1,0 +1,19 @@
+.arrow-tunnel {
+  position: relative;
+  height: 50px;
+  margin-bottom: 90px;
+  border-bottom: 3px solid #fff;
+  border-top: 3px solid #fff;
+  background-color: #fff;
+
+  .arrow {
+    position: absolute;
+    top: -40px;
+    right: 20%;
+    height: 120px;
+    width: 120px;
+    background-color: $background;
+    border: 3px solid #fff;
+    border-radius: 50%;
+  }
+}

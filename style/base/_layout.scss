@@ -1,1 +1,26 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
 
+body {
+  background-color: $background;
+  display: flex;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header {
+  img { width: 130px; }
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}

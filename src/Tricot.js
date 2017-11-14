@@ -7,7 +7,7 @@ export default class Tricot extends Component {
 
     render() {
         return (
-            <main>
+            <div>
               <div className="arrow-tunnel">
                 <div className="arrow"></div>
               </div>
@@ -24,7 +24,7 @@ export default class Tricot extends Component {
               <div className="rules">
                 Appuie en rythme sur les touches pour tricoter
               </div>
-            </main>
+            </div>
         );
     }
 }

@@ -6,8 +6,12 @@
 .needle--left {
     left: 30px;
     transform: rotate(-2deg);
+    animation: knit-left .6s linear infinite both;
+    // animation: knit-error-left .8s linear infinite both;
 }
 .needle--right {
     right: 30px;
     transform: rotate(1deg);
+    animation: knit-right .6s linear infinite both;
+    // animation: knit-error-right .8s linear infinite both;
 }

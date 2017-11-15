@@ -9,7 +9,7 @@ export default class Tricot extends Component {
         return (
             <div>
               <div className="arrow-tunnel">
-                <div className="arrow"></div>
+                <div className="arrow-tunnel__highlight"></div>
               </div>
               <div className="container">
                 <img src="images/needle-left.png" alt="" className="needle needle--left" />

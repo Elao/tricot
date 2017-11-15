@@ -37,13 +37,14 @@ export default class Tricot extends Component {
 
   render() {
     const { arrows, answer } = this.state;
+    const needleClass = answer === false ? 'error' : '';
 
     return (
       <div>
         <ArrowTunel arrows={arrows} />
         <div className="container">
-          <img src="images/needle-left.png" alt="" className="needle needle--left" />
-          <img src="images/needle-right.png" alt="" className="needle needle--right" />
+          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
+          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
           <div className="knit">
             <div className="knit__scarf">
               <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />

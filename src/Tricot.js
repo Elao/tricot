@@ -18,7 +18,7 @@ export default class Tricot extends Component {
                   <div className="knit__scarf">
                     <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />
                     <img src="images/upper-stitch--back.svg" alt="" className="upper-stitch upper-stitch--back" />
-                    <img src="images/knit.svg" alt="" className="" />
+                    <img src="images/knit.svg" alt="" />
                   </div>
                 </div>
               </div>

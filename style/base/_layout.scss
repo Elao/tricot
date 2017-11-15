@@ -16,11 +16,27 @@ body {
 }
 
 header {
-  img { width: 130px; }
+  a { display: flex; }
+
+  img {
+    width: 130px;
+    height: 130px;
+  }
 }
 
 .container {
   width: 1200px;
   margin: 0 auto;
   position: relative;
+}
+
+@media (max-width: 1125px) {
+  header {
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  .container { width: 100%; }
 }

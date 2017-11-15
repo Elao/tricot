@@ -9,3 +9,7 @@
   position: relative;
   width: 750px;
 }
+
+@media (max-width: 769px) {
+  .knit__scarf { width: 95%; }
+}

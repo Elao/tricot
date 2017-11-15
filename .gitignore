@@ -1,1 +1,7 @@
+# Depenencies
 /node_modules/
+
+# Build
+/dist/*.js
+/dist/*.css
+/dist/*.map

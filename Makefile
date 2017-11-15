@@ -33,19 +33,15 @@ install:
 # Build #
 #########
 
-watch-js:
-	echo "TODO"
+## Start the dev server and watch for change
+start:
+	./node_modules/.bin/webpack-dev-server --open --progress --colors --compress
 
-watch-css:
-	echo "Watching..."
-	./node_modules/.bin/node-sass -w -r --source-map true --source-map-contents --output-style compressed style/main.scss style.css
+## Build application and watch for changes
+watch:
+	./node_modules/.bin/webpack --progress --colors --watch
 
 ## Build application
 build: export NODE_ENV = production
-build: build-css build-js
-
-build-js:
-	echo "TODO"
-
-build-css:
-	./node_modules/.bin/node-sass -x --output-style compressed style/main.scss style.css
+build:
+	./node_modules/.bin/webpack

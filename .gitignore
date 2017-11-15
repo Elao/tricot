@@ -3,4 +3,5 @@
 
 # Build
 /dist/*.js
+/dist/*.css
 /dist/*.map

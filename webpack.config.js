@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const meta = require('./package.json');
 const production = process.env.NODE_ENV === 'production';
 const plugins = [
@@ -6,7 +7,11 @@ const plugins = [
     `${meta.name} - ${meta.version}`,
     `${meta.homepage}`,
     `Copyright 2017 ${meta.author.name}`,
-  ].join('\n'))
+  ].join('\n')),
+  new ExtractTextPlugin({
+    filename: 'app.css',
+    allChunks: true,
+  }),
 ];
 
 if (production) {
@@ -31,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader',
+        loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!sass-loader'),
       }
     ],
   },
@@ -41,3 +46,4 @@ module.exports = {
   plugins,
   devtool: production ? undefined : 'source-map',
 };
+

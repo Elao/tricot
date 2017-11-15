@@ -18,9 +18,9 @@
   border-radius: 50%;
 }
 
-@media (max-width: 767px) {
+@media (max-width: $screen-sm-max) {
   .arrow-tunnel {
-    margin-bottom: 90px;
+    margin-bottom: 50px;
   }
 
   .arrow-tunnel__highlight {

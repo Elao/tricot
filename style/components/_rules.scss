@@ -9,4 +9,12 @@
   text-transform: uppercase;
   font-size: 21px;
   letter-spacing: .07em;
+  text-align: center;
+}
+
+@media (max-width: $screen-lg-max) {
+  .rules {
+    height: 70px;
+    font-size: 15px;
+  }
 }

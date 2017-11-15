@@ -30,7 +30,7 @@ header {
   position: relative;
 }
 
-@media (max-width: 1125px) {
+@media (max-width: $screen-lg-max) {
   header {
     img {
       width: 80px;

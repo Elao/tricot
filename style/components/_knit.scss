@@ -10,6 +10,6 @@
   width: 750px;
 }
 
-@media (max-width: 769px) {
-  .knit__scarf { width: 95%; }
+@media (max-width: $screen-md-max) {
+  .knit__scarf { width: 98%; }
 }

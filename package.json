@@ -33,7 +33,12 @@
     "webpack-dev-server": "^2.9.4"
   },
   "babel": {
-    "presets": ["react", "env"],
-    "plugins": ["transform-class-properties"]
+    "presets": [
+      "react",
+      "env"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
   }
 }

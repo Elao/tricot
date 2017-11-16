@@ -35,7 +35,20 @@ export const largeSin = join(
 );
 
 /**
- *
+ * v    v v v     v v v    v  
+ * vvv   v v vv   vv v v   vvv
+ * vvv    vv v     v vv    vvv
+ * vv      vvvv   vvvv      vv
+ * v       vvvvv vvvvv       v
+ *         vv       vv
+ *         vv       vv
+ *     vvv vv vv vv vv vvv
+ *  v vvvvvvv vvvvv vvvvvvv v
+ *   vvvvvvv   vvv   vvvvvvv
+ *   vvvvvvvv   v   vvvvvvvv
+ *   v v  v vv     vv v  v v
+ *   v v  v  v     v  v  v v
+ *   v v  v           v v v
  */
 export const reindeer = join(
   repeat(' v    v v v     v v v    v '),

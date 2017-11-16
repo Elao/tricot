@@ -66,3 +66,23 @@ export const reindeer = join(
   repeat('  v v  v  v        v  v  v v  '),
   repeat('  v v  v              v  v v  '),
 );
+
+export const reindeerRight = join(
+  repeat('         v     '),
+  repeat('      v   v    '),
+  repeat('      v   v    '),
+  repeat('       vvvv    '),
+  repeat('          vvvv '),
+  repeat('          vvv  '),
+  repeat('          vv   '),
+  repeat('   v     vvv   '),
+  repeat('   vvvvvvvvv   '),
+  repeat('    vvvvvvvv   '),
+  repeat('    vvvvvvvvvv '),
+  repeat('    vv       v '),
+  repeat('  vvv        v '),
+  repeat('  v          v '),
+  repeat('  v         v  '),
+  repeat(' v             '),
+);
+

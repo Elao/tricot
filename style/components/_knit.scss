@@ -7,7 +7,20 @@
 
 .knit__scarf {
   position: relative;
-  width: 750px;
-  height: 200px;
-  background-color: $primary;
+  width: 720px;
+  font-size: 0;
+
+    svg {
+      width: 720px;
+      background: #681615;
+      margin: 0;
+    }
+
+    img {
+      margin: 0;
+    }
+}
+
+@media (max-width: $screen-md-max) {
+  .knit__scarf { width: 98%; }
 }

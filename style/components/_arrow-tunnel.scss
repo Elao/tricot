@@ -1,19 +1,32 @@
 .arrow-tunnel {
   position: relative;
-  height: 50px;
-  margin-bottom: 90px;
+  height: 40px;
+  margin-bottom: 120px;
   border-bottom: 3px solid #fff;
   border-top: 3px solid #fff;
   background-color: #fff;
+}
 
-  .arrow {
-    position: absolute;
-    top: -40px;
+.arrow-tunnel__highlight {
+  position: absolute;
+  top: -40px;
+  right: 35%;
+  height: 120px;
+  width: 120px;
+  background-color: $background;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+
+@media (max-width: $screen-sm-max) {
+  .arrow-tunnel {
+    margin-bottom: 50px;
+  }
+
+  .arrow-tunnel__highlight {
+    top: -23px;
     right: 20%;
-    height: 120px;
-    width: 120px;
-    background-color: $background;
-    border: 3px solid #fff;
-    border-radius: 50%;
+    height: 80px;
+    width: 80px;
   }
 }

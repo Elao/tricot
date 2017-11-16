@@ -1,13 +1,37 @@
 .needle {
-    position: absolute;
-    z-index: 1;
+  position: absolute;
+  z-index: 1;
 }
 
 .needle--left {
-    left: 30px;
-    transform: rotate(-2deg);
+  left: 30px;
+  transform: rotate(-2deg);
+  animation: knit-left .6s linear infinite both;
+
+  &.error { animation: knit-error-left .8s linear infinite both; }
 }
+
 .needle--right {
-    right: 30px;
-    transform: rotate(1deg);
+  right: 30px;
+  transform: rotate(1deg);
+  animation: knit-right .6s linear infinite both;
+
+  &.error { animation: knit-error-right .8s linear infinite both; }
+}
+
+@media (max-width: $screen-lg-max) {
+  .needle--left { left: -10%; }
+  .needle--right { right: -10%; }
+}
+
+@media (max-width: $screen-sm-max) {
+  .needle { width: 500px; }
+  .needle--left { left: -200px; }
+  .needle--right { right: -200px; }
+}
+
+@media (max-width: $screen-xs-max) {
+  .needle { width: 450px; }
+  .needle--left { left: -70%; }
+  .needle--right { right: -70%; }
 }

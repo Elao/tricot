@@ -35,7 +35,7 @@ install:
 
 ## Start the dev server and watch for change
 start:
-	./node_modules/.bin/webpack-dev-server --open --progress --colors --compress
+	./node_modules/.bin/webpack-dev-server --open --progress --colors --compress --host 0.0.0.0
 
 ## Build application and watch for changes
 watch:

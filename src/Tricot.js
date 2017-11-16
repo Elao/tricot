@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
+import Scarf from './Scarf';
 import Key from './game/Key';
 import Game from './game/Game';
 
@@ -33,6 +35,13 @@ export default class Tricot extends Component {
   componentDidMount() {
     console.log('start');
     this.game.start();
+
+    this.scarf.append([
+      spacer,
+      line,
+      sin,
+      largeSin,
+    ].join(spacer));
   }
 
   render() {
@@ -49,6 +58,7 @@ export default class Tricot extends Component {
             <div className="knit__scarf">
               <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />
               <img src="images/upper-stitch--back.svg" alt="" className="upper-stitch upper-stitch--back" />
+              <Scarf ref={scarf => this.scarf = scarf}/>
               <img src="images/knit.svg" alt="" />
             </div>
           </div>

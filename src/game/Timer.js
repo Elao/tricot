@@ -3,6 +3,8 @@ export default class Timer {
         this.onTick = onTick;
         this.tempo = null;
 
+        this.start = this.start.bind(this);
+        this.stop = this.stop.bind(this);
         this.tick = this.tick.bind(this);
     }
 
@@ -17,7 +19,8 @@ export default class Timer {
 
     stop() {
         if (this.interval) {
-            this.interval = clearInterval(this.tick);
+            clearInterval(this.interval);
+            this.interval = null;
             this.time = null;
 
             return true;

@@ -12,7 +12,7 @@ export const COLOR_WHITE = '#ffffff';
  * @type {Number}
  */
 export const WIDTH = 12;
-export const HEIGHT = 14;
+export const HEIGHT = 12;
 export const LINE = 60;
 
 /**

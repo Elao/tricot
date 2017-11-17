@@ -144,6 +144,27 @@ export const rex = join(
   repeat('    vv v       '),
 );
 
+export const rex2 = join(
+  repeat('          vvvvvvvv  '),
+  repeat('         vvv vvvvvvv'),
+  repeat('         vvvvvvvvvvv'),
+  repeat('         vvvvvvvvvvv'),
+  repeat('         vvvvvv     '),
+  repeat('         vvvvvvvvv  '),
+  repeat('v      vvvvvvv      '),
+  repeat('vv    vvvvvvvvvvv   '),
+  repeat('vvv  vvvvvvvvv  v   '),
+  repeat('vvvvvvvvvvvvvv      '),
+  repeat('vvvvvvvvvvvvvv      '),
+  repeat(' vvvvvvvvvvvv       '),
+  repeat('  vvvvvvvvvv        '),
+  repeat('    vvvvvvv         '),
+  repeat('     vv  vv         '),
+  repeat('     vv   v         '),
+  repeat('     v    v         '),
+  repeat('     vv   vv        '),
+);
+
 export const diplo = join(
   repeat('         vvv   '),
   repeat('         vvvv  '),

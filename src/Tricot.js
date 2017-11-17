@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { spacer, line, sin, largeSin, heart, simpleHeart, square, littleReindeer, reindeer, reindeerRight, santa} from './pattern/simple';
+import { spacer, line, sin, largeSin, heart, simpleHeart, square, littleReindeer, reindeer, reindeerRight, santa, rex2} from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
 import Scarf from './Scarf';
 import Key from './game/Key';
@@ -56,6 +56,7 @@ export default class Tricot extends Component {
       reindeerRight,
       spacer,
       spacer,
+      rex2,
       spacer,
       spacer,
       spacer,

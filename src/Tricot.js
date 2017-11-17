@@ -51,13 +51,6 @@ export default class Tricot extends Component {
 
   componentDidMount() {
     this.start();
-
-    /*this.scarf.append([
-      spacer,
-      line,
-      sin,
-      largeSin,
-    ].join(spacer));*/
   }
 
   start() {
@@ -95,12 +88,20 @@ export default class Tricot extends Component {
     const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
 
     if ((ratio <= ZONE) && (answer === partition[index])) {
-      console.log('success');
       this.setState({ answers: [...answers, true] });
+      this.onSuccess();
     } else {
-      console.log('error');
       this.setState({ answers: [...answers, false] });
+      this.onError();
     }
+  }
+
+  onSuccess() {
+    this.scarf.append(line);
+  }
+
+  onError() {
+    this.scarf.append(spacer);
   }
 
   /**
@@ -109,7 +110,7 @@ export default class Tricot extends Component {
   tick(duration) {
     const { partition, index, answers } = this.state;
 
-    if (partition.length === 0) {
+    if (partition.length === answers.length) {
       return this.stop();
     }
 
@@ -117,11 +118,10 @@ export default class Tricot extends Component {
 
     if (index === answers.length) {
       state.answers = [...answers, false];
+      this.onError();
     }
 
     this.setState(state);
-
-    setTimeout(() => console.log('zone'), this.constructor.TEMPO * (1 - this.constructor.ZONE));
   }
 
   render() {

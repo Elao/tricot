@@ -13,27 +13,37 @@ export default class Tricot extends Component {
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
 
-    this.game = new Game(this.onTick, this.onSuccess, this.onError);
     this.state = {
-      arrows: this.game.partition.map(arrow => Key.readableFor(arrow)),
+      arrows: [],
+      current: 0,
       answer: null,
     };
+
+    this.game = new Game(this.onTick, this.onSuccess, this.onError);
   }
 
   onTick() {
-    this.setState({ answer: null });
+    this.setState({ answer: null, current: this.state.current + 1 });
   }
 
   onSuccess() {
+    console.log('success');
     this.setState({ answer: true });
   }
 
   onError() {
+    console.log('error');
     this.setState({ answer: false });
   }
 
   componentDidMount() {
     console.log('start');
+    this.setState({
+      arrows: this.game.partition.slice(0),
+      current: 0,
+      answer: null,
+    });
+
     this.game.start();
 
     this.scarf.append([
@@ -45,12 +55,12 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { arrows, answer } = this.state;
+    const { arrows, answer, current } = this.state;
     const needleClass = answer === false ? 'error' : '';
 
     return (
       <div>
-        <ArrowTunel arrows={arrows} />
+        <ArrowTunel arrows={arrows} current={current} />
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />

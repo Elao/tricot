@@ -1,9 +1,9 @@
-import { join, repeat } from './constants';
+import { repeat } from './constants';
 
 /**
  * T-rex
  */
-export const rex = join(
+export const rex = [
   repeat('  vv           '),
   repeat(' vvvv          '),
   repeat('vvvvv          '),
@@ -21,12 +21,12 @@ export const rex = join(
   repeat('     v  v      '),
   repeat('     v  v      '),
   repeat('    vv v       '),
-);
+];
 
 /**
  * T-rex
  */
-export const rex2 = join(
+export const rex2 = [
   repeat('          vvvvvvvv  '),
   repeat('         vvv vvvvvvv'),
   repeat('         vvvvvvvvvvv'),
@@ -45,12 +45,12 @@ export const rex2 = join(
   repeat('     vv   v         '),
   repeat('     v    v         '),
   repeat('     vv   vv        '),
-);
+];
 
 /**
  * Diplodocus
  */
-export const diplo = join(
+export const diplo = [
   repeat('         vvv   '),
   repeat('         vvvv  '),
   repeat('         vv    '),
@@ -67,4 +67,4 @@ export const diplo = join(
   repeat(' v  vv  vv     '),
   repeat('    vv  vv     '),
   repeat('    vv  vv     '),
-);
+];

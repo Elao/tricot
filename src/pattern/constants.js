@@ -26,14 +26,3 @@ export const LINE = 60;
 export function repeat(pattern, line = LINE) {
   return pattern.repeat(line / pattern.length);
 }
-
-/**
- * Concatenate strings
- *
- * @param {...String} lines
- *
- * @return {String}
- */
-export function join(...lines) {
-  return lines.reverse().join('');
-}

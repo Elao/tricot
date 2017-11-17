@@ -1,9 +1,9 @@
-import { join, repeat } from './constants';
+import { repeat } from './constants';
 
 /**
  * Santa with sleigh
  */
-export const santa = join(
+export const santa = [
   repeat('      vv                                                    '),
   repeat('     v vv                                                   '),
   repeat('       vvv                                                  '),
@@ -23,4 +23,4 @@ export const santa = join(
   repeat('     v  v    v     v    v     vv    vv         vv    vv     '),
   repeat('    v  v     v     v   v     v v   v v        v v   v v     '),
   repeat('  vvvvvvvvvvvvvvvvvvvvv      v  v     v       v  v     v    '),
-);
+];

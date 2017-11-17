@@ -14,6 +14,32 @@ export default class ArrowTunel extends Component {
   }
 
   /**
+   * Load width from Slider element
+   *
+   * @param {Element} slider
+   */
+  loadWidth(slider) {
+    if (slider) {
+      this.setState({ width: slider.offsetWidth });
+    }
+  }
+
+  /**
+   * Get slider CSS transition
+   *
+   * @return {String}
+   */
+  getSliderStyle() {
+    const { current, arrows, tempo } = this.props;
+    const { width } = this.state;
+
+    return {
+      marginRight: `${-(current / arrows.length) * width}px`,
+      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
+    };
+  }
+
+  /**
    * Render one arrows
    *
    * @param {String} arrow
@@ -47,23 +73,9 @@ export default class ArrowTunel extends Component {
     );
   }
 
-  loadWidth(slider) {
-    if (slider) {
-      this.setState({ width: slider.offsetWidth });
-    }
-  }
-
-  getSliderStyle() {
-    const { current, arrows, tempo } = this.props;
-    const { width } = this.state;
-
-    return {
-      marginRight: `${-(current / arrows.length) * width}px`,
-      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
-    };
-  }
-
   render() {
+    const { arrows } = this.props;
+
     return (
       <div className="arrow-tunnel">
         <div className="arrow-tunnel__highlight"></div>
@@ -72,7 +84,7 @@ export default class ArrowTunel extends Component {
           style={this.getSliderStyle()}
           ref={this.loadWidth}
         >
-          {this.props.arrows.map(this.renderArrow)}
+          {arrows.map(this.renderArrow)}
         </ul>
       </div>
     );

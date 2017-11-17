@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Generator from './pattern/Generator';
 import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
 import KeyCatcher from './KeyCatcher';
@@ -12,7 +13,7 @@ export default class Tricot extends Component {
    *
    * @type {Number}
    */
-  static TEMPO = 2000;
+  static TEMPO = 800;
 
   /**
    * Zone when you must presse the key
@@ -20,6 +21,13 @@ export default class Tricot extends Component {
    * @type {Number}
    */
   static ZONE = 0.25;
+
+  /**
+   * Warm up
+   *
+   * @type {Number}
+   */
+  static WARMUP = 3;
 
   /**
    * Generate a partition of the given length
@@ -53,11 +61,17 @@ export default class Tricot extends Component {
     this.start();
   }
 
+  /**
+   * Start the game
+   */
   start() {
-    const { TEMPO, generatePartition } = this.constructor;
+    const { TEMPO, WARMUP, generatePartition } = this.constructor;
+    const lines = Generator.generate();
+    const partition = generatePartition(lines.length);
 
     this.setState({
-      partition: generatePartition(),
+      lines,
+      partition,
       answers: [],
       index: -1,
     }, () => this.timer.start(TEMPO));
@@ -77,6 +91,18 @@ export default class Tricot extends Component {
   }
 
   /**
+   * Add a line to the scarf
+   *
+   * @param {Boolean} succes
+   */
+  completeScarf(succes = true) {
+    const { index, lines, answers } = this.state;
+    const line = lines[index];
+
+    this.scarf.append(succes ? line : Generator.messUp(line));
+  }
+
+  /**
    * Validate the answer
    *
    * @param {String} answer
@@ -86,22 +112,10 @@ export default class Tricot extends Component {
     const { TEMPO, ZONE } = this.constructor;
     const { partition, index, answers } = this.state;
     const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
+    const succes = ratio <= ZONE && answer === partition[index];
 
-    if ((ratio <= ZONE) && (answer === partition[index])) {
-      this.setState({ answers: [...answers, true] });
-      this.onSuccess();
-    } else {
-      this.setState({ answers: [...answers, false] });
-      this.onError();
-    }
-  }
-
-  onSuccess() {
-    this.scarf.append(line);
-  }
-
-  onError() {
-    this.scarf.append(spacer);
+    this.setState({ answers: [...answers, succes] });
+    this.completeScarf(succes);
   }
 
   /**
@@ -118,14 +132,14 @@ export default class Tricot extends Component {
 
     if (index === answers.length) {
       state.answers = [...answers, false];
-      this.onError();
+      this.completeScarf(false);
     }
 
     this.setState(state);
   }
 
   render() {
-    const { TEMPO } = this.constructor;
+    const { TEMPO, WARMUP } = this.constructor;
     const { partition, answers, index } = this.state;
     const needleClass = answers && answers[answers.length - 1] === false ? 'error' : '';
 

@@ -4,6 +4,7 @@ import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
 import KeyCatcher from './KeyCatcher';
 import Scarf from './Scarf';
+import Help from './Help';
 import Key from './game/Key';
 import Timer from './game/Timer';
 
@@ -55,10 +56,6 @@ export default class Tricot extends Component {
     this.validate = this.validate.bind(this);
 
     this.timer = new Timer(this.tick);
-  }
-
-  componentDidMount() {
-    this.start();
   }
 
   /**
@@ -146,7 +143,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
-        {partition && <KeyCatcher onKey={this.validate} keys={Key} />}
+        <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
@@ -159,9 +156,7 @@ export default class Tricot extends Component {
             </div>
           </div>
         </div>
-        <div className="rules">
-          Appuie en rythme sur les touches pour tricoter
-        </div>
+        {!partition && <Help />}
       </div>
     );
   }

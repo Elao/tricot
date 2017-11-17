@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Key from './game/Key';
 
 export default class ArrowTunel extends Component {
   constructor() {
@@ -10,20 +11,48 @@ export default class ArrowTunel extends Component {
   /**
    * Render one arrows
    *
-   * @param {String} arrow "up|down|left|right"
+   * @param {String} arrow
    * @param {Number} index
    *
    * @return {Component}
    */
   renderArrow(arrow, index) {
-    return (<span key={`${arrow}-${index}`} className={`arrow ${arrow}`}></span>);
+    const { current } = this.props;
+    const classes = [
+      'arrow',
+      Key.getClass(arrow),
+    ];
+
+    if (index < current) {
+      classes.push(`active`);
+    }
+
+    if (index === current) {
+      classes.push(`current`);
+    }
+
+    return (
+      <li key={`${arrow}-${index}`} className={classes.join(' ')}>
+        <span>{Key.getSymbol(arrow)}</span>
+      </li>
+    );
+  }
+
+  getSliderStyle() {
+    const { current } = this.props;
+
+    return {
+      marginRight: (current - 1) * -80,
+    };
   }
 
   render() {
     return (
       <div className="arrow-tunnel">
-        {this.props.arrows.map(this.renderArrow)}
         <div className="arrow-tunnel__highlight"></div>
+        <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
+          {this.props.arrows.map(this.renderArrow)}
+        </ul>
       </div>
     );
   }

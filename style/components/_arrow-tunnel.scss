@@ -16,6 +16,42 @@
   background-color: $background;
   border: 3px solid #fff;
   border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.arrow-tunnel__slider {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  z-index: 10;
+  right: calc(35% - 60px);
+  padding: 0;
+  margin: 0;
+  transition: margin 1s;
+
+  .arrow {
+    flex: 0;
+    color: gray;
+    font-size: 2em;
+    padding: 0;
+    margin: 0 20px;
+
+    span {
+      width: 40px;
+      height: 40px;
+      display: block;
+      text-align: center;
+    }
+
+    &.current {
+      color: red;
+    }
+
+    &.active {
+      color: black;
+    }
+  }
 }
 
 @media (max-width: $screen-sm-max) {

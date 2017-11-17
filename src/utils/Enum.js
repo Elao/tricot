@@ -38,12 +38,11 @@ class Enum {
   }
 
   /**
-   * Get the human readable value
-   *
+   * @param {String} type
    * @param {String|Integer} value
    */
-  static readableFor(value) {
-    return this.readables[value];
+  static get(type, value) {
+    return this[type][value];
   }
 
   /**
@@ -77,24 +76,6 @@ class Enum {
    */
   is(value) {
     return value === this.value;
-  }
-
-  /**
-   * Returns the human readable version of the enum instance
-   *
-   * @return {String}
-   */
-  getReadable() {
-    return this.constructor.readableFor(this.value);
-  }
-
-  /**
-   * Returns the human readable version of the enum instance
-   *
-   * @return {String}
-   */
-  toString() {
-    return this.getReadable();
   }
 }
 

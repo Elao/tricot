@@ -2,7 +2,7 @@ import Key from './Key';
 
 export default class Game {
   /**
-   * A key everyX second
+   * A key every X second
    *
    * @type {Number}
    */
@@ -13,7 +13,7 @@ export default class Game {
    *
    * @type {Number}
    */
-  static ZONE = 0.3;
+  static ZONE = 0.25;
 
   /**
    * @param {Function} onTick
@@ -73,6 +73,7 @@ export default class Game {
    * @param {Event} event
    */
   onKeyDown(event) {
+    event.preventDefault();
     this.validate(event.key);
   }
 

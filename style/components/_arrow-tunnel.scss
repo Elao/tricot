@@ -10,9 +10,10 @@
 .arrow-tunnel__highlight {
   position: absolute;
   top: -40px;
-  right: 35%;
+  right: 50%;
   height: 120px;
-  width: 120px;
+  width: $arrow-width;
+  margin-right: -($arrow-width / 2);
   background-color: $background;
   border: 3px solid #fff;
   border-radius: 50%;
@@ -25,23 +26,25 @@
   flex-direction: row-reverse;
   position: absolute;
   z-index: 10;
-  right: calc(35% - 60px);
+  right: calc(50% - #{4 * $arrow-width});
   padding: 0;
   margin: 0;
-  transition: margin 1s;
+  transition: margin 0s linear;
 
   .arrow {
     flex: 0;
     color: gray;
     font-size: 2em;
     padding: 0;
-    margin: 0 20px;
+    margin: 0;
 
     span {
-      width: 40px;
+      width: $arrow-width;
       height: 40px;
+      margin-right: 3 * $arrow-width;
       display: block;
       text-align: center;
+      box-sizing: border-box;
     }
 
     &.current {

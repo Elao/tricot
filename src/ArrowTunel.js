@@ -5,7 +5,12 @@ export default class ArrowTunel extends Component {
   constructor() {
     super();
 
+    this.state = {
+      width: 0,
+    };
+
     this.renderArrow = this.renderArrow.bind(this);
+    this.loadWidth = this.loadWidth.bind(this);
   }
 
   /**
@@ -17,7 +22,7 @@ export default class ArrowTunel extends Component {
    * @return {Component}
    */
   renderArrow(arrow, index) {
-    const { current } = this.props;
+    const { current, answers } = this.props;
     const classes = [
       'arrow',
       Key.getClass(arrow),
@@ -31,6 +36,10 @@ export default class ArrowTunel extends Component {
       classes.push(`current`);
     }
 
+    if (index < answers.length) {
+      classes.push(answers[index] ? 'success' : 'error');
+    }
+
     return (
       <li key={`${arrow}-${index}`} className={classes.join(' ')}>
         <span>{Key.getSymbol(arrow)}</span>
@@ -38,11 +47,19 @@ export default class ArrowTunel extends Component {
     );
   }
 
+  loadWidth(slider) {
+    if (slider) {
+      this.setState({ width: slider.offsetWidth });
+    }
+  }
+
   getSliderStyle() {
-    const { current } = this.props;
+    const { current, arrows, tempo } = this.props;
+    const { width } = this.state;
 
     return {
-      marginRight: (current - 1) * -80,
+      marginRight: `${-(current / arrows.length) * width}px`,
+      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
     };
   }
 
@@ -50,7 +67,11 @@ export default class ArrowTunel extends Component {
     return (
       <div className="arrow-tunnel">
         <div className="arrow-tunnel__highlight"></div>
-        <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
+        <ul
+          className="arrow-tunnel__slider"
+          style={this.getSliderStyle()}
+          ref={this.loadWidth}
+        >
           {this.props.arrows.map(this.renderArrow)}
         </ul>
       </div>

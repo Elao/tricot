@@ -1,66 +1,138 @@
 import React, { Component } from 'react';
 import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
+import KeyCatcher from './KeyCatcher';
 import Scarf from './Scarf';
 import Key from './game/Key';
-import Game from './game/Game';
+import Timer from './game/Timer';
 
 export default class Tricot extends Component {
+  /**
+   * A key every X second
+   *
+   * @type {Number}
+   */
+  static TEMPO = 2000;
+
+  /**
+   * Zone when you must presse the key
+   *
+   * @type {Number}
+   */
+  static ZONE = 0.25;
+
+  /**
+   * Generate a partition of the given length
+   *
+   * @param {Number} length
+   *
+   * @return {Array}
+   */
+  static generatePartition(length = 50) {
+    return new Array(length).fill(null).map(value => Key.getRandom());
+  }
+
   constructor() {
     super();
 
-    this.onTick = this.onTick.bind(this);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
-
     this.state = {
-      arrows: [],
-      current: 0,
-      answer: null,
+      partition: null,
+      answers: null,
+      index: null,
     };
 
-    this.game = new Game(this.onTick, this.onSuccess, this.onError);
-  }
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.tick = this.tick.bind(this);
+    this.validate = this.validate.bind(this);
 
-  onTick() {
-    this.setState({ answer: null, current: this.state.current + 1 });
-  }
-
-  onSuccess() {
-    console.log('success');
-    this.setState({ answer: true });
-  }
-
-  onError() {
-    console.log('error');
-    this.setState({ answer: false });
+    this.timer = new Timer(this.tick);
   }
 
   componentDidMount() {
-    console.log('start');
-    this.setState({
-      arrows: this.game.partition.slice(0),
-      current: 0,
-      answer: null,
-    });
+    this.start();
 
-    this.game.start();
-
-    this.scarf.append([
+    /*this.scarf.append([
       spacer,
       line,
       sin,
       largeSin,
-    ].join(spacer));
+    ].join(spacer));*/
+  }
+
+  start() {
+    const { TEMPO, generatePartition } = this.constructor;
+
+    this.setState({
+      partition: generatePartition(),
+      answers: [],
+      index: -1,
+    }, () => this.timer.start(TEMPO));
+  }
+
+  /**
+   * FIN DU GAME
+   */
+  stop() {
+    if (this.timer.stop()) {
+      this.setState({
+        partition: null,
+        answer: null,
+        index: null,
+      });
+    }
+  }
+
+  /**
+   * Validate the answer
+   *
+   * @param {String} answer
+   * @param {Number} date
+   */
+  validate(answer, date = Date.now()) {
+    const { TEMPO, ZONE } = this.constructor;
+    const { partition, index, answers } = this.state;
+    const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
+
+    if ((ratio <= ZONE) && (answer === partition[index])) {
+      console.log('success');
+      this.setState({ answers: [...answers, true] });
+    } else {
+      console.log('error');
+      this.setState({ answers: [...answers, false] });
+    }
+  }
+
+  /**
+   * Tick
+   */
+  tick(duration) {
+    const { partition, index, answers } = this.state;
+
+    if (partition.length === 0) {
+      return this.stop();
+    }
+
+    const state = { index: index + 1 };
+
+    if (index === answers.length) {
+      state.answers = [...answers, false];
+    }
+
+    this.setState(state);
+
+    setTimeout(() => console.log('zone'), this.constructor.TEMPO * (1 - this.constructor.ZONE));
   }
 
   render() {
-    const { arrows, answer, current } = this.state;
-    const needleClass = answer === false ? 'error' : '';
+    const { TEMPO } = this.constructor;
+    const { partition, answers, index } = this.state;
+    const needleClass = answers && answers[answers.length - 1] === false ? 'error' : '';
 
     return (
       <div>
-        <ArrowTunel arrows={arrows} current={current} />
+        {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+        {partition && <KeyCatcher onKey={this.validate} keys={Key} />}
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />

@@ -34,6 +34,44 @@ export const largeSin = join(
   repeat('v   '),
 );
 
+export const heart = join(
+  repeat('    vv   vv    '),
+  repeat('   vvvv vvvv   '),
+  repeat('   vv vvv vv   '),
+  repeat('   vv  v  vv   '),
+  repeat('    vv   vv    '),
+  repeat('     vv vv     '),
+  repeat('      vvv      '),
+  repeat('       v       '),
+)
+
+export const simpleHeart = join(
+  repeat('   vv vv  '),
+  repeat('   vvvvv  '),
+  repeat('    vvv   '),
+  repeat('     v    '),
+)
+
+export const square = join(
+  repeat('  vvvvv   '),
+  repeat('  v   v   '),
+  repeat('  v v v   '),
+  repeat('  v   v   '),
+  repeat('  vvvvv   '),
+)
+
+export const littleReindeer = join(
+  repeat('   vv vv     v v    '),
+  repeat('    v v    v  v  v  '),
+  repeat('     v     v vvv v  '),
+  repeat('    vvv     v v v   '),
+  repeat('   vvvvvvvv  vvv    '),
+  repeat('   vv vvvvv   v     '),
+  repeat('      vvvvv   v     '),
+  repeat('      v   v   v     '),
+  repeat('     vv  vv  vvv    '),
+)
+
 /**
  *  v    v v v        v v v    v
  * vvv   v v vv      vv v v   vvv
@@ -84,5 +122,66 @@ export const reindeerRight = join(
   repeat('  v          v '),
   repeat('  v         v  '),
   repeat(' v             '),
+);
+
+export const rex = join(
+  repeat('  vv           '),
+  repeat(' vvvv          '),
+  repeat('vvvvv          '),
+  repeat('vvvvv          '),
+  repeat(' vvvv          '),
+  repeat('   vv          '),
+  repeat('   vvvvv       '),
+  repeat('  vvvvvvvvvvvv '),
+  repeat(' v vvvvvvvvvv  '),
+  repeat('   vvvvvvvvv   '),
+  repeat('  v vvvvvv     '),
+  repeat('     vvv       '),
+  repeat('     vvv       '),
+  repeat('     v vv      '),
+  repeat('     v  v      '),
+  repeat('     v  v      '),
+  repeat('    vv v       '),
+);
+
+export const diplo = join(
+  repeat('         vvv   '),
+  repeat('         vvvv  '),
+  repeat('         vv    '),
+  repeat('         vv    '),
+  repeat('         vv    '),
+  repeat('         vv    '),
+  repeat('         vv    '),
+  repeat('         vv    '),
+  repeat('     vvvvvv    '),
+  repeat('    vvvvvvv    '),
+  repeat('   vvvvvvvv    '),
+  repeat('v vvvvvvvv     '),
+  repeat('vvv vvvvvv     '),
+  repeat(' v  vv  vv     '),
+  repeat('    vv  vv     '),
+  repeat('    vv  vv     '),
+);
+
+export const santa = join(
+  repeat('      vv                                                    '),
+  repeat('     v vv                                                   '),
+  repeat('       vvv                                                  '),
+  repeat('       vvv                                                  '),
+  repeat('     vvvvv                                                  '),
+  repeat('    vvvvv  vv                                               '),
+  repeat('    vvvvvvvv                        v                v      '),
+  repeat(' vvvvvvvvvv                       v  v             v  v     '),
+  repeat('  v     vv                         vvvvv            vvvvv   '),
+  repeat('  vvvvvv  vv                          vvvv             vvvv '),
+  repeat('   vvvvvvvv vv         vv             vv               vv   '),
+  repeat('   vvvvvvvvv vv       v  v           vvv              vvv   '),
+  repeat('    vvvvvvvvv vv      v        vvvvvvvv         vvvvvvvv    '),
+  repeat('    vvvvvvvvvv vv      v      vvvvvvvv         vvvvvvvv     '),
+  repeat('     vvvvvvvvvv vvvv   vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv     '),
+  repeat('     vvvvvvvvvvvvvvvvvvvv      v    vv          v    vv     '),
+  repeat('     v  v    v     v    v     vv    vv         vv    vv     '),
+  repeat('    v  v     v     v   v     v v   v v        v v   v v     '),
+  repeat('  vvvvvvvvvvvvvvvvvvvvv      v  v     v       v  v     v    '),
 );
 

@@ -108,11 +108,14 @@ export default class Tricot extends Component {
   validate(answer, date = Date.now()) {
     const { TEMPO, ZONE } = this.constructor;
     const { partition, index, answers } = this.state;
-    const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
-    const succes = ratio <= ZONE && answer === partition[index];
 
-    this.setState({ answers: [...answers, succes] });
-    this.completeScarf(succes);
+    if (index === answers.length) {
+      const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
+      const succes = ratio <= ZONE && answer === partition[index];
+
+      this.setState({ answers: [...answers, succes] });
+      this.completeScarf(succes);
+    }
   }
 
   /**
@@ -145,8 +148,8 @@ export default class Tricot extends Component {
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <div className="container">
-          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
-          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
+          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass} ${partition ? '' : 'pause'}`} />
+          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass} ${partition ? '' : 'pause'}`} />
           <div className="knit">
             <div className="knit__scarf">
               <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />

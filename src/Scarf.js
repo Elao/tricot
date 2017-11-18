@@ -62,6 +62,7 @@ export default class Scarf extends Component {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         height={height}
+        preserveAspectRatio="xMidYMax slice"
         viewBox={`0 ${-height} 720 ${height}`}
       >
         <path id="white" d={white} fill={COLOR_WHITE}></path>

@@ -140,7 +140,7 @@ export default class Tricot extends Component {
 
   render() {
     const { TEMPO, WARMUP } = this.constructor;
-    const { partition, answers, index } = this.state;
+    const { partition, lines, answers, index } = this.state;
     const needleClass = answers && answers[answers.length - 1] === false ? 'error' : '';
 
     return (
@@ -159,7 +159,7 @@ export default class Tricot extends Component {
             </div>
           </div>
         </div>
-        {!partition && <Help />}
+        {!lines && <Help />}
       </div>
     );
   }

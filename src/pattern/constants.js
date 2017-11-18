@@ -35,5 +35,5 @@ export function repeat(pattern, line = LINE) {
  * @return {String}
  */
 export function join(...lines) {
-  return lines.join('');
+  return lines.reverse().join('');
 }

@@ -138,18 +138,33 @@ export default class Tricot extends Component {
     this.setState(state);
   }
 
+  /**
+   * Get needles animation class
+   *
+   * @return {String}
+   */
+  getNeedleClass() {
+    const { partition, answers } = this.state;
+
+    if (!partition) {
+      return 'pause';
+    }
+
+    return answers && answers[answers.length - 1] === false ? 'error' : 'success';
+  }
+
   render() {
     const { TEMPO, WARMUP } = this.constructor;
     const { partition, lines, answers, index } = this.state;
-    const needleClass = answers && answers[answers.length - 1] === false ? 'error' : '';
+    const needleClass = this.getNeedleClass();
 
     return (
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <div className="container">
-          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass} ${partition ? '' : 'pause'}`} />
-          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass} ${partition ? '' : 'pause'}`} />
+          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
+          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
           <div className="knit">
             <div className="knit__scarf">
               <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />

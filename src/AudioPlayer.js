@@ -16,8 +16,7 @@ export default class AudioPlayer extends Component {
     this.bellInterval = null;
     this.songInterval = null;
 
-    this.bell = new Audio(BELL);
-    this.bellBis = new Audio(BELL);
+    this.bells = [new Audio(BELL)];
     this.fire = new Audio(FIRE);
     this.wind = new Audio(WIND);
     this.song = new Audio(SONG);
@@ -26,11 +25,10 @@ export default class AudioPlayer extends Component {
     this.fire.loop = true;
     this.wind.loop = true;
     this.song.bpm = 130;
-    this.bell.delay = 110;
+    this.bells.delay = 110;
 
     this.song.volume = 0.6;
-    this.bell.volume = 0.8;
-    this.bellBis.volume = 0.8;
+    this.bells.forEach(bell => bell.volume = 0.8);
     this.fire.volume = 1;
     this.wind.volume = 0.5;
 
@@ -60,8 +58,8 @@ export default class AudioPlayer extends Component {
       return;
     }
 
-    this.bell.playbackRate = tempo / (this.bell.duration * 1000);
-    this.bellBis.playbackRate = this.bell.playbackRate;
+    const bellPlayrate = tempo / (this.bells[0].duration * 1000);
+    this.bells.forEach(bell => bell.playbackRate = bellPlayrate);
     this.song.playbackRate = (60 * 1000 / tempo * 2) / this.song.bpm;
 
     const beats = Math.ceil(this.song.duration / this.song.playbackRate * 1000 / tempo);
@@ -78,7 +76,7 @@ export default class AudioPlayer extends Component {
     // Bell interval
     setTimeout(
       () => this.bellInterval = setInterval(this.playBell, tempo),
-      delay - this.bell.delay
+      delay - this.bells.delay
     );
   }
 
@@ -86,13 +84,20 @@ export default class AudioPlayer extends Component {
    * Play bell
    */
   playBell() {
-    const { ended, currentTime } = this.bell;
+    let bell = this.bells.find(bell => bell.currentTime === 0 || bell.ended);
 
-    if (currentTime === 0 || ended) {
-      this.bell.play();
-    } else {
-      this.bellBis.play();
+    if (!bell) {
+      const { volume, playbackRate, muted } = this.bells[0];
+
+      bell = new Audio(BELL);
+      bell.volume = volume;
+      bell.playbackRate = playbackRate;
+      bell.muted = muted;
+
+      this.bells.push(bell);
     }
+
+    bell.play();
   }
 
   /**
@@ -121,8 +126,7 @@ export default class AudioPlayer extends Component {
   onMute() {
     const { muted } = this.state;
 
-    this.bell.muted = muted;
-    this.bellBis.muted = muted;
+    this.bells.forEach(bell => bell.muted = muted);
     this.fire.muted = muted;
     this.wind.muted = muted;
     this.song.muted = muted;

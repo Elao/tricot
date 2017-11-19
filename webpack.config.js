@@ -37,7 +37,14 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!sass-loader'),
-      }
+      },
+      {
+        test: /\.(wav|mp3|ogg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      },
     ],
   },
   devServer: {

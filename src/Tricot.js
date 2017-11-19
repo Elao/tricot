@@ -3,6 +3,7 @@ import Generator from './pattern/Generator';
 import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
 import KeyCatcher from './KeyCatcher';
+import AudioPlayer from './AudioPlayer';
 import Scarf from './Scarf';
 import Help from './Help';
 import Key from './game/Key';
@@ -22,13 +23,6 @@ export default class Tricot extends Component {
    * @type {Number}
    */
   static ZONE = 0.5;
-
-  /**
-   * Warm up
-   *
-   * @type {Number}
-   */
-  static WARMUP = 3;
 
   /**
    * Generate a partition of the given length
@@ -62,16 +56,22 @@ export default class Tricot extends Component {
    * Start the game
    */
   start() {
-    const { TEMPO, WARMUP, generatePartition } = this.constructor;
+    const { TEMPO, ZONE, generatePartition } = this.constructor;
     const lines = Generator.generate();
     const partition = generatePartition(lines.length);
 
-    this.setState({
-      lines,
-      partition,
-      answers: [],
-      index: -1,
-    }, () => this.timer.start(TEMPO));
+    this.setState(
+      {
+        lines,
+        partition,
+        answers: [],
+        index: -1,
+      },
+      () => {
+        this.timer.start(TEMPO);
+        this.audio.start(TEMPO, TEMPO * (1 - ZONE / 2));
+      }
+    );
   }
 
   /**
@@ -83,7 +83,7 @@ export default class Tricot extends Component {
         partition: null,
         answer: null,
         index: null,
-      });
+      }, this.audio.stop);
     }
   }
 
@@ -154,7 +154,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { TEMPO, WARMUP } = this.constructor;
+    const { TEMPO } = this.constructor;
     const { partition, lines, answers, index } = this.state;
     const needleClass = this.getNeedleClass();
 
@@ -162,6 +162,7 @@ export default class Tricot extends Component {
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
+        <AudioPlayer ref={audio => this.audio = audio} />
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />

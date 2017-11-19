@@ -4,7 +4,7 @@ import * as SIMPLE from './simple';
 import * as COMPOSED from './composed';
 import * as MEDIUM from './medium';
 import * as BIG from './big';
-import * as HERO from './medium';
+import * as HERO from './hero';
 
 export default class Generator {
     /**
@@ -22,8 +22,13 @@ export default class Generator {
             ...this.random(COMPOSED),
             ...this.random(MEDIUM),
             ...this.random(COMPOSED),
+            ...this.random(SIMPLE),
             ...this.random(BIG),
+            ...this.random(SIMPLE),
             ...this.random(COMPOSED),
+            ...this.random(MEDIUM),
+            ...this.random(COMPOSED),
+            ...this.random(SIMPLE),
         );
 
         return lines;
@@ -60,7 +65,7 @@ export default class Generator {
         const values = Object.values(patterns);
         const pattern = values[Math.floor(Math.random() * values.length)];
 
-        return this.margin(pattern.reverse());
+        return this.margin(pattern.slice(0).reverse());
     }
 
     /**

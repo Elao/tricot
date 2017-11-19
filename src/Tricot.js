@@ -14,14 +14,14 @@ export default class Tricot extends Component {
    *
    * @type {Number}
    */
-  static TEMPO = 800;
+  static TEMPO = 600;
 
   /**
    * Zone when you must presse the key
    *
    * @type {Number}
    */
-  static ZONE = 0.25;
+  static ZONE = 0.5;
 
   /**
    * Warm up

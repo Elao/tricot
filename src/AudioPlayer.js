@@ -14,6 +14,7 @@ export default class AudioPlayer extends Component {
     };
 
     this.bellInterval = null;
+    this.songInterval = null;
 
     this.bell = new Audio(BELL);
     this.bellBis = new Audio(BELL);
@@ -24,7 +25,6 @@ export default class AudioPlayer extends Component {
 
     this.fire.loop = true;
     this.wind.loop = true;
-    this.song.loop = true;
     this.song.bpm = 130;
     this.bell.delay = 110;
 
@@ -38,6 +38,8 @@ export default class AudioPlayer extends Component {
     this.toggle = this.toggle.bind(this);
     this.end = this.end.bind(this);
     this.onMute = this.onMute.bind(this);
+
+    this.song.play = this.song.play.bind(this.song);
   }
 
   componentDidMount() {
@@ -58,16 +60,26 @@ export default class AudioPlayer extends Component {
       return;
     }
 
-    const { duration } = this.bell;
-
-    this.bell.playbackRate = tempo / (duration * 1000);
+    this.bell.playbackRate = tempo / (this.bell.duration * 1000);
     this.bellBis.playbackRate = this.bell.playbackRate;
-    this.song.playbackRate = tempo / (60 / this.song.bpm * 1000);
+    this.song.playbackRate = (60 * 1000 / tempo * 2) / this.song.bpm;
 
-    setTimeout(() => {
-      this.song.play();
-      this.bellInterval = setInterval(this.playBell, tempo);
-    }, delay - this.bell.delay);
+    const beats = Math.ceil(this.song.duration / this.song.playbackRate * 1000 / tempo);
+
+    // Song interval
+    setTimeout(
+      () => {
+        this.songInterval = setInterval(this.song.play, beats * tempo);
+        this.song.play();
+      },
+      delay
+    );
+
+    // Bell interval
+    setTimeout(
+      () => this.bellInterval = setInterval(this.playBell, tempo),
+      delay - this.bell.delay
+    );
   }
 
   /**
@@ -87,9 +99,8 @@ export default class AudioPlayer extends Component {
    * End
    */
   end() {
-    if (this.bellInterval) {
-      this.bellInterval = clearInterval(this.bellInterval);
-    }
+    this.bellInterval = clearInterval(this.bellInterval);
+    this.songInterval = clearInterval(this.songInterval);
 
     this.final.play();
     this.song.pause();

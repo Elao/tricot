@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TEMPO } from './Tricot';
 import { COLOR_RED, COLOR_WHITE, LINE, WIDTH, HEIGHT } from './pattern/constants';
 
 export default class Scarf extends Component {
@@ -53,6 +54,10 @@ export default class Scarf extends Component {
     this.setState({ x, y, red, white });
   }
 
+  getAnimationStyle() {
+    return { animationDuration: `${TEMPO/2}ms` };
+  }
+
   render() {
     const { white, red, y } = this.state;
     const height = (y + 1) * HEIGHT;
@@ -64,6 +69,7 @@ export default class Scarf extends Component {
         height={height}
         preserveAspectRatio="xMidYMax slice"
         viewBox={`0 ${-height} 720 ${height}`}
+        style={this.getAnimationStyle()}
       >
         <path id="white" d={white} fill={COLOR_WHITE}></path>
         <path id="red" d={red} fill={COLOR_RED}></path>

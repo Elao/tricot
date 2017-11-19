@@ -83,7 +83,7 @@ export default class Tricot extends Component {
         partition: null,
         answer: null,
         index: null,
-      }, this.audio.stop);
+      }, this.audio.end);
     }
   }
 

@@ -9,18 +9,24 @@ export default class AudioPlayer extends Component {
   constructor() {
     super();
 
+    this.state = {
+      muted: null,
+    };
+
+    this.bellInterval = null;
+
     this.bell = new Audio(BELL);
     this.bellBis = new Audio(BELL);
     this.fire = new Audio(FIRE);
     this.wind = new Audio(WIND);
     this.song = new Audio(SONG);
     this.final = new Audio(MERRY_CHRISTMAS);
-    this.bellTrack = null;
 
     this.fire.loop = true;
     this.wind.loop = true;
     this.song.loop = true;
     this.song.bpm = 130;
+    this.bell.delay = 110;
 
     this.song.volume = 0.6;
     this.bell.volume = 0.8;
@@ -29,14 +35,26 @@ export default class AudioPlayer extends Component {
     this.wind.volume = 0.5;
 
     this.playBell = this.playBell.bind(this);
-    this.stop = this.stop.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.end = this.end.bind(this);
+    this.onMute = this.onMute.bind(this);
+  }
+
+  componentDidMount() {
+    this.mute(JSON.parse(localStorage.getItem('muted')) || false);
 
     this.fire.play();
     this.wind.play();
   }
 
+  /**
+   * Start the in-game song with the given tempo
+   *
+   * @param {Number} tempo
+   * @param {Number} delay
+   */
   start(tempo, delay = 0) {
-    if (this.bellTrack) {
+    if (this.bellInterval) {
       return;
     }
 
@@ -48,19 +66,8 @@ export default class AudioPlayer extends Component {
 
     setTimeout(() => {
       this.song.play();
-      this.bellTrack = setInterval(this.playBell, tempo);
-    }, delay);
-  }
-
-  stop() {
-    if (this.bellTrack) {
-      this.bellTrack = clearInterval(this.bellTrack);
-    }
-
-    this.final.play();
-    //this.fire.pause();
-    //this.wind.pause();
-    this.song.pause();
+      this.bellInterval = setInterval(this.playBell, tempo);
+    }, delay - this.bell.delay);
   }
 
   /**
@@ -76,7 +83,53 @@ export default class AudioPlayer extends Component {
     }
   }
 
+  /**
+   * End
+   */
+  end() {
+    if (this.bellInterval) {
+      this.bellInterval = clearInterval(this.bellInterval);
+    }
+
+    this.final.play();
+    this.song.pause();
+  }
+
+  /**
+   * Mute / unmute the audio
+   *
+   * @param {Boolean} muted
+   */
+  mute(muted = !this.state.muted) {
+    this.setState({ muted }, this.onMute);
+  }
+
+  /**
+   * On mute changed
+   */
+  onMute() {
+    const { muted } = this.state;
+
+    this.bell.muted = muted;
+    this.bellBis.muted = muted;
+    this.fire.muted = muted;
+    this.wind.muted = muted;
+    this.song.muted = muted;
+    this.final.muted = muted;
+
+    localStorage.setItem('muted', JSON.stringify(muted));
+  }
+
+  /**
+   * Toggle
+   */
+  toggle() {
+    this.mute();
+  }
+
   render() {
-    return null;
+    const { muted } = this.state;
+
+    return (<button className={`audio ${muted ? 'off' : 'on'}`} onClick={this.toggle} />);
   }
 }

@@ -10,6 +10,7 @@ export default class ArrowTunel extends Component {
     };
 
     this.renderArrow = this.renderArrow.bind(this);
+    this.renderWarmup = this.renderWarmup.bind(this);
     this.loadWidth = this.loadWidth.bind(this);
   }
 
@@ -30,13 +31,32 @@ export default class ArrowTunel extends Component {
    * @return {String}
    */
   getSliderStyle() {
-    const { current, arrows, tempo } = this.props;
+    const { current, arrows, warmup, tempo } = this.props;
     const { width } = this.state;
+    const x = current + warmup;
 
     return {
-      marginRight: `${-(current / arrows.length) * width}px`,
-      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
+      marginRight: `${-(x / (arrows.length + warmup)) * width}px`,
+      transitionDuration: `${x < 0 ? 0 : tempo}ms`,
     };
+  }
+
+  /**
+   * Render warmup counter
+   *
+   * @param {null} value
+   * @param {Number} index
+   *
+   * @return {Component}
+   */
+  renderWarmup(value, index) {
+    const { warmup } = this.props;
+
+    return (
+      <li key={`warmup-${index}`} className="arrow warmup">
+        <span>{warmup - index}</span>
+      </li>
+    );
   }
 
   /**
@@ -84,6 +104,7 @@ export default class ArrowTunel extends Component {
           style={this.getSliderStyle()}
           ref={this.loadWidth}
         >
+          {new Array(this.props.warmup).fill(null).map(this.renderWarmup)}
           {arrows.map(this.renderArrow)}
         </ul>
       </div>

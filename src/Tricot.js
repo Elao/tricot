@@ -70,7 +70,7 @@ export default class Tricot extends Component {
       lines,
       partition,
       answers: [],
-      index: -1,
+      index: -WARMUP -1,
     }, () => this.timer.start(TEMPO));
   }
 
@@ -109,6 +109,10 @@ export default class Tricot extends Component {
     const { TEMPO, ZONE } = this.constructor;
     const { partition, index, answers } = this.state;
 
+    if (index < 0){
+      return;
+    }
+
     if (index === answers.length) {
       const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
       const succes = ratio <= ZONE && answer === partition[index];
@@ -130,7 +134,7 @@ export default class Tricot extends Component {
 
     const state = { index: index + 1 };
 
-    if (index === answers.length) {
+    if (index >= 0 && index === answers.length) {
       state.answers = [...answers, false];
       this.completeScarf(false);
     }
@@ -160,7 +164,7 @@ export default class Tricot extends Component {
 
     return (
       <div>
-        {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+        {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} warmup={WARMUP} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />

@@ -1,24 +1,26 @@
 .needle {
   position: absolute;
   z-index: 1;
-
-  &.pause {
-    animation-play-state: paused;
-  }
 }
 
 .needle--left {
   left: 30px;
-  transform: rotate(-2deg);
-  animation: knit-left .6s linear infinite both;
+
+  &.active {
+    transform: rotate(-2deg);
+    animation: knit-left .6s linear infinite both;
+  }
 
   &.error { animation: knit-error-left .8s linear infinite both; }
 }
 
 .needle--right {
   right: 30px;
-  transform: rotate(1deg);
-  animation: knit-right .6s linear infinite both;
+
+  &.active {
+    transform: rotate(1deg);
+    animation: knit-right .6s linear infinite both;
+  }
 
   &.error { animation: knit-error-right .8s linear infinite both; }
 }

@@ -19,8 +19,8 @@ export default class Scarf extends Component {
     super();
 
     this.state = {
-      x: 0,
-      y: 0,
+      x: LINE,
+      y: -1,
       white: '',
       red: '',
     };

@@ -12,7 +12,7 @@ export const COLOR_WHITE = '#ffffff';
  * @type {Number}
  */
 export const WIDTH = 12;
-export const HEIGHT = 14;
+export const HEIGHT = 12;
 export const LINE = 60;
 
 /**
@@ -25,15 +25,4 @@ export const LINE = 60;
  */
 export function repeat(pattern, line = LINE) {
   return pattern.repeat(line / pattern.length);
-}
-
-/**
- * Concatenate strings
- *
- * @param {...String} lines
- *
- * @return {String}
- */
-export function join(...lines) {
-  return lines.reverse().join('');
 }

@@ -1,9 +1,9 @@
-import { join, repeat } from './constants';
+import { repeat } from './constants';
 
 /**
  * Reindeers with hearts
  */
-export const reindeer = join(
+export const reindeer = [
   repeat(' v    v v v        v v v    v '),
   repeat('vvv   v v vv      vv v v   vvv'),
   repeat('vvv    vv v        v vv    vvv'),
@@ -18,12 +18,12 @@ export const reindeer = join(
   repeat('  v v  v vv        vv v  v v  '),
   repeat('  v v  v  v        v  v  v v  '),
   repeat('  v v  v              v  v v  '),
-);
+];
 
 /**
  * Reindeer looking to the right
  */
-export const reindeerRight = join(
+export const reindeerRight = [
   repeat('         v     '),
   repeat('      v   v    '),
   repeat('      v   v    '),
@@ -40,4 +40,4 @@ export const reindeerRight = join(
   repeat('  v          v '),
   repeat('  v         v  '),
   repeat(' v             '),
-);
+];

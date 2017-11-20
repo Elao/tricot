@@ -1,56 +1,168 @@
 import React, { Component } from 'react';
+import Generator from './pattern/Generator';
 import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
+import KeyCatcher from './KeyCatcher';
+import AudioPlayer from './AudioPlayer';
 import Scarf from './Scarf';
+import Help from './Help';
 import Key from './game/Key';
-import Game from './game/Game';
+import Timer from './game/Timer';
 
 export default class Tricot extends Component {
+  /**
+   * A key every X second
+   *
+   * @type {Number}
+   */
+  static TEMPO = 600;
+
+  /**
+   * Zone when you must presse the key
+   *
+   * @type {Number}
+   */
+  static ZONE = 0.5;
+
+  /**
+   * Generate a partition of the given length
+   *
+   * @param {Number} length
+   *
+   * @return {Array}
+   */
+  static generatePartition(length = 50) {
+    return new Array(length).fill(null).map(value => Key.getRandom());
+  }
+
   constructor() {
     super();
 
-    this.onTick = this.onTick.bind(this);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
-
-    this.game = new Game(this.onTick, this.onSuccess, this.onError);
     this.state = {
-      arrows: this.game.partition.map(arrow => Key.readableFor(arrow)),
-      answer: null,
+      partition: null,
+      answers: null,
+      index: null,
     };
+
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.tick = this.tick.bind(this);
+    this.validate = this.validate.bind(this);
+
+    this.timer = new Timer(this.tick);
   }
 
-  onTick() {
-    this.setState({ answer: null });
+  /**
+   * Start the game
+   */
+  start() {
+    const { TEMPO, ZONE, generatePartition } = this.constructor;
+    const lines = Generator.generate();
+    const partition = generatePartition(lines.length);
+
+    this.setState(
+      {
+        lines,
+        partition,
+        answers: [],
+        index: -1,
+      },
+      () => {
+        this.timer.start(TEMPO);
+        this.audio.start(TEMPO, TEMPO * (1 - ZONE / 2));
+      }
+    );
   }
 
-  onSuccess() {
-    this.setState({ answer: true });
+  /**
+   * FIN DU GAME
+   */
+  stop() {
+    if (this.timer.stop()) {
+      this.setState({
+        partition: null,
+        answer: null,
+        index: null,
+      }, this.audio.end);
+    }
   }
 
-  onError() {
-    this.setState({ answer: false });
+  /**
+   * Add a line to the scarf
+   *
+   * @param {Boolean} succes
+   */
+  completeScarf(succes = true) {
+    const { index, lines, answers } = this.state;
+    const line = lines[index];
+
+    this.scarf.append(succes ? line : Generator.messUp(line));
   }
 
-  componentDidMount() {
-    console.log('start');
-    this.game.start();
+  /**
+   * Validate the answer
+   *
+   * @param {String} answer
+   * @param {Number} date
+   */
+  validate(answer, date = Date.now()) {
+    const { TEMPO, ZONE } = this.constructor;
+    const { partition, index, answers } = this.state;
 
-    this.scarf.append([
-      spacer,
-      line,
-      sin,
-      largeSin,
-    ].join(spacer));
+    if (index === answers.length) {
+      const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
+      const succes = ratio <= ZONE && answer === partition[index];
+
+      this.setState({ answers: [...answers, succes] });
+      this.completeScarf(succes);
+    }
+  }
+
+  /**
+   * Tick
+   */
+  tick(duration) {
+    const { partition, index, answers } = this.state;
+
+    if (partition.length === answers.length) {
+      return this.stop();
+    }
+
+    const state = { index: index + 1 };
+
+    if (index === answers.length) {
+      state.answers = [...answers, false];
+      this.completeScarf(false);
+    }
+
+    this.setState(state);
+  }
+
+  /**
+   * Get needles animation class
+   *
+   * @return {String}
+   */
+  getNeedleClass() {
+    const { partition, answers } = this.state;
+
+    if (!partition) {
+      return 'pause';
+    }
+
+    return answers && answers[answers.length - 1] === false ? 'error' : 'success';
   }
 
   render() {
-    const { arrows, answer } = this.state;
-    const needleClass = answer === false ? 'error' : '';
+    const { TEMPO } = this.constructor;
+    const { partition, lines, answers, index } = this.state;
+    const needleClass = this.getNeedleClass();
 
     return (
       <div>
-        <ArrowTunel arrows={arrows} />
+        {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+        <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
+        <AudioPlayer ref={audio => this.audio = audio} />
         <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
@@ -63,9 +175,7 @@ export default class Tricot extends Component {
             </div>
           </div>
         </div>
-        <div className="rules">
-          Appuie en rythme sur les touches pour tricoter
-        </div>
+        {!lines && <Help />}
       </div>
     );
   }

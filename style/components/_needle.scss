@@ -1,6 +1,10 @@
 .needle {
   position: absolute;
   z-index: 1;
+
+  &.pause {
+    animation-play-state: paused;
+  }
 }
 
 .needle--left {

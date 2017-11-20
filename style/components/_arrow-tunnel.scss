@@ -1,6 +1,7 @@
 .arrow-tunnel {
   position: relative;
   height: 40px;
+  margin-top: 40px;
   margin-bottom: 120px;
   border-bottom: 3px solid #fff;
   border-top: 3px solid #fff;
@@ -10,12 +11,58 @@
 .arrow-tunnel__highlight {
   position: absolute;
   top: -40px;
-  right: 35%;
+  right: 50%;
   height: 120px;
   width: 120px;
+  transform: translateX(50%);
   background-color: $background;
   border: 3px solid #fff;
   border-radius: 50%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  &:after {
+    content: '';
+    display: flex;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 40px solid #fff;
+  }
+}
+
+.arrow-tunnel__slider {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  z-index: 10;
+  right: calc(50% - #{$arrow-width});
+  padding: 0;
+  margin: 0;
+  transition: margin 0s linear;
+
+  .arrow {
+    flex: 0;
+    color: $text;
+    font-size: 2em;
+    padding: 0;
+    margin: 0;
+
+    span {
+      width: $zone * $arrow-width;
+      height: 40px;
+      margin-right: (1 - $zone) * $arrow-width;
+      display: block;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    &.success { color: $success; }
+    &.error { color: $error; }
+  }
 }
 
 @media (max-width: $screen-sm-max) {

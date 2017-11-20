@@ -32,6 +32,15 @@ header {
   width: 1200px;
   margin: 0 auto;
   position: relative;
+
+  &.end {
+    .upper-stitch { display: none; }
+
+    .needle {
+      animation: none;
+      display: none;
+    }
+  }
 }
 
 @media (max-width: $screen-lg-max) {

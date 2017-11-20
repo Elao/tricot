@@ -165,7 +165,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
-        {end && <End />}
+        {end && <End answers={answers} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <AudioPlayer ref={audio => this.audio = audio} />
         <div className={`container ${end ? 'end' : ''}`}>

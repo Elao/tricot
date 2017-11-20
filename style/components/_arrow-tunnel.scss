@@ -46,14 +46,15 @@
 
   .arrow {
     flex: 0;
-    color: $text;
+    color: $primary;
     font-size: 2em;
     padding: 0;
     margin: 0;
 
-    span {
+    &:before {
       width: $zone * $arrow-width;
       height: 40px;
+      line-height: 40px;
       margin-right: (1 - $zone) * $arrow-width;
       display: block;
       text-align: center;
@@ -61,7 +62,7 @@
     }
 
     &.success { color: $success; }
-    &.error { color: $error; }
+    &.error { color: #bbb; }
   }
 }
 

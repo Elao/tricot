@@ -4,5 +4,6 @@
 # Build
 /dist/*.js
 /dist/*.css
-/dist/*.mp3
 /dist/*.map
+/dist/icons/*
+/dist/audio/*

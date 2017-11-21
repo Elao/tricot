@@ -83,6 +83,16 @@ export default class Tricot extends Component {
     }, this.start);
   }
 
+  componentDidMount() {
+    const { hash } = window.location;
+
+    if (hash) {
+      const { lines, answers } = Generator.load(decodeURIComponent(hash.slice(1)));
+
+      this.setState({ lines, answers });
+    }
+  }
+
   /**
    * Start the game
    */
@@ -174,6 +184,13 @@ export default class Tricot extends Component {
     return `active ${errorClass}`;
   }
 
+  getLink() {
+    const { lines, answers } = this.state;
+    const hash = Generator.export(lines, answers);
+
+    return `${window.origin}/#${encodeURIComponent(hash)}`;
+  }
+
   render() {
     const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay } = this.state;
     const needleClass = this.getNeedleClass();
@@ -186,7 +203,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
-        {end && <End answers={answers} replay={this.onKey} />}
+        {end && <End answers={answers} replay={this.onKey} link={this.getLink()} />}
         <KeyCatcher onKey={this.onKey} keys={Key} />
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />

@@ -41,14 +41,16 @@ export default class Scarf extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { lines, answers} = nextProps;
-    const { length } = answers;
+    const current = this.props.answers.length;
 
-    if (length > this.props.answers.length) {
-      const success = answers[length - 1];
-      const line = lines[length - 1];
+    if (answers.length && answers.length > current) {
+      const content = answers
+        .slice(current)
+        .map((success, index) => success ? lines[index + current] : Generator.messUp(lines[index + current]))
+        .join('');
 
-      this.append(success ? line : Generator.messUp(line));
-    } else if (length < this.props.answers.length) {
+      this.append(content);
+    } else if (answers.length < current) {
       this.setState({
         x: LINE,
         y: -1,

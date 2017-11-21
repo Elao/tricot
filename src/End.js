@@ -22,6 +22,9 @@ export default class End extends Component {
               <dt>{getLongestStreak(answers)}</dt>
             </dl>
           </div>
+          <a href={this.props.link} target="_blank">
+            Partager
+          </a>
           <p>Un projet web à tricoter ?</p>
           <p>Faites appel à une équipe d'experts.</p>
           <div className="modal__buttons">

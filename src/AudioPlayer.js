@@ -145,6 +145,6 @@ export default class AudioPlayer extends Component {
   render() {
     const { muted } = this.state;
 
-    return (<button className={`audio ${muted ? 'off' : 'on'}`} onClick={this.toggle} />);
+    return (<button className={`audio icon ${muted ? 'audio-off' : 'audio-on'}`} onClick={this.toggle} />);
   }
 }

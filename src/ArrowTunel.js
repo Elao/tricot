@@ -50,7 +50,7 @@ export default class ArrowTunel extends Component {
   renderArrow(arrow, index) {
     const { current, answers } = this.props;
     const classes = [
-      'arrow',
+      'icon arrow',
       Key.getClass(arrow),
     ];
 

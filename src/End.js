@@ -8,7 +8,7 @@ export default class End extends Component {
     return (
       <div className="end-panel">
         <div className="end-panel__title">
-          <img src="images/wool.svg" alt=""/>
+          <span className="icon wool"></span>
           <h3>Bravo !</h3>
         </div>
         <div className="end-panel__card">

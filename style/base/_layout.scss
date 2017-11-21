@@ -60,6 +60,16 @@ h1 {
 
 #root {
   overflow: hidden;
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      flex: 1;
+      max-height: 50%;
+    }
+  }
 }
 
 .container {

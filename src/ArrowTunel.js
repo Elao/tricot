@@ -20,7 +20,7 @@ export default class ArrowTunel extends Component {
    */
   loadWidth(slider) {
     if (slider) {
-      this.setState({ width: slider.offsetWidth });
+      //this.setState({ width: slider.offsetWidth });
     }
   }
 
@@ -34,8 +34,8 @@ export default class ArrowTunel extends Component {
     const { width } = this.state;
 
     return {
-      marginRight: `${-(current / arrows.length) * width}px`,
-      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
+      //marginRight: `${-(current / arrows.length) * width}px`,
+      //transitionDuration: `${current < 0 ? 0 : tempo}ms`,
     };
   }
 

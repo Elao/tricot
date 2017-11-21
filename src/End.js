@@ -15,7 +15,7 @@ export default class End extends Component {
           <div className="end-panel__statistics">
             <dl>
               <dd>Score :</dd>
-              <dt>{getSuccessRatio(answers, 100).toPrecision(2)}%</dt>
+              <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
             </dl>
             <dl>
               <dd>Plus longue série :</dd>

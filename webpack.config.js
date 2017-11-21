@@ -52,6 +52,13 @@ module.exports = {
           name: 'icons/[name].[ext]',
         },
       },
+      {
+        test: /images\/(.+)\.(svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]',
+        },
+      },
     ],
   },
   devServer: {

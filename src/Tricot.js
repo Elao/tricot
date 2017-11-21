@@ -6,6 +6,7 @@ import KeyCatcher from './KeyCatcher';
 import AudioPlayer from './AudioPlayer';
 import Scarf from './Scarf';
 import Help from './Help';
+import End from './End';
 import Key from './game/Key';
 import Timer from './game/Timer';
 
@@ -150,17 +151,23 @@ export default class Tricot extends Component {
       return 'pause';
     }
 
-    return answers && answers[answers.length - 1] === false ? 'error' : 'success';
+    const errorClass = answers && answers[answers.length - 1] === false ? 'error' : 'success';
+
+    return `active ${errorClass}`;
   }
 
   render() {
     const { TEMPO } = this.constructor;
     const { partition, lines, answers, index } = this.state;
     const needleClass = this.getNeedleClass();
+    const end = !partition && answers && answers.length;
+
+    document.body.className = end ? 'end' : '';
 
     return (
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+        {end && <End answers={answers} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <AudioPlayer ref={audio => this.audio = audio} />
         <div className="container">
@@ -170,8 +177,9 @@ export default class Tricot extends Component {
             <div className="knit__scarf">
               <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />
               <img src="images/upper-stitch--back.svg" alt="" className="upper-stitch upper-stitch--back" />
+              {end && <img src="images/knit.svg" className="knit-tip reverse" alt="" />}
               <Scarf ref={scarf => this.scarf = scarf}/>
-              <img src="images/knit.svg" alt="" />
+              <img src="images/knit.svg" className="knit-tip" alt="" />
             </div>
           </div>
         </div>

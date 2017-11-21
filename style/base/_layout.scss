@@ -13,9 +13,28 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  &.end {
+    justify-content: flex-start;
+    height: unset;
+
+    .knit { height: unset; }
+
+    .upper-stitch { display: none; }
+
+    .needle {
+      animation: none;
+      display: none;
+    }
+  }
 }
 
 header {
+  .container {
+    width: 100%;
+    position: absolute;
+  }
+
   a { display: flex; }
 
   img {

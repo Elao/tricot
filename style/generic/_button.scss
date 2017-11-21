@@ -1,0 +1,35 @@
+.button {
+  background-color: $primary;
+  color: #fff;
+  text-decoration: none;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  font-weight: 400;
+  font-size: 19px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  border: solid 2px $primary;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+    color: $primary;
+    transition: ease-in-out .1s;
+  }
+}
+
+.button--light {
+  background-color: transparent;
+  color: $primary;
+  border: solid 2px $primary;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $primary;
+    color: #fff;
+    transition: ease-in-out .1s;
+  }
+}

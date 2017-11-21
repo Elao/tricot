@@ -4,6 +4,8 @@
   padding-top: 20px;
   height: 40vh;
   overflow: hidden;
+
+  .end & { overflow: auto; }
 }
 
 .knit__scarf {
@@ -11,16 +13,25 @@
   width: 720px;
   font-size: 0;
 
-    svg {
-      width: 720px;
-      background: #681615;
-      margin: 0;
-      transition: height 200ms ease-in-out;
-    }
+  svg {
+    width: 720px;
+    background: #681615;
+    margin: 0;
+    transition: height 200ms ease-in-out;
+  }
 
-    img {
-      margin: 0;
+  img {
+    margin: 0;
+  }
+
+  .knit-tip {
+    width: 720px;
+    height: auto;
+
+    &.reverse {
+      transform: scale(-1, -1);
     }
+  }
 }
 
 @media (max-width: $screen-md-max) {

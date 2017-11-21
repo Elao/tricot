@@ -9,6 +9,12 @@ import Help from './Help';
 import End from './End';
 import Key from './game/Key';
 import Timer from './game/Timer';
+import '../assets/images/elao.svg';
+import needleLeft from '../assets/images/needle-left.png';
+import needleRight from '../assets/images/needle-right.png';
+import stitchFront from '../assets/images/upper-stitch--front.svg';
+import stitchBack from '../assets/images/upper-stitch--back.svg';
+import knit from '../assets/images/knit.svg';
 
 export default class Tricot extends Component {
   /**
@@ -166,20 +172,21 @@ export default class Tricot extends Component {
 
     return (
       <div>
+        {!partition && !end && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         {end && <End answers={answers} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <AudioPlayer ref={audio => this.audio = audio} />
         <div className="container">
-          <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
-          <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
+          <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
+          <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />
           <div className="knit">
             <div className="knit__scarf">
-              <img src="images/upper-stitch--front.svg" alt="" className="upper-stitch upper-stitch--front" />
-              <img src="images/upper-stitch--back.svg" alt="" className="upper-stitch upper-stitch--back" />
-              {end && <img src="images/knit.svg" className="knit-tip reverse" alt="" />}
+              <img src={stitchFront} alt="" className="upper-stitch upper-stitch--front" />
+              <img src={stitchBack} alt="" className="upper-stitch upper-stitch--back" />
+              {end && <img src={knit} className="knit-tip reverse" alt="" />}
               <Scarf ref={scarf => this.scarf = scarf}/>
-              <img src="images/knit.svg" className="knit-tip" alt="" />
+              <img src={knit} className="knit-tip" alt="" />
             </div>
           </div>
         </div>

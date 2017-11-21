@@ -5,5 +5,4 @@
 /dist/*.js
 /dist/*.css
 /dist/*.map
-/dist/icons/*
-/dist/audio/*
+/dist/assets/*

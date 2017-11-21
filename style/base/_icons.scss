@@ -1,15 +1,15 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../icons/icomoon.eot');
-  src:  url('../icons/icomoon.eot') format('embedded-opentype'),
-    url('../icons/icomoon.ttf') format('truetype'),
-    url('../icons/icomoon.woff') format('woff'),
-    url('../icons/icomoon.svg') format('svg');
+  src:  url('../assets/icons/icomoon.eot');
+  src:  url('../assets/icons/icomoon.eot') format('embedded-opentype'),
+    url('../assets/icons/icomoon.ttf') format('truetype'),
+    url('../assets/icons/icomoon.woff') format('woff'),
+    url('../assets/icons/icomoon.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-.arrow {
+.icon {
   font-family: 'icomoon' !important;
   speak: none;
   font-style: normal;
@@ -24,6 +24,7 @@
   &.right:before { content: "\e902"; }
   &.down:before { content: "\e900"; }
   &.left:before { content: "\e901"; }
+  &.wool:before { content: "\e904"; }
+  &.audio-off:before { content: "\e905"; }
+  &.audio-on:before { content: "\e906"; }
 }
-
-

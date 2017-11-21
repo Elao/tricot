@@ -2,20 +2,13 @@
   position: fixed;
   top: 1em;
   right: 1em;
-
   background: none;
   border: 0;
-  color: inherit;
-  font: inherit;
+  color: $text--dark;
+  font-size: 25px;
   line-height: normal;
   overflow: visible;
   padding: 0;
-
-  &.on:before  {
-    content: '🔔';
-  }
-
-  &.off:before {
-    content: '🔕';
-  }
+  cursor: pointer;
+  text-shadow: $text-shadow;
 }

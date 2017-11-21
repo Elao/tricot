@@ -45,6 +45,13 @@ module.exports = {
           name: '[path][name].[ext]',
         },
       },
+      {
+        test: /icons\/(.+)\.(eot|svg|ttf|woff)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'icons/[name].[ext]',
+        },
+      },
     ],
   },
   devServer: {

@@ -67,9 +67,7 @@ export default class ArrowTunel extends Component {
     }
 
     return (
-      <li key={`${arrow}-${index}`} className={classes.join(' ')}>
-        <span>{Key.getSymbol(arrow)}</span>
-      </li>
+      <li key={`${arrow}-${index}`} className={classes.join(' ')}></li>
     );
   }
 

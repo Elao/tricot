@@ -30,6 +30,11 @@ body {
 }
 
 header {
+  .container {
+    width: 100%;
+    position: absolute;
+  }
+
   a { display: flex; }
 
   img {

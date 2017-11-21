@@ -166,6 +166,7 @@ export default class Tricot extends Component {
 
     return (
       <div>
+        {!partition && !end && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         {end && <End answers={answers} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />

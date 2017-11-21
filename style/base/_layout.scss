@@ -38,12 +38,24 @@ header {
     position: absolute;
   }
 
-  a { display: flex; }
-
   img {
     width: 130px;
     height: 130px;
   }
+}
+
+h1 {
+  font-family: 'Courgette', cursive;
+  text-align: center;
+  color: #fff;
+  text-shadow: $text-shadow;
+  font-size: 55px;
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  font-weight: 400;
 }
 
 #root {
@@ -65,4 +77,6 @@ header {
   }
 
   .container { width: 100%; }
+
+  h1 { top: 100px; }
 }

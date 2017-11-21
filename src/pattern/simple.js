@@ -28,6 +28,21 @@ export const largeSin = [
 ];
 
 /**
+ *   v   v   v   v   v
+ *  v v v v v v v v v v
+ * v   v   v   v   v   v
+ *  v v v v v v v v v v
+ *   v   v   v   v   v
+ */
+export const diamond = [
+  repeat('  v '),
+  repeat(' v v'),
+  repeat('v   '),
+  repeat(' v v'),
+  repeat('  v '),
+]
+
+/**
  * Simple heart
  */
 export const simpleHeart = [

@@ -13,3 +13,30 @@ export const heart = [
   repeat('      vvv      '),
   repeat('       v       '),
 ];
+
+/**
+ * v v v v v v v v v v v v v v v v
+ *  v v v v v v v v v v v v v v v
+ *   v v v v   v v v v   v v v v
+ * v  v v v  v  v v v  v  v v v  v
+ *  v  v v  v v  v v  v v  v v  v
+ *   v  v  v   v  v  v   v  v  v
+ * v  v   v  v  v   v  v  v   v  v
+ *  v  v v  v v  v v  v v  v v  v
+ *   v  v  v   v  v  v   v  v  v
+ *  v       v v       v v       v
+ * v         v         v         v
+ */
+export const largeLine = [
+  repeat('v v v v v '),
+  repeat(' v v v v v'),
+  repeat('  v v v v '),
+  repeat('v  v v v  '),
+  repeat(' v  v v  v'),
+  repeat('  v  v  v '),
+  repeat('v  v   v  '),
+  repeat(' v  v v  v'),
+  repeat('  v  v  v '),
+  repeat(' v       v'),
+  repeat('v         '),
+];

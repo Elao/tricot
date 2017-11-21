@@ -7,8 +7,8 @@
 <font-face units-per-em="1024" ascent="960" descent="-64" />
 <missing-glyph horiz-adv-x="1024" />
 <glyph unicode="&#x20;" horiz-adv-x="512" d="" />
-<glyph unicode="&#xea32;" glyph-name="arrow-up" d="M512 928l-480-480h288v-512h384v512h288z" />
-<glyph unicode="&#xea34;" glyph-name="arrow-right" d="M992 448l-480 480v-288h-512v-384h512v-288z" />
-<glyph unicode="&#xea36;" glyph-name="arrow-down" d="M512-32l480 480h-288v512h-384v-512h-288z" />
-<glyph unicode="&#xea38;" glyph-name="arrow-left" d="M32 448l480-480v288h512v384h-512v288z" />
+<glyph unicode="&#xe900;" glyph-name="bottom" d="M597.333 393.387v435.2h-170.667v-435.2l-256 256v-242.347l339.627-339.627h3.413l339.627 339.627v242.347z" />
+<glyph unicode="&#xe901;" glyph-name="left" d="M457.387 362.667h435.2v170.667h-435.2l256 256h-242.347l-339.627-339.627v-3.413l339.627-339.627h242.347z" />
+<glyph unicode="&#xe902;" glyph-name="right" d="M566.613 533.333h-435.2v-170.667h435.2l-256-256h242.347l339.627 339.627v3.413l-339.627 339.627h-242.347z" />
+<glyph unicode="&#xe903;" glyph-name="top" d="M426.667 502.613v-435.2h170.667v435.2l256-256v242.347l-339.627 339.627h-3.413l-339.627-339.627v-242.347z" />
 </font></defs></svg>

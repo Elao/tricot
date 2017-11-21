@@ -1,35 +1,42 @@
 .arrow-tunnel {
   position: relative;
-  height: 40px;
+  height: 90px;
   margin-top: 40px;
   margin-bottom: 120px;
-  border-bottom: 3px solid #fff;
-  border-top: 3px solid #fff;
   background-color: #fff;
+  display: flex;
+  align-items: center;
 }
 
 .arrow-tunnel__highlight {
   position: absolute;
-  top: -40px;
+  top: 0;
   right: 50%;
-  height: 120px;
-  width: 120px;
+  height: 100%;
   transform: translateX(50%);
-  background-color: $background;
-  border: 3px solid #fff;
-  border-radius: 50%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
 
+  &:before,
   &:after {
     content: '';
     display: flex;
     width: 0;
     height: 0;
     border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 40px solid #fff;
+    border-right:  15px solid transparent;
+    position: absolute;
+    left: 0;
+  }
+
+  &:before {
+    border-top: 15px solid $background;
+  }
+
+  &:after {
+    border-bottom: 15px solid $background;
+    bottom: 0;
   }
 }
 
@@ -47,7 +54,7 @@
   .arrow {
     flex: 0;
     color: $primary;
-    font-size: 2em;
+    font-size: 3em;
     padding: 0;
     margin: 0;
 

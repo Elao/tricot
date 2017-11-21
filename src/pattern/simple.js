@@ -47,3 +47,11 @@ export const square = [
   repeat('  v   v   '),
   repeat('  vvvvv   '),
 ];
+
+export const largeLine = [
+  repeat('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'),
+  repeat('v   v v v   v v v   v v v   v v v   v v v   v v v   v v v   '),
+  repeat('v v vv vv v vv vv v vv vv v vv vv v vv vv v vv vv v vv vv v '),
+  repeat('v   v v v   v v v   v v v   v v v   v v v   v v v   v v v   '),
+  repeat('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'),
+];

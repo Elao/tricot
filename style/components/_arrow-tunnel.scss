@@ -4,15 +4,19 @@
   justify-content: center;
   height: 50vh;
   position: relative;
+  overflow-y: hidden;
 }
 
 .arrow-tunnel__slider {
   width: 720px;
   margin: 0;
   padding: 0;
+  bottom: 0;
   list-style: none;
   position: absolute;
-  bottom: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  transition: transform 1s linear;
 
   .arrow {
     flex: 0;
@@ -22,12 +26,13 @@
     margin: 0;
 
     &:before {
-      height: $zone * $arrow-width;
+      height: $zone * $arrow-height;
       width: 100%;
-      line-height: 40px;
-      margin-bottom: (1 - $zone) * $arrow-width;
+      line-height: $arrow-height;
+      margin-bottom: (1 - $zone) * $arrow-height;
       display: block;
       text-align: center;
+      vertical-align: middle;
       box-sizing: border-box;
     }
 

@@ -59,10 +59,6 @@ export default class Tricot extends Component {
     this.timer = new Timer(this.tick);
   }
 
-  componentDidMount() {
-    this.start();
-  }
-
   /**
    * Start the game
    */
@@ -79,8 +75,8 @@ export default class Tricot extends Component {
         index: -1,
       },
       () => {
-        //this.timer.start(TEMPO);
-        //this.audio.start(TEMPO, TEMPO * (1 - ZONE / 2));
+        this.timer.start(TEMPO);
+        this.audio.start(TEMPO, TEMPO * (1 - ZONE / 2));
       }
     );
   }
@@ -181,7 +177,7 @@ export default class Tricot extends Component {
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <AudioPlayer ref={audio => this.audio = audio} />
         <div className="container main-container">
-          {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+          <ArrowTunel arrows={partition || []} answers={answers} current={index} tempo={TEMPO} />
           <div>
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
             <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />

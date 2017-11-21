@@ -67,11 +67,6 @@ h1 {
   .main-container {
     display: flex;
     flex-direction: column;
-
-    & > * {
-      flex: 1;
-      max-height: 50%;
-    }
   }
 }
 

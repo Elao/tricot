@@ -13,6 +13,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  &.end {
+    justify-content: flex-start;
+    height: unset;
+
+    .knit { height: unset; }
+
+    .upper-stitch { display: none; }
+
+    .needle {
+      animation: none;
+      display: none;
+    }
+  }
 }
 
 header {
@@ -32,15 +46,6 @@ header {
   width: 1200px;
   margin: 0 auto;
   position: relative;
-
-  &.end {
-    .upper-stitch { display: none; }
-
-    .needle {
-      animation: none;
-      display: none;
-    }
-  }
 }
 
 @media (max-width: $screen-lg-max) {

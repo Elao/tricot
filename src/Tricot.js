@@ -162,13 +162,15 @@ export default class Tricot extends Component {
     const needleClass = this.getNeedleClass();
     const end = !partition && answers && answers.length;
 
+    document.body.className = end ? 'end' : '';
+
     return (
       <div>
         {partition && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
         {end && <End answers={answers} />}
         <KeyCatcher onKey={partition ? this.validate : this.start} keys={Key} />
         <AudioPlayer ref={audio => this.audio = audio} />
-        <div className={`container ${end ? 'end' : ''}`}>
+        <div className="container">
           <img src="images/needle-left.png" alt="" className={`needle needle--left ${needleClass}`} />
           <img src="images/needle-right.png" alt="" className={`needle needle--right ${needleClass}`} />
           <div className="knit">

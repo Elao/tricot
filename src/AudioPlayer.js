@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BELL from '../audio/bell.mp3';
-import FIRE from '../audio/fire.mp3';
-import WIND from '../audio/wind.mp3';
-import SONG from '../audio/christmas_song.mp3';
-import MERRY_CHRISTMAS from '../audio/merry_christmas.mp3';
+import BELL from '../assets/audio/bell.mp3';
+import FIRE from '../assets/audio/fire.mp3';
+import WIND from '../assets/audio/wind.mp3';
+import SONG from '../assets/audio/christmas_song.mp3';
+import MERRY_CHRISTMAS from '../assets/audio/merry_christmas.mp3';
 
 export default class AudioPlayer extends Component {
   constructor() {

@@ -39,25 +39,19 @@ module.exports = {
         loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!sass-loader'),
       },
       {
-        test: /\.(wav|mp3|ogg)$/,
+        test: /audio\/(.+)\.(wav|mp3|ogg)$/,
         loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
+        options: { name: '[path][name].[ext]' },
       },
       {
         test: /icons\/(.+)\.(eot|svg|ttf|woff)$/,
         loader: 'file-loader',
-        options: {
-          name: 'icons/[name].[ext]',
-        },
+        options: { name: '[path][name].[ext]' },
       },
       {
-        test: /images\/(.+)\.(svg)$/,
+        test: /images\/(.+)\.(svg|png)$/,
         loader: 'file-loader',
-        options: {
-          name: 'images/[name].[ext]',
-        },
+        options: { name: '[path][name].[ext]' },
       },
     ],
   },

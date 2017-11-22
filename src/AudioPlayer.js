@@ -10,6 +10,7 @@ export default class AudioPlayer extends Component {
 
     this.state = {
       muted: null,
+      authorized: true,
     };
 
     this.bellInterval = null;
@@ -36,16 +37,35 @@ export default class AudioPlayer extends Component {
 
     this.playBell = this.playBell.bind(this);
     this.playSong = this.playSong.bind(this);
+    this.playBackground = this.playBackground.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.disable = this.disable.bind(this);
     this.end = this.end.bind(this);
-    this.onMute = this.onMute.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onError = this.onError.bind(this);
   }
 
   componentDidMount() {
     this.mute(JSON.parse(localStorage.getItem('muted')) || false);
+    this.playBackground();
+  }
 
-    this.fire.play();
-    this.wind.play();
+  componentDidUpdate(prevState) {
+    const { muted, authorized } = this.state;
+
+    if (muted !== prevState.muted) {
+      this.bells.forEach(bell => bell.muted = muted);
+      this.fire.muted = muted;
+      this.wind.muted = muted;
+      this.song.muted = muted;
+      this.final.muted = muted;
+
+      localStorage.setItem('muted', JSON.stringify(muted));
+
+      if (authorized === false) {
+        this.playBackground();
+      }
+    }
   }
 
   /**
@@ -94,6 +114,9 @@ export default class AudioPlayer extends Component {
     );
   }
 
+  /**
+   * Play the main song
+   */
   playSong() {
     this.song.play();
   }
@@ -119,6 +142,14 @@ export default class AudioPlayer extends Component {
   }
 
   /**
+   * Play background ambiance
+   */
+  playBackground() {
+    this.wind.play().then(this.onSuccess).catch(this.onError);
+    this.fire.play();
+  }
+
+  /**
    * End
    */
   end() {
@@ -135,33 +166,54 @@ export default class AudioPlayer extends Component {
    * @param {Boolean} muted
    */
   mute(muted = !this.state.muted) {
-    this.setState({ muted }, this.onMute);
+    this.setState({ muted });
   }
 
   /**
-   * On mute changed
+   * Audio API authorized
    */
-  onMute() {
-    const { muted } = this.state;
-
-    this.bells.forEach(bell => bell.muted = muted);
-    this.fire.muted = muted;
-    this.wind.muted = muted;
-    this.song.muted = muted;
-    this.final.muted = muted;
-
-    localStorage.setItem('muted', JSON.stringify(muted));
+  onSuccess() {
+    this.setState({ authorized: true });
   }
 
   /**
-   * Toggle
+   * Audio API not authorized
+   */
+  onError() {
+    this.setState({ authorized: null });
+  }
+
+  /**
+   * Don't authorize audio
+   */
+  disable() {
+    this.setState({ authorized: false, muted: true });
+  }
+
+  /**
+   * Toggle sound
    */
   toggle() {
     this.mute();
   }
 
   render() {
-    const { muted } = this.state;
+    const { muted, authorized } = this.state;
+
+    if (authorized === null) {
+      return (
+        <div className="modal">
+          <h4>🔔 Autoriser le son ?</h4>
+          <p>Knittar Hero a besoin de votre autorisation pour jouer de la musique sur cet appareil.</p>
+          <button className="button button--light" onClick={this.disable}>
+            Annuler
+          </button>
+          <button className="button" onClick={this.playBackground}>
+            Autoriser
+          </button>
+        </div>
+      );
+    }
 
     return (<button className={`audio icon ${muted ? 'audio-off' : 'audio-on'}`} onClick={this.toggle} />);
   }

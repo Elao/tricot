@@ -27,4 +27,9 @@
   &.wool:before { content: "\e904"; }
   &.audio-off:before { content: "\e905"; }
   &.audio-on:before { content: "\e906"; }
+  &.down--empty:before { content: "\e907"; }
+  &.left--empty:before { content: "\e908"; }
+  &.right--empty:before { content: "\e909"; }
+  &.top--empty:before { content: "\e90a"; }
 }
+

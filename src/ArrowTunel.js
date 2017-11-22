@@ -63,8 +63,17 @@ export default class ArrowTunel extends Component {
 
   renderHighlight(arrow) {
     const { pressed } = this.props;
+    const classes = [
+      'icon arrow',
+      Key.getClass(arrow),
+      `${Key.getClass(arrow)}--empty`,
+    ];
 
-    return <li className={`icon arrow ${Key.getClass(arrow)} ${arrow === pressed ? 'active' : ''}`}></li>;
+    if (arrow === pressed) {
+      classes.push('active');
+    }
+
+    return <li className={classes.join(' ')}></li>;
   }
 
   render() {

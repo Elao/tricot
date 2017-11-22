@@ -28,7 +28,7 @@
   .arrow {
     display: flex;
     flex: 0;
-    color: $text--dark;
+    color: $primary;
     padding: 0;
     margin: 0;
 
@@ -42,7 +42,7 @@
     }
 
     &.success:before {
-      color: $text;
+      color: $primary;
       animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
       transition: color ease-in .1s;
     }

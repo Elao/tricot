@@ -36,10 +36,7 @@ header {
   position: absolute;
   top: 0;
 
-  .container {
-    width: 100%;
-    position: absolute;
-  }
+  a { display: flex; }
 
   img {
     width: 130px;

@@ -7,9 +7,12 @@
   background-color: $secondary;
   color: $text;
   text-transform: uppercase;
+  font-weight: 500;
   font-size: 21px;
   letter-spacing: .07em;
   text-align: center;
+  position: fixed;
+  bottom: 0;
 }
 
 @media (max-width: $screen-lg-max) {

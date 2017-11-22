@@ -11,8 +11,8 @@ export default class Key extends Enum {
 
   static values = [
     Key.LEFT,
-    Key.RIGHT,
     Key.DOWN,
+    Key.RIGHT,
   ];
 
   static classes = {

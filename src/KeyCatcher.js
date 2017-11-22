@@ -5,14 +5,19 @@ export default class KeyCatcher extends Component {
     super();
 
     this.key = null;
+    this.touch = null;
 
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
+    window.addEventListener('touchstart', this.onTouchStart);
+    window.addEventListener('touchend', this.onTouchEnd);
   }
 
   /**
@@ -41,6 +46,22 @@ export default class KeyCatcher extends Component {
     if (key !== this.key) {
       this.key = key;
       this.props.onKey(this.key);
+    }
+  }
+
+  onTouchStart(event) {
+    const { values } = this.props.keys;
+    const x = event.changedTouches[0].clientX;
+    const index = Math.floor(x / (window.innerWidth / values.length));
+
+    this.setKey(values[index]);
+  }
+
+  onTouchEnd(event) {
+    const { touches } = event;
+
+    if (touches.length === 0) {
+      this.setKey(null);
     }
   }
 

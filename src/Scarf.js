@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { TEMPO } from './Tricot';
 import { COLOR_RED, COLOR_WHITE, LINE, WIDTH, HEIGHT } from './pattern/constants';
+import Generator from './pattern/Generator';
 
 export default class Scarf extends Component {
   /**
@@ -24,6 +24,26 @@ export default class Scarf extends Component {
       white: '',
       red: '',
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { lines, answers} = nextProps;
+    const { length } = answers;
+
+    if (length && length > this.props.answers.length) {
+      const success = answers[length - 1];
+      const line = lines[length - 1];
+
+      this.append(success ? line : Generator.messUp(line));
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.answers.length > 0 && nextProps.answers.length === 0) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -54,11 +74,8 @@ export default class Scarf extends Component {
     this.setState({ x, y, red, white });
   }
 
-  getAnimationStyle() {
-    return { animationDuration: `${TEMPO/2}ms` };
-  }
-
   render() {
+    const { tempo } = this.props;
     const { white, red, y } = this.state;
     const height = (y + 1) * HEIGHT;
 
@@ -69,7 +86,7 @@ export default class Scarf extends Component {
         height={height}
         preserveAspectRatio="xMidYMax slice"
         viewBox={`0 ${-height} 720 ${height}`}
-        style={this.getAnimationStyle()}
+        style={{ animationDuration: `${tempo/2}ms` }}
       >
         <path id="white" d={white} fill={COLOR_WHITE}></path>
         <path id="red" d={red} fill={COLOR_RED}></path>

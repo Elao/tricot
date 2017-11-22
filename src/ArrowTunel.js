@@ -5,23 +5,7 @@ export default class ArrowTunel extends Component {
   constructor() {
     super();
 
-    this.state = {
-      width: 0,
-    };
-
     this.renderArrow = this.renderArrow.bind(this);
-    this.loadWidth = this.loadWidth.bind(this);
-  }
-
-  /**
-   * Load width from Slider element
-   *
-   * @param {Element} slider
-   */
-  loadWidth(slider) {
-    if (slider) {
-      this.setState({ width: slider.offsetWidth });
-    }
   }
 
   /**
@@ -29,13 +13,19 @@ export default class ArrowTunel extends Component {
    *
    * @return {String}
    */
-  getSliderStyle() {
+  getSliderStyle(height = 20) {
     const { current, arrows, tempo } = this.props;
-    const { width } = this.state;
+
+    if (current === null) {
+      return {
+        transform: `translate3d(0, ${(-1 * height)}vh, 0)`,
+        transitionDuration: '0ms',
+      };
+    }
 
     return {
-      marginRight: `${-(current / arrows.length) * width}px`,
-      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
+      transform: `translateY(${(current * height)}vh)`,
+      transitionDuration: `${arrows.length === 0 ? 0 : tempo}ms`,
     };
   }
 
@@ -71,17 +61,32 @@ export default class ArrowTunel extends Component {
     );
   }
 
+  renderHighlight(arrow) {
+    const { pressed } = this.props;
+    const classes = [
+      'icon arrow',
+      Key.getClass(arrow),
+      `${Key.getClass(arrow)}--empty`,
+    ];
+
+    if (arrow === pressed) {
+      classes.push('active');
+    }
+
+    return <li className={classes.join(' ')}></li>;
+  }
+
   render() {
     const { arrows } = this.props;
 
     return (
       <div className="arrow-tunnel">
-        <div className="arrow-tunnel__highlight"></div>
-        <ul
-          className="arrow-tunnel__slider"
-          style={this.getSliderStyle()}
-          ref={this.loadWidth}
-        >
+        <ul className="arrow-tunnel__highlight">
+          {this.renderHighlight(Key.LEFT)}
+          {this.renderHighlight(Key.DOWN)}
+          {this.renderHighlight(Key.RIGHT)}
+        </ul>
+        <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
           {arrows.map(this.renderArrow)}
         </ul>
       </div>

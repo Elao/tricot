@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import BELL from '../assets/audio/bell.mp3';
 import FIRE from '../assets/audio/fire.mp3';
 import WIND from '../assets/audio/wind.mp3';
-import SONG from '../assets/audio/christmas_song.mp3';
 import MERRY_CHRISTMAS from '../assets/audio/merry_christmas.mp3';
 
 export default class AudioPlayer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       muted: null,
@@ -16,28 +15,30 @@ export default class AudioPlayer extends Component {
     this.bellInterval = null;
     this.songInterval = null;
 
-    this.bells = [new Audio(BELL)];
+    this.bells = [new Audio(BELL), new Audio(BELL)/*, new Audio(BELL)*/];
     this.fire = new Audio(FIRE);
     this.wind = new Audio(WIND);
-    this.song = new Audio(SONG);
+    this.song = new Audio(props.source);
     this.final = new Audio(MERRY_CHRISTMAS);
 
     this.fire.loop = true;
     this.wind.loop = true;
-    this.song.bpm = 130;
+    this.song.bpm = props.bpm;
+    this.song.delay = props.delay;
+    this.song.repeatable = props.loop;
     this.bells.delay = 110;
 
-    this.song.volume = 0.6;
-    this.bells.forEach(bell => bell.volume = 0.8);
+    this.song.volume = 0.8;
+    this.bells.forEach(bell => bell.volume = 0.2);
+    this.final.volume = 0.8;
     this.fire.volume = 1;
     this.wind.volume = 0.5;
 
     this.playBell = this.playBell.bind(this);
+    this.playSong = this.playSong.bind(this);
     this.toggle = this.toggle.bind(this);
     this.end = this.end.bind(this);
     this.onMute = this.onMute.bind(this);
-
-    this.song.play = this.song.play.bind(this.song);
   }
 
   componentDidMount() {
@@ -58,26 +59,43 @@ export default class AudioPlayer extends Component {
       return;
     }
 
-    const bellPlayrate = tempo / (this.bells[0].duration * 1000);
-    this.bells.forEach(bell => bell.playbackRate = bellPlayrate);
-    this.song.playbackRate = (60 * 1000 / tempo * 2) / this.song.bpm;
+    const bellPlaybackRate = (this.bells[0].duration * 1000) / tempo;
+    this.bells.forEach(bell => bell.playbackRate = bellPlaybackRate);
 
-    const beats = Math.ceil(this.song.duration / this.song.playbackRate * 1000 / tempo);
+    this.song.playbackRate = (60000 / tempo) / this.song.bpm;
 
-    // Song interval
-    setTimeout(
-      () => {
-        this.songInterval = setInterval(this.song.play, beats * tempo);
-        this.song.play();
-      },
-      delay
-    );
+    if (this.song.playbackRate < 1) {
+      this.song.playbackRate = this.song.playbackRate * 2;
+    }
+
+    const songDelay = this.song.delay / this.song.playbackRate;
+
+    if (this.song.repeatable) {
+      const songDuration = (this.song.duration / this.song.playbackRate) * 1000;
+
+      setTimeout(
+        () => {
+          this.test = Date.now();
+          this.tempo = tempo;
+
+          this.songInterval = setInterval(this.playSong, Math.ceil(songDuration / tempo) * tempo);
+          this.playSong();
+        },
+        delay - songDelay
+      );
+    } else {
+      setTimeout(this.playSong(), delay - songDelay);
+    }
 
     // Bell interval
     setTimeout(
       () => this.bellInterval = setInterval(this.playBell, tempo),
       delay - this.bells.delay
     );
+  }
+
+  playSong() {
+    this.song.play();
   }
 
   /**

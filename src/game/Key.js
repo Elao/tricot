@@ -12,7 +12,7 @@ export default class Key extends Enum {
 
   static values = [
     Key.LEFT,
-    Key.UP,
+    //Key.UP,
     Key.RIGHT,
     Key.DOWN,
   ];
@@ -24,18 +24,7 @@ export default class Key extends Enum {
     [Key.DOWN]: 'down',
   };
 
-  static symbols = {
-    [Key.LEFT]: '←',
-    [Key.UP]: '↑',
-    [Key.RIGHT]: '→',
-    [Key.DOWN]: '↓',
-  };
-
   static getClass(value) {
     return this.classes[value];
-  }
-
-  static getSymbol(value) {
-    return this.symbols[value];
   }
 }

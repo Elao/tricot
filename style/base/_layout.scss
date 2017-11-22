@@ -33,10 +33,10 @@ body {
 }
 
 header {
-  .container {
-    width: 100%;
-    position: absolute;
-  }
+  position: absolute;
+  top: 0;
+
+  a { display: flex; }
 
   img {
     width: 130px;
@@ -60,6 +60,11 @@ h1 {
 
 #root {
   overflow: hidden;
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .container {

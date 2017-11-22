@@ -1,80 +1,97 @@
 .arrow-tunnel {
-  position: relative;
-  height: 90px;
-  margin-top: 40px;
-  margin-bottom: 120px;
-  background-color: #fff;
   display: flex;
   align-items: center;
-}
-
-.arrow-tunnel__highlight {
-  position: absolute;
-  top: 0;
-  right: 50%;
-  height: 100%;
-  transform: translateX(50%);
-  box-sizing: border-box;
-  display: flex;
   justify-content: center;
-
-  &:before,
-  &:after {
-    content: '';
-    display: flex;
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right:  15px solid transparent;
-    position: absolute;
-    left: 0;
-  }
-
-  &:before {
-    border-top: 15px solid $background;
-  }
-
-  &:after {
-    border-bottom: 15px solid $background;
-    bottom: 0;
-  }
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+  width: 720px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .arrow-tunnel__slider {
-  list-style: none;
-  display: flex;
-  flex-direction: row-reverse;
-  position: absolute;
-  z-index: 10;
-  right: calc(50% - #{$arrow-width});
-  padding: 0;
   margin: 0;
-  transition: margin 0s linear;
+  padding: 0 15px;
+  bottom: 0;
+  width: 100%;
+  list-style: none;
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  transition: transform 0s linear;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  box-sizing: border-box;
 
   .arrow {
+    display: flex;
     flex: 0;
     color: $primary;
-    font-size: 3em;
     padding: 0;
     margin: 0;
 
     &:before {
-      width: $zone * $arrow-width;
-      height: 40px;
-      line-height: 40px;
-      margin-right: (1 - $zone) * $arrow-width;
-      display: block;
-      text-align: center;
+      height: $zone * $arrow-height;
+      line-height: $zone * $arrow-height;
+      font-size: $zone * $arrow-height;
+      margin-top: (1 - $zone) * $arrow-height;
+      vertical-align: bottom;
       box-sizing: border-box;
     }
 
-    &.success { color: $success; }
-    &.error { color: #bbb; }
+    &.success:before {
+      color: $primary;
+      animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+      transition: color ease-in .1s;
+    }
+    &.error:before {
+      color: $primary--dark;
+      animation: shake .6s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+      transition: color ease-in .1s;
+    }
+
+    &.down:before {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    &.left:before { margin-right: auto; }
+    &.right:before { margin-left: auto; }
+  }
+}
+
+.arrow-tunnel__highlight {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 15px;
+  bottom: ($zone / 2) * $arrow-height;
+  height: $zone * $arrow-height;
+  align-items: center;
+  box-sizing: border-box;
+
+  .arrow {
+    color: #86c0b6;
+    font-size: $zone * $arrow-height;
+
+    &.down { margin: 0 auto; }
+    &.left { margin-right: auto; }
+    &.right { margin-left: auto; }
+
+    &.active {
+      animation: pressed .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+    }
   }
 }
 
 @media (max-width: $screen-sm-max) {
-  .arrow-tunnel {
+  /*.arrow-tunnel {
     margin-bottom: 50px;
   }
 
@@ -83,5 +100,5 @@
     right: 20%;
     height: 80px;
     width: 80px;
-  }
+  }*/
 }

@@ -61,15 +61,21 @@ export default class ArrowTunel extends Component {
     );
   }
 
+  renderHighlight(arrow) {
+    const { pressed } = this.props;
+
+    return <li className={`icon arrow ${Key.getClass(arrow)} ${arrow === pressed ? 'active' : ''}`}></li>;
+  }
+
   render() {
     const { arrows } = this.props;
 
     return (
       <div className="arrow-tunnel">
         <ul className="arrow-tunnel__highlight">
-          <li className="icon arrow left"></li>
-          <li className="icon arrow down"></li>
-          <li className="icon arrow right"></li>
+          {this.renderHighlight(Key.LEFT)}
+          {this.renderHighlight(Key.DOWN)}
+          {this.renderHighlight(Key.RIGHT)}
         </ul>
         <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
           {arrows.map(this.renderArrow)}

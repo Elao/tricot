@@ -51,6 +51,7 @@ export default class Tricot extends Component {
       partition: [],
       answers: [],
       index: null,
+      pressed: null,
     };
 
     this.start = this.start.bind(this);
@@ -59,6 +60,7 @@ export default class Tricot extends Component {
     this.validate = this.validate.bind(this);
 
     this.timer = new Timer(this.tick);
+    this.keyTimeout = null;
   }
 
   /**
@@ -103,12 +105,20 @@ export default class Tricot extends Component {
     const { TEMPO, ZONE } = this.constructor;
     const { partition, index, answers } = this.state;
 
+    const state = { pressed: answer };
+
+    if (this.keyTimeout) {
+      this.keyTimeout = clearTimeout(this.keyTimeout);
+    }
+
     if (index === answers.length) {
       const ratio = 1 - ((this.timer.getTime(date) % TEMPO) / TEMPO);
       const succes = ratio <= ZONE && answer === partition[index];
 
-      this.setState({ answers: answers.concat([succes]) });
+      state.answers = answers.concat([succes]);
     }
+
+    this.setState(state, () => setTimeout(() => this.setState({ pressed: false }), 300));
   }
 
   /**
@@ -150,7 +160,7 @@ export default class Tricot extends Component {
 
   render() {
     const { TEMPO } = this.constructor;
-    const { partition, lines, answers, index } = this.state;
+    const { partition, lines, answers, index, pressed } = this.state;
     const needleClass = this.getNeedleClass();
     const beforeStart = index === null && answers.length === 0;
     const end = index === null && answers.length;
@@ -164,7 +174,7 @@ export default class Tricot extends Component {
         <KeyCatcher onKey={partition.length ? this.validate : this.start} keys={Key} />
         <AudioPlayer source={SONG} loop={LOOP} bpm={BPM} delay={DELAY} ref={audio => this.audio = audio} />
         <div className="container main-container">
-          {!end && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} />}
+          {!end && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} pressed={pressed} />}
           <div>
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
             <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />

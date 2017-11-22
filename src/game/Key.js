@@ -1,6 +1,6 @@
 export const LEFT = 'ArrowLeft';
-export const RIGHT = 'ArrowRight';
 export const DOWN = 'ArrowDown';
+export const RIGHT = 'ArrowRight';
 
 /**
  * CSS classes
@@ -9,8 +9,8 @@ export const DOWN = 'ArrowDown';
  */
 export const values = [
   LEFT,
-  RIGHT,
   DOWN,
+  RIGHT,
 ];
 
 /**
@@ -20,8 +20,8 @@ export const values = [
  */
 export const classes = new Map([
   [LEFT, 'left'],
-  [RIGHT, 'right'],
   [DOWN, 'down'],
+  [RIGHT, 'right'],
 ]);
 
 /**

@@ -6,6 +6,7 @@ export default class ArrowTunel extends Component {
     super();
 
     this.renderArrow = this.renderArrow.bind(this);
+    this.renderCountdown = this.renderCountdown.bind(this);
   }
 
   /**
@@ -14,17 +15,17 @@ export default class ArrowTunel extends Component {
    * @return {String}
    */
   getSliderStyle(height = 20) {
-    const { current, arrows, tempo } = this.props;
+    const { current, warmup, arrows, tempo } = this.props;
 
     if (current === null) {
       return {
-        transform: `translate3d(0, ${(-1 * height)}vh, 0)`,
+        transform: `translate3d(0, ${(-height)}vh, 0)`,
         transitionDuration: '0ms',
       };
     }
 
     return {
-      transform: `translateY(${(current * height)}vh)`,
+      transform: `translateY(${((current + warmup) * height)}vh)`,
       transitionDuration: `${arrows.length === 0 ? 0 : tempo}ms`,
     };
   }
@@ -43,14 +44,6 @@ export default class ArrowTunel extends Component {
       'icon arrow',
       Key.getClass(arrow),
     ];
-
-    if (index < current) {
-      classes.push(`active`);
-    }
-
-    if (index === current) {
-      classes.push(`current`);
-    }
 
     if (index < answers.length) {
       classes.push(answers[index] ? 'success' : 'error');
@@ -76,8 +69,22 @@ export default class ArrowTunel extends Component {
     return <li className={classes.join(' ')}></li>;
   }
 
+  renderCountdown(value, index) {
+    const { current, warmup, tempo } = this.props;
+    const classes = ['arrow countdown'];
+    const style = { animationDelay: `${tempo * 0.5}ms` };
+
+    if ((current + warmup) >= index) {
+      classes.push('success');
+    }
+
+    return <li key={`countdown-${index}`} style={style} className={classes.join(' ')}>
+      {index + 1}
+    </li>;
+  }
+
   render() {
-    const { arrows } = this.props;
+    const { arrows, warmup, current } = this.props;
 
     return (
       <div className="arrow-tunnel">
@@ -87,6 +94,7 @@ export default class ArrowTunel extends Component {
           {this.renderHighlight(Key.RIGHT)}
         </ul>
         <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
+          {current !== null && new Array(warmup).fill(null).map(this.renderCountdown)}
           {arrows.map(this.renderArrow)}
         </ul>
       </div>

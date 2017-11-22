@@ -86,7 +86,6 @@ export default class Scarf extends Component {
         height={height}
         preserveAspectRatio="xMidYMax slice"
         viewBox={`0 ${-height} 720 ${height}`}
-        style={{ animationDuration: `${tempo/2}ms` }}
       >
         <path id="white" d={white} fill={COLOR_WHITE}></path>
         <path id="red" d={red} fill={COLOR_RED}></path>

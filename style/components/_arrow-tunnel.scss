@@ -58,6 +58,20 @@
     }
     &.left:before { margin-right: auto; }
     &.right:before { margin-left: auto; }
+
+    &.countdown {
+      height: $zone * $arrow-height;
+      line-height: $zone * $arrow-height;
+      font-size: 3em;
+      margin-top: (1 - $zone) * $arrow-height;
+      vertical-align: bottom;
+      box-sizing: border-box;
+      justify-content: center;
+
+      &.success {
+        animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+      }
+    }
   }
 }
 

@@ -24,29 +24,36 @@
   perspective: 1000;
 
   .arrow {
+    display: flex;
     flex: 0;
     color: $primary;
     padding: 0;
     margin: 0;
 
     &:before {
-      width: 100%;
       height: $zone * $arrow-height;
       line-height: $zone * $arrow-height;
       font-size: $zone * $arrow-height;
       margin-top: (1 - $zone) * $arrow-height;
-      display: block;
-      text-align: center;
       vertical-align: bottom;
       box-sizing: border-box;
     }
 
-    &.success:before { color: $success; }
-    &.error:before { color: #bbb; }
+    &.success:before {
+      color: $success;
+      animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+    }
+    &.error:before {
+      color: #bbb;
+      animation: shake .6s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
 
-    &.down:before { text-align: center; }
-    &.left:before { text-align: left; }
-    &.right:before { text-align: right; }
+    &.down:before {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    &.left:before { margin-right: auto; }
+    &.right:before { margin-left: auto; }
   }
 }
 
@@ -67,11 +74,15 @@
   .arrow {
     color: #ddd;
     font-size: $zone * $arrow-height;
-    flex: 1;
 
-    &.down { text-align: center; }
-    &.left { text-align: left; }
-    &.right { text-align: right; }
+    &.down { margin: 0 auto; }
+    &.left { margin-right: auto; }
+    &.right { margin-left: auto; }
+
+    &.active {
+      transform: scale(1.3);
+      transition: ease-in-out .1s;
+    }
   }
 }
 

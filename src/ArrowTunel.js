@@ -5,19 +5,7 @@ export default class ArrowTunel extends Component {
   constructor() {
     super();
 
-    this.slider = null;
-
     this.renderArrow = this.renderArrow.bind(this);
-    this.setSlider = this.setSlider.bind(this);
-  }
-
-  /**
-   * Load Slider element
-   *
-   * @param {Element} slider
-   */
-  setSlider(slider) {
-    this.slider = slider;
   }
 
   /**
@@ -25,13 +13,19 @@ export default class ArrowTunel extends Component {
    *
    * @return {String}
    */
-  getSliderStyle() {
+  getSliderStyle(height = 20) {
     const { current, arrows, tempo } = this.props;
-    const height = this.slider ? this.slider.offsetHeight : 0;
+
+    if (current === null) {
+      return {
+        transform: `translate3d(0, ${(-1 * height)}vh, 0)`,
+        transitionDuration: '0ms',
+      };
+    }
 
     return {
-      transform: `translateY(${(current / arrows.length) * height}px)`,
-      transitionDuration: `${current < 0 ? 0 : tempo}ms`,
+      transform: `translateY(${(current * height)}vh)`,
+      transitionDuration: `${arrows.length === 0 ? 0 : tempo}ms`,
     };
   }
 
@@ -72,12 +66,12 @@ export default class ArrowTunel extends Component {
 
     return (
       <div className="arrow-tunnel">
-        <div className="arrow-tunnel__highlight"></div>
-        <ul
-          className="arrow-tunnel__slider"
-          style={this.getSliderStyle()}
-          ref={this.setSlider}
-        >
+        <ul className="arrow-tunnel__highlight">
+          <li className="icon arrow left"></li>
+          <li className="icon arrow down"></li>
+          <li className="icon arrow right"></li>
+        </ul>
+        <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
           {arrows.map(this.renderArrow)}
         </ul>
       </div>

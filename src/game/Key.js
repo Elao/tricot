@@ -6,7 +6,7 @@ import Enum from '../utils/Enum';
 export default class Key extends Enum {
 
   static LEFT = 'ArrowLeft';
-  //static UP = 'ArrowUp';
+  static UP = 'ArrowUp';
   static RIGHT = 'ArrowRight';
   static DOWN = 'ArrowDown';
 
@@ -19,7 +19,7 @@ export default class Key extends Enum {
 
   static classes = {
     [Key.LEFT]: 'left',
-    //[Key.UP]: 'up',
+    [Key.UP]: 'up',
     [Key.RIGHT]: 'right',
     [Key.DOWN]: 'down',
   };

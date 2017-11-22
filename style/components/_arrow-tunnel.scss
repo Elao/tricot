@@ -4,14 +4,15 @@
   justify-content: center;
   height: 50vh;
   position: relative;
-  overflow-y: hidden;
+  overflow: hidden;
   width: 720px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 .arrow-tunnel__slider {
   margin: 0;
-  padding: 0;
+  padding: 0 15px;
   bottom: 0;
   width: 100%;
   list-style: none;
@@ -22,11 +23,12 @@
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000;
+  box-sizing: border-box;
 
   .arrow {
     display: flex;
     flex: 0;
-    color: $primary;
+    color: $text--dark;
     padding: 0;
     margin: 0;
 
@@ -40,12 +42,14 @@
     }
 
     &.success:before {
-      color: $success;
+      color: $text;
       animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+      transition: color ease-in .1s;
     }
     &.error:before {
-      color: #bbb;
+      color: $primary--dark;
       animation: shake .6s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+      transition: color ease-in .1s;
     }
 
     &.down:before {
@@ -66,13 +70,14 @@
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
-  padding: 0;
+  padding: 0 15px;
   bottom: ($zone / 2) * $arrow-height;
   height: $zone * $arrow-height;
   align-items: center;
+  box-sizing: border-box;
 
   .arrow {
-    color: #ddd;
+    color: #86c0b6;
     font-size: $zone * $arrow-height;
 
     &.down { margin: 0 auto; }

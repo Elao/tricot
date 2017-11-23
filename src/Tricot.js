@@ -205,7 +205,7 @@ export default class Tricot extends Component {
             </div>
           </div>
         </div>
-        {!lines && <Help />}
+        {beforeStart && <Help />}
       </div>
     );
   }

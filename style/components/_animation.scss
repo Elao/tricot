@@ -77,3 +77,15 @@
     transform-origin: center center;
   }
 }
+
+@keyframes slide {
+  0% {
+    transform: translateY(-200%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

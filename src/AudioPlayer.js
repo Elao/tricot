@@ -202,15 +202,23 @@ export default class AudioPlayer extends Component {
 
     if (authorized === null) {
       return (
-        <div className="modal">
-          <h4>🔔 Autoriser le son ?</h4>
-          <p>Knittar Hero a besoin de votre autorisation pour jouer de la musique sur cet appareil.</p>
-          <button className="button button--light" onClick={this.disable}>
-            Annuler
-          </button>
-          <button className="button" onClick={this.playBackground}>
-            Autoriser
-          </button>
+        <div>
+          <div className="modal__blur" />
+          <div className="modal modal--audio">
+            <h2>
+              <span className="icon audio-on"></span>
+              Autoriser le son ?
+            </h2>
+            <p>Knittar Hero a besoin de votre autorisation pour jouer de la musique sur cet appareil.</p>
+            <div className="modal__buttons">
+              <button className="button button--light" onClick={this.disable}>
+                Annuler
+              </button>
+              <button className="button" onClick={this.playBackground}>
+                Autoriser
+              </button>
+            </div>
+          </div>
         </div>
       );
     }

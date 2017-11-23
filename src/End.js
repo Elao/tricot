@@ -6,13 +6,13 @@ export default class End extends Component {
     const { answers } = this.props;
 
     return (
-      <div className="end-panel">
-        <div className="end-panel__title">
+      <div className="end">
+        <div className="end__title">
           <span className="icon wool"></span>
           <h3>Bravo !</h3>
         </div>
-        <div className="end-panel__card">
-          <div className="end-panel__statistics">
+        <div className="modal modal--end">
+          <div className="statistics">
             <dl>
               <dd>Score :</dd>
               <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
@@ -24,7 +24,7 @@ export default class End extends Component {
           </div>
           <p>Un projet web à tricoter ?</p>
           <p>Faites appel à une équipe d'experts.</p>
-          <div className="end-panel__buttons">
+          <div className="modal__buttons">
             <a href="mailto: contact@elao.com" className="button">Contactez élao</a>
             <button className="button button--light">
               <span className="arrow up"></span>

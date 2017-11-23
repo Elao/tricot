@@ -45,3 +45,10 @@ watch:
 build: export NODE_ENV = production
 build:
 	./node_modules/.bin/webpack
+
+##########
+# Deploy #
+##########
+
+deploy: build
+	rsync -arzv --delete dist/* app@noel.elao.elao.local:/srv/app/current

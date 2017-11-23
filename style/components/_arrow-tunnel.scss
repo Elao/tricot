@@ -9,6 +9,7 @@
   margin: 0 auto;
   padding: 0 15px;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .arrow-tunnel__slider {
@@ -108,15 +109,20 @@
   }
 }
 
-@media (max-width: $screen-sm-max) {
-  /*.arrow-tunnel {
-    margin-bottom: 50px;
+@media (max-width: $screen-lg-max) {
+  .arrow-tunnel {
+    width: 100%;
+    height: 70vh;
   }
 
   .arrow-tunnel__highlight {
-    top: -23px;
-    right: 20%;
-    height: 80px;
-    width: 80px;
-  }*/
+  }
+}
+
+@media (max-width: $screen-md-max) and (orientation: landscape) {
+  .arrow-tunnel { height: 65vh !important; }
+}
+
+@media (max-width: $screen-sm-max) and (orientation: landscape) {
+  .arrow-tunnel { height: 58vh; }
 }

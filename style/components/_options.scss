@@ -6,12 +6,7 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
-  align-items: start;
-  font-size: 25px;
-
-  & > * {
-    margin: 1em;
-  }
+  z-index: 1;
 
   button {
     background: none;

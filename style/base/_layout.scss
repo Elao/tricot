@@ -36,6 +36,7 @@ body {
 header {
   position: absolute;
   top: 0;
+  z-index: 1;
 
   a {
     display: flex;
@@ -78,6 +79,8 @@ h1 {
   position: relative;
 }
 
+.knit-container { position: relative; }
+
 @media (max-width: $screen-lg-max) {
   header {
     img {
@@ -89,4 +92,18 @@ h1 {
   .container { width: 100%; }
 
   h1 { top: 100px; }
+}
+
+@media (max-width: $screen-md-max) {
+  body {
+    background: url(../assets/images/landscape--mobile.svg);
+    background-position: center top;
+    background-repeat: repeat-x;
+  }
+
+  h1 { font-size: 50px; }
+}
+
+@media (max-width: $screen-md-max) and (orientation: landscape) {
+  h1 { top: 25px; }
 }

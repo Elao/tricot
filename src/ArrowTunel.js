@@ -95,7 +95,7 @@ export default class ArrowTunel extends Component {
         </ul>
         <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
           {current !== null && new Array(warmup).fill(null).map(this.renderCountdown)}
-          {arrows.map(this.renderArrow)}
+          {current !== null && arrows.map(this.renderArrow)}
         </ul>
       </div>
     );

@@ -1,8 +1,8 @@
-import audio from '../../assets/audio/jinglebells.mp3';
+import jingleBells from '../../assets/audio/jinglebells.mp3';
 
-export const TEMPO = 306.5;
-export const BPM = 60000 / TEMPO;
-export const DELAY = 106;
-export const LOOP = false;
-
-export default audio;
+export const audio = jingleBells;
+export const tempo = 306.5;
+export const bpm = 60000 / tempo;
+export const delay = 106;
+export const loop = false;
+export const warmup = 8;

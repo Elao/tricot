@@ -30,20 +30,19 @@ export default class Scarf extends Component {
     const { lines, answers} = nextProps;
     const { length } = answers;
 
-    if (length && length > this.props.answers.length) {
+    if (length > this.props.answers.length) {
       const success = answers[length - 1];
       const line = lines[length - 1];
 
       this.append(success ? line : Generator.messUp(line));
+    } else if (length < this.props.answers.length) {
+      this.setState({
+        x: LINE,
+        y: -1,
+        white: '',
+        red: '',
+      });
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.answers.length > 0 && nextProps.answers.length === 0) {
-      return false;
-    }
-
-    return true;
   }
 
   /**

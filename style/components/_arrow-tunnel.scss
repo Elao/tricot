@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 70vh;
   position: relative;
   overflow: hidden;
   width: 720px;
   margin: 0 auto;
   padding: 0 15px;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .arrow-tunnel__slider {
@@ -109,15 +110,17 @@
   }
 }
 
-@media (max-width: $screen-sm-max) {
-  /*.arrow-tunnel {
-    margin-bottom: 50px;
-  }
+@media (max-width: $screen-lg-max) {
+  .arrow-tunnel { height: 67vh; }
+}
 
-  .arrow-tunnel__highlight {
-    top: -23px;
-    right: 20%;
-    height: 80px;
-    width: 80px;
-  }*/
+@media (max-width: $screen-md-max) {
+  .arrow-tunnel {
+    width: 100%;
+    height: 65vh;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .arrow-tunnel { height: 73vh; }
 }

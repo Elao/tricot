@@ -1,6 +1,6 @@
 .upper-stitch {
-    position: absolute;
-    top: -20px;
+  position: absolute;
+  top: -20px;
 }
 
 .upper-stitch--front { z-index: 2; }
@@ -8,5 +8,12 @@
 .upper-stitch--back { z-index: -2; }
 
 @media (max-width: $screen-md-max) {
-    .upper-stitch { top: -17px; }
+  .upper-stitch {
+    top: -20px;
+    width: 720px;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .upper-stitch { width: 100%; }
 }

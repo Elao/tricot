@@ -31,13 +31,22 @@
 }
 
 @media (max-width: $screen-sm-max) {
-  .needle { width: 500px; }
+  .needle {
+    width: 500px;
+    top: 6px;
+  }
   .needle--left { left: -200px; }
   .needle--right { right: -200px; }
 }
 
+@media (max-width: $screen-md-max) and (orientation: landscape) {
+  .needle {
+    width: 500px;
+  }
+}
+
 @media (max-width: $screen-xs-max) {
-  .needle { width: 450px; }
+  .needle { width: 465px; }
   .needle--left { left: -70%; }
   .needle--right { right: -70%; }
 }

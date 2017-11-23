@@ -20,5 +20,22 @@
 }
 
 @media (max-width: $screen-md-max) {
-  .knit__scarf { width: 98%; }
+  .knit__scarf {
+    width: 98%;
+    text-align: center;
+
+    .knit-tip { width: 100%; }
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .knit { padding-top: 25px; }
+
+  .knit__scarf {
+    svg {
+      width: 100%;
+      height: auto;
+      margin-top: -5px;
+    }
+  }
 }

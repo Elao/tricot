@@ -234,7 +234,7 @@ export default class Tricot extends Component {
         </div>
         <div className="container main-container">
           {!end && <ArrowTunel warmup={warmup} arrows={partition} answers={answers} current={index} tempo={tempo} pressed={pressed} />}
-          <div>
+          <div className="knit-container">
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
             <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />
             <div className="knit">

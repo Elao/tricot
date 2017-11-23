@@ -34,6 +34,13 @@ export default class Tricot extends Component {
   static ZONE = 0.5;
 
   /**
+   * Number of measures before song start
+   *
+   * @type {Number}
+   */
+  static WARMUP = 4;
+
+  /**
    * Generate a partition of the given length
    *
    * @param {Number} length
@@ -67,7 +74,7 @@ export default class Tricot extends Component {
    * Start the game
    */
   start() {
-    const { TEMPO, ZONE, generatePartition } = this.constructor;
+    const { TEMPO, WARMUP, ZONE, generatePartition } = this.constructor;
     const lines = Generator.generate();
     const partition = generatePartition(lines.length);
 
@@ -78,7 +85,7 @@ export default class Tricot extends Component {
         answers: [],
       },
       () => {
-        this.setState({ index: 0 });
+        this.setState({ index: -WARMUP });
         this.timer.start(TEMPO);
         this.audio.start(TEMPO, TEMPO * (1 - ZONE / 2));
       }
@@ -159,7 +166,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { TEMPO } = this.constructor;
+    const { TEMPO, WARMUP } = this.constructor;
     const { partition, lines, answers, index, pressed } = this.state;
     const needleClass = this.getNeedleClass();
     const beforeStart = index === null && answers.length === 0;
@@ -174,7 +181,7 @@ export default class Tricot extends Component {
         <KeyCatcher onKey={partition.length ? this.validate : this.start} keys={Key} />
         <AudioPlayer source={SONG} loop={LOOP} bpm={BPM} delay={DELAY} ref={audio => this.audio = audio} />
         <div className="container main-container">
-          {!end && <ArrowTunel arrows={partition} answers={answers} current={index} tempo={TEMPO} pressed={pressed} />}
+          {!end && <ArrowTunel warmup={WARMUP} arrows={partition} answers={answers} current={index} tempo={TEMPO} pressed={pressed} />}
           <div>
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
             <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />

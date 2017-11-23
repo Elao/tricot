@@ -14,11 +14,12 @@
   text-align: center;
   z-index: 101;
 
+  h2 { margin-bottom: 1px; }
+
   p {
     margin-top: 0;
     margin-bottom: 1px;
     text-align: center;
-    font-size: 20px;
   }
 }
 
@@ -49,59 +50,23 @@
   position: static;
   transform: none;
   margin: 50px auto;
+  padding: 50px 30px;
   background: rgba(255, 255, 255, .7);
   animation: slide 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
-  .end-panel__social-share {
+  .modal--end__results {
     display: flex;
-    justify-content: center;
-    margin-bottom: 35px;
-
-    .button { margin-right: 40px; }
-    .button:last-of-type { margin-right: 0; }
+    margin-bottom: 50px;
   }
 
-  p {
-    margin-top: 0;
-    margin-bottom: 1px;
-    text-align: center;
-
-    &:first-of-type {
-      font-size: 27px;
-      font-weight: 500;
-      letter-spacing: .05em;
-    }
-
-    &:last-of-type { font-size: 20px; }
+  h3 {
+    font-size: 27px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    margin-bottom: 0;
   }
 
-  .statistics {
-    display: flex;
-    margin-bottom: 45px;
-
-    dl {
-      display: flex;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      text-align: center;
-      padding: 3px;
-
-      &:nth-of-type(1) { border-right: solid 1px; }
-    }
-
-    dd {
-      margin: 0;
-      margin-right: 15px;
-      font-size: 19px;
-    }
-
-    dt {
-      font-size: 26px;
-      font-weight: 500;
-    }
-  }
+  p { font-size: 20px; }
 }
 
 .modal--audio {

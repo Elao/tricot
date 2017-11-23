@@ -1,0 +1,22 @@
+.social-share {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding-left: 50px;
+
+  p {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.social-share__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .button { margin-right: 25px; }
+  .button:last-of-type { margin-right: 0; }
+}

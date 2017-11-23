@@ -22,10 +22,22 @@ export default class End extends Component {
               <dt>{getLongestStreak(answers)}</dt>
             </dl>
           </div>
-          <a href={this.props.link} target="_blank">
-            Partager
-          </a>
-          <p>Un projet web à tricoter ?</p>
+          <h2>Partager votre écharpe</h2>
+          <div className="end-panel__social-share">
+            <a href={this.props.link} target="_blank" className="button button--social">
+              <span className="icon facebook--full"></span>
+              Sur Facebook
+            </a>
+            <a href={this.props.link} target="_blank" className="button button--social">
+              <span className="icon twitter"></span>
+              Sur Twitter
+            </a>
+            <a href={this.props.link} target="_blank" className="button button--social">
+              <span className="icon linkedin--full"></span>
+              Sur Linkedin
+            </a>
+          </div>
+          <h2>Un projet web à tricoter ?</h2>
           <p>Faites appel à une équipe d'experts.</p>
           <div className="modal__buttons">
             <a href="https://elao.com" target="_blank" className="button">Découvrir élao</a>

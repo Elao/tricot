@@ -41,5 +41,10 @@
   &.difficulty--2:before { content: "\e90c\e90c"; }
   &.difficulty--3:before { content: "\e90c\e90c\e90c"; }
   &.difficulty--4:before { content: "\e90c\e90c\e90c\e90c"; }
+  &.facebook:before { content: "\ea90"; }
+  &.facebook--full:before { content: "\ea91"; }
+  &.twitter:before { content: "\ea96"; }
+  &.linkedin--full:before { content: "\eac9"; }
+  &.linkedin:before { content: "\eaca"; }
 }
 

@@ -1,15 +1,19 @@
-.audio {
+.options {
   position: fixed;
-  top: 1em;
-  right: 1em;
-  background: none;
-  border: 0;
-  color: $text--dark;
-  font-size: 25px;
-  line-height: normal;
-  overflow: visible;
-  padding: 0;
-  cursor: pointer;
-  text-shadow: $text-shadow;
+  top: 0;
+  right: 0;
   z-index: 100;
+  display: flex;
+
+  button {
+    background: none;
+    border: 0;
+    color: $text--dark;
+    font-size: 25px;
+    line-height: normal;
+    overflow: visible;
+    padding: 1em;
+    cursor: pointer;
+    text-shadow: $text-shadow;
+  }
 }

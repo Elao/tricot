@@ -31,5 +31,7 @@
   &.left--empty:before { content: "\e908"; }
   &.right--empty:before { content: "\e909"; }
   &.top--empty:before { content: "\e90a"; }
+  &.fullscreen-off:before { content: "⇲"; }
+  &.fullscreen-on:before { content: "⇱"; }
 }
 

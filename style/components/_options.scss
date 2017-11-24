@@ -15,12 +15,6 @@
     padding: 1em;
     cursor: pointer;
     text-shadow: $text-shadow;
+    outline: none;
   }
-}
-
-.credits {
-  z-index: 100;
-  position: fixed;
-  right: 0;
-  bottom: 0;
 }

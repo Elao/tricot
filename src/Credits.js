@@ -21,7 +21,7 @@ export default class Credits extends Component {
     }
 
     renderButton() {
-        return <button className="icon credits" onClick={this.open}>Crédits</button>;
+        return <button className="options icon credits" onClick={this.open}></button>;
     }
 
     render() {
@@ -32,15 +32,13 @@ export default class Credits extends Component {
         }
 
         return (
-            <div className="modal credits">
-                <button className="icon credits--close" onClick={this.close}>Fermer</button>
-
+            <div className="modal modal--credits">
+                <button className="icon close" onClick={this.close}></button>
                 <h3>Open-source</h3>
                 <ul>
                     <li>Licence MIT</li>
                     <li><a href="https://github.com/Elao/tricot">Sources du projet</a></li>
                 </ul>
-
                 <h3>Contributions</h3>
                 <ul>
                     <li>Amélie</li>
@@ -59,16 +57,16 @@ export default class Credits extends Component {
 
                 <h4>Images par <a href="https://www.freepik.com/">freepik.com</a></h4>
                 <ul>
-                    <li><a href="">Montagnes</a><small>modifié</small></li>
-                    <li><a href="">Pompons</a><small>modifié</small></li>
+                    <li><a href="">Montagnes</a> <small>modifié</small></li>
+                    <li><a href="">Pompons</a> <small>modifié</small></li>
                 </ul>
 
                 <h4>Iconographie par <a href="https://thenounproject.com/">the Noun Project</a></h4>
                 <ul>
-                    <li><a href=""><em>Casque</em> - <strong>Aleksandr Vector</strong></a><small>modifié</small></li>
-                    <li><a href=""><em>Pompons</em> - <strong>Landan Lloyd</strong></a><small>modifié</small></li>
-                    <li><a href=""><em>Pelotte</em> - <strong>Symbolon</strong></a><small>modifié</small></li>
-                    <li><a href=""><em>Aiguilles</em> - <strong>Gemma Garner</strong></a><small>modifié</small></li>
+                    <li><a href=""><em>Casque</em> - <strong>Aleksandr Vector</strong></a> <small>modifié</small></li>
+                    <li><a href=""><em>Pompons</em> - <strong>Landan Lloyd</strong></a> <small>modifié</small></li>
+                    <li><a href=""><em>Pelotte</em> - <strong>Symbolon</strong></a> <small>modifié</small></li>
+                    <li><a href=""><em>Aiguilles</em> - <strong>Gemma Garner</strong></a> <small>modifié</small></li>
                 </ul>
 
                 <hr />

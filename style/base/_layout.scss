@@ -36,7 +36,11 @@ header {
   position: absolute;
   top: 0;
 
-  a { display: flex; }
+  a {
+    display: flex;
+    position: absolute;
+    z-index: 200;
+  }
 
   img {
     width: 130px;

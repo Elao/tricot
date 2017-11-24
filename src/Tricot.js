@@ -180,8 +180,8 @@ export default class Tricot extends Component {
     const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay } = this.state;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
-    const beforeStart = !playing && !answers.length;
-    const end = !playing && answers.length;
+    const beforeStart = !playing && answers.length === 0;
+    const end = !playing && answers.length > 0;
 
     document.body.className = end ? 'end' : '';
 

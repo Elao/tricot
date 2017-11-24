@@ -41,3 +41,26 @@ export const reindeerRight = [
   repeat('  v         v  '),
   repeat(' v             '),
 ];
+
+export const tree = [
+    repeat('        v      v              '),
+    repeat('        v   v            v    '),
+    repeat('      vvvvv           v       '),
+    repeat('        v     v            v  '),
+    repeat('      vvvvv             v     '),
+    repeat('     v  v  v                  '),
+    repeat('       vvv             v      '),
+    repeat('     vvvvvvv        v  v   v  '),
+    repeat('    vvv v vvv         vvv     '),
+    repeat('   vv  vvv  vv         v      '),
+    repeat('     vvvvvvv          vvv     '),
+    repeat('   vvvvvvvvvvv       v v v    '),
+    repeat('   vvv  v  vvv        vvv     '),
+    repeat('  vv  vvvvv  vv      vvvvv    '),
+    repeat('    vvvvvvvvv       vv v vv   '),
+    repeat('   vvv vvv vvv        vvv     '),
+    repeat(' vvv vvvvvvv vvv     vvvvv    '),
+    repeat('  vv vv v vv vv     vv v vv   '),
+    repeat('  v     v     v    vv vvv vv  '),
+    repeat('vvvvvvvv vvvvvvvvvvvvvv vvvvvv'),
+];

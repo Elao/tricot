@@ -14,7 +14,10 @@
 
   svg {
     width: 720px;
-    background: #681615;
+    background: linear-gradient(0deg, #681615, #681615);
+    background-size: 712px 100%;
+    background-position: center;
+    background-repeat-x: no-repeat;
     margin: 0;
   }
 

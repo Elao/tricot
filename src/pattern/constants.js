@@ -24,5 +24,5 @@ export const LINE = 60;
  * @return {String}
  */
 export function repeat(pattern, line = LINE) {
-  return pattern.repeat(line / pattern.length);
+  return pattern.repeat(Math.ceil(line / pattern.length)).slice(0, line);
 }

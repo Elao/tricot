@@ -17,3 +17,10 @@
     text-shadow: $text-shadow;
   }
 }
+
+.credits {
+  z-index: 100;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}

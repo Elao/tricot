@@ -4,6 +4,7 @@ import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
 import KeyCatcher from './KeyCatcher';
 import AudioPlayer from './AudioPlayer';
+import Fullscreen from './Fullscreen';
 import Scarf from './Scarf';
 import Help from './Help';
 import End from './End';
@@ -188,7 +189,10 @@ export default class Tricot extends Component {
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
         {end && <End answers={answers} replay={this.onKey} />}
         <KeyCatcher onKey={playing ? this.validate : this.onKey} keys={Key} />
-        <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
+        <div className="options">
+          <Fullscreen />
+          <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
+        </div>
         <div className="container main-container">
           {!end && <ArrowTunel warmup={warmup} arrows={partition} answers={answers} current={index} tempo={tempo} pressed={pressed} />}
           <div>

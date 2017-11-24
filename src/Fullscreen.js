@@ -25,6 +25,7 @@ export default class Fullscreen extends Component {
         if (typeof target.exitFullscreen === 'function') { return target.exitFullscreen(); }
         if (typeof target.webkitExitFullscreen === 'function') { return target.webkitExitFullscreen(); }
         if (typeof target.mozExitFullScreen === 'function') { return target.mozExitFullScreen(); }
+        if (typeof target.mozCancelFullScreen === 'function') { return target.mozCancelFullScreen(); }
         if (typeof target.msExitFullscreen === 'function') { return target.msExitFullscreen(); }
     }
 

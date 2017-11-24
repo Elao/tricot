@@ -70,3 +70,10 @@ export const largeLine = [
   repeat('   v v v  '),
   repeat('vvvvvvvvvv'),
 ];
+
+export const mediumLine = [
+    repeat('vv'),
+    repeat(' v'),
+    repeat('v '),
+    repeat('vv'),
+];

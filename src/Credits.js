@@ -21,7 +21,7 @@ export default class Credits extends Component {
     }
 
     renderButton() {
-        return <button className="options icon credits" onClick={this.open}></button>;
+        return <button className="icon credits" onClick={this.open}></button>;
     }
 
     render() {

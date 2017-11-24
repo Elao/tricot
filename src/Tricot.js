@@ -5,6 +5,7 @@ import ArrowTunel from './ArrowTunel';
 import KeyCatcher from './KeyCatcher';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
+import Credits from './Credits';
 import Scarf from './Scarf';
 import Help from './Help';
 import End from './End';
@@ -190,6 +191,7 @@ export default class Tricot extends Component {
         {end && <End answers={answers} replay={this.onKey} />}
         <KeyCatcher onKey={playing ? this.validate : this.onKey} keys={Key} />
         <div className="options">
+          <Credits />
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
         </div>

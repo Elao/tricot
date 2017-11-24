@@ -99,3 +99,40 @@
   h2 { font-size: 30px; }
   .icon { padding-right: 20px; }
 }
+
+.modal--credits {
+  position: absolute;
+  top: 80px;
+  transform: translateX(-50%);
+  padding: 25px 30px 60px;
+  display: flex;
+  flex-direction: column;
+
+  .close {
+    margin-left: auto;
+    margin-bottom: auto;
+    border: none;
+    font-size: 20px;
+    background: transparent;
+    color: $text;
+    cursor: pointer;
+    outline: none;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  a {
+    color: $text--dark;
+    font-weight: 500;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $text--dark;
+    }
+  }
+}

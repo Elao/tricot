@@ -1,7 +1,8 @@
-import audio from '../../assets/audio/christmas_song.mp3';
+import christmasSong from '../../assets/audio/christmas_song.mp3';
 
-export const BPM = 130;
-export const DELAY = 0;
-export const LOOP = true;
-
-export default audio;
+export const audio = christmasSong;
+export const bpm = 130;
+export const tempo = 60000 / bpm;
+export const delay = 0;
+export const loop = true;
+export const warmup = 4;

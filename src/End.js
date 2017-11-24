@@ -26,8 +26,8 @@ export default class End extends Component {
           <p>Faites appel à une équipe d'experts.</p>
           <div className="modal__buttons">
             <a href="mailto: contact@elao.com" className="button">Contactez élao</a>
-            <button className="button button--light">
-              <span className="arrow up"></span>
+            <button className="button button--light" onClick={this.props.replay}>
+              <span className="icon arrow down"></span>
               Rejouer
             </button>
           </div>

@@ -55,6 +55,17 @@ class Enum {
   }
 
   /**
+   * Generate an array of the given length filled with random values
+   *
+   * @param {Number} length
+   *
+   * @return {Array}
+   */
+  static getRandoms(length = 50) {
+    return new Array(length).fill(null).map(() => this.getRandom());
+  }
+
+  /**
    * Return the value, whether it's an instance of the value itself.
    *
    * @param {Enum|String} value

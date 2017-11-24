@@ -16,17 +16,14 @@ export default class AudioPlayer extends Component {
     this.bellInterval = null;
     this.songInterval = null;
 
-    this.bells = [new Audio(BELL), new Audio(BELL)/*, new Audio(BELL)*/];
+    this.bells = [new Audio(BELL), new Audio(BELL)];
     this.fire = new Audio(FIRE);
     this.wind = new Audio(WIND);
-    this.song = new Audio(props.source);
+    this.song = new Audio();
     this.final = new Audio(MERRY_CHRISTMAS);
 
     this.fire.loop = true;
     this.wind.loop = true;
-    this.song.bpm = props.bpm;
-    this.song.delay = props.delay;
-    this.song.repeatable = props.loop;
     this.bells.delay = 110;
 
     this.song.volume = 0.8;
@@ -50,8 +47,13 @@ export default class AudioPlayer extends Component {
     this.playBackground();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { muted, authorized } = this.state;
+    const { source, bpm, delay, loop } = this.props;
+
+    if (source && (source !== prevProps.source)) {
+      this.song.src = source;
+    }
 
     if (muted !== prevState.muted) {
       this.bells.forEach(bell => bell.muted = muted);
@@ -82,15 +84,15 @@ export default class AudioPlayer extends Component {
     const bellPlaybackRate = (this.bells[0].duration * 1000) / tempo;
     this.bells.forEach(bell => bell.playbackRate = bellPlaybackRate);
 
-    this.song.playbackRate = (60000 / tempo) / this.song.bpm;
+    this.song.playbackRate = (60000 / tempo) / this.props.bpm;
 
     if (this.song.playbackRate < 1) {
       this.song.playbackRate = this.song.playbackRate * 2;
     }
 
-    const songDelay = this.song.delay / this.song.playbackRate;
+    const songDelay = this.props.delay / this.song.playbackRate;
 
-    if (this.song.repeatable) {
+    if (this.props.loop) {
       const songDuration = (this.song.duration / this.song.playbackRate) * 1000;
 
       setTimeout(
@@ -158,6 +160,7 @@ export default class AudioPlayer extends Component {
 
     this.final.play();
     this.song.pause();
+    this.song.currentTime = 0;
   }
 
   /**

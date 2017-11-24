@@ -40,3 +40,13 @@ export const largeLine = [
   repeat(' v       v'),
   repeat('v         '),
 ];
+
+export const gift = [
+    repeat('    v   v   '),
+    repeat('   vvv vvv  '),
+    repeat('      v     '),
+    repeat('  vvvvvvvvv '),
+    repeat('  vvvvvvvvv '),
+    repeat('  vvvvvvvvv '),
+    repeat('  vvvvvvvvv '),
+];

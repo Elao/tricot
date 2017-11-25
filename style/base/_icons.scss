@@ -35,5 +35,7 @@
   &.fullscreen-on:before { content: "\e989"; }
   &.close:before { content: "\ea0f"; }
   &.credits:before { content: "\e90b"; }
+  &.select-open:before { content: "▲"; }
+  &.select-closed:before { content: "▼"; }
 }
 

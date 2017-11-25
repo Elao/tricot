@@ -1,0 +1,25 @@
+.song-selector {
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+  position: relative;
+  height: 1em;
+
+  .song--list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 1em;
+  }
+
+  .icon {
+    height: 1em;
+  }
+
+  .song--label {
+    flex: 0;
+    font-size: 1em;
+    line-height: 1em;
+    margin: 0;
+  }
+}

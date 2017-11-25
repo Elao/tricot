@@ -25,7 +25,7 @@ export default class ArrowTunel extends Component {
     }
 
     return {
-      transform: `translateY(${((current + warmup) * height)}vh)`,
+      transform: `translateY(${((current + warmup.length) * height)}vh)`,
       transitionDuration: `${arrows.length === 0 ? 0 : tempo}ms`,
     };
   }
@@ -79,12 +79,12 @@ export default class ArrowTunel extends Component {
     const classes = ['arrow countdown'];
     const style = { animationDelay: `${tempo * 0.5}ms` };
 
-    if ((current + warmup) >= index) {
+    if ((current + warmup.length) >= index) {
       classes.push('success');
     }
 
     return <li key={`countdown-${index}`} style={style} className={classes.join(' ')}>
-      {index + 1}
+      {value}
     </li>;
   }
 
@@ -99,7 +99,7 @@ export default class ArrowTunel extends Component {
           {this.renderHighlight(Key.RIGHT)}
         </ul>
         <ul className="arrow-tunnel__slider" style={this.getSliderStyle()}>
-          {current !== null && new Array(warmup).fill(null).map(this.renderCountdown)}
+          {current !== null && warmup.map(this.renderCountdown)}
           {current !== null && arrows.map(this.renderArrow)}
         </ul>
       </div>

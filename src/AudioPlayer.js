@@ -14,7 +14,6 @@ export default class AudioPlayer extends Component {
     };
 
     this.bellInterval = null;
-    this.songInterval = null;
 
     this.bells = [new Audio(BELL), new Audio(BELL)];
     this.fire = new Audio(FIRE);
@@ -24,13 +23,13 @@ export default class AudioPlayer extends Component {
 
     this.fire.loop = true;
     this.wind.loop = true;
-    this.bells.delay = 110;
+    this.bells.delay = 20;
 
     this.song.volume = 0.8;
-    this.bells.forEach(bell => bell.volume = 0.2);
+    this.bells.forEach(bell => bell.volume = 0.3);
     this.final.volume = 0.8;
-    this.fire.volume = 1;
-    this.wind.volume = 0.5;
+    this.fire.volume = 0.6;
+    this.wind.volume = 0.3;
 
     this.playBell = this.playBell.bind(this);
     this.playSong = this.playSong.bind(this);
@@ -49,7 +48,7 @@ export default class AudioPlayer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { muted, authorized } = this.state;
-    const { source, bpm, delay, loop } = this.props;
+    const { source, bpm, delay } = this.props;
 
     if (source && (source !== prevProps.source)) {
       this.song.src = source;
@@ -77,43 +76,18 @@ export default class AudioPlayer extends Component {
    * @param {Number} delay
    */
   start(tempo, delay = 0) {
-    if (this.bellInterval) {
-      return;
-    }
-
-    const bellPlaybackRate = (this.bells[0].duration * 1000) / tempo;
-    this.bells.forEach(bell => bell.playbackRate = bellPlaybackRate);
-
     this.song.playbackRate = (60000 / tempo) / this.props.bpm;
 
-    if (this.song.playbackRate < 1) {
+    if (this.song.playbackRate > 1.5) {
+      this.song.playbackRate = this.song.playbackRate / 2;
+    }
+
+    if (this.song.playbackRate < 0.75) {
       this.song.playbackRate = this.song.playbackRate * 2;
     }
 
-    const songDelay = this.props.delay / this.song.playbackRate;
-
-    if (this.props.loop) {
-      const songDuration = (this.song.duration / this.song.playbackRate) * 1000;
-
-      setTimeout(
-        () => {
-          this.test = Date.now();
-          this.tempo = tempo;
-
-          this.songInterval = setInterval(this.playSong, Math.ceil(songDuration / tempo) * tempo);
-          this.playSong();
-        },
-        delay - songDelay
-      );
-    } else {
-      setTimeout(this.playSong(), delay - songDelay);
-    }
-
-    // Bell interval
-    setTimeout(
-      () => this.bellInterval = setInterval(this.playBell, tempo),
-      delay - this.bells.delay
-    );
+    setTimeout(this.playSong, delay - (this.props.delay / this.song.playbackRate));
+    setTimeout(() => this.bellInterval = setInterval(this.playBell, tempo), delay - this.bells.delay);
   }
 
   /**
@@ -156,7 +130,6 @@ export default class AudioPlayer extends Component {
    */
   end() {
     this.bellInterval = clearInterval(this.bellInterval);
-    this.songInterval = clearInterval(this.songInterval);
 
     this.final.play();
     this.song.pause();

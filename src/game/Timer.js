@@ -11,9 +11,8 @@ export default class Timer {
     start(tempo) {
         if (!this.interval) {
             this.tempo = tempo;
-            this.interval = setInterval(this.tick, tempo);
             this.time = Date.now();
-            //this.tick();
+            this.interval = setInterval(this.tick, tempo);
         }
     }
 

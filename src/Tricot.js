@@ -52,7 +52,6 @@ export default class Tricot extends Component {
     this.onKey = this.onKey.bind(this);
 
     this.timer = new Timer(this.tick);
-    this.keyTimeout = null;
   }
 
   componentDidMount() {
@@ -119,20 +118,13 @@ export default class Tricot extends Component {
   validate(answer, date = Date.now()) {
     const { ZONE } = this.constructor;
     const { partition, index, answers, tempo } = this.state;
-    const state = { pressed: answer };
-
-    if (this.keyTimeout) {
-      this.keyTimeout = clearTimeout(this.keyTimeout);
-    }
 
     if (index === answers.length) {
       const ratio = 1 - ((this.timer.getTime(date) % tempo) / tempo);
       const succes = ratio <= ZONE && answer === partition[index];
 
-      state.answers = answers.concat([succes]);
+      this.setState({ answers: answers.concat([succes]) });
     }
-
-    this.setState(state, () => setTimeout(() => this.setState({ pressed: false }), 300));
   }
 
   /**
@@ -154,8 +146,16 @@ export default class Tricot extends Component {
     this.setState(state);
   }
 
-  onKey() {
-    this.reset();
+  onKey(pressed) {
+    if (pressed !== null) {
+      if (this.state.index !== null) {
+        this.validate(pressed);
+      } else {
+        this.reset();
+      }
+    }
+
+    this.setState({ pressed });
   }
 
   /**
@@ -189,7 +189,7 @@ export default class Tricot extends Component {
       <div>
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
         {end && <End answers={answers} replay={this.onKey} />}
-        <KeyCatcher onKey={playing ? this.validate : this.onKey} keys={Key} />
+        <KeyCatcher onKey={this.onKey} keys={Key} />
         <div className="options">
           <Credits />
           <Fullscreen />

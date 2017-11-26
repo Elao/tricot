@@ -16,7 +16,6 @@ import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
 import stitchFront from '../assets/images/upper-stitch--front.svg';
 import stitchBack from '../assets/images/upper-stitch--back.svg';
-import knit from '../assets/images/knit.svg';
 import * as ChristmasSong from './track/ChristmasSong';
 import * as JingleBells from './track/JingleBells';
 
@@ -204,9 +203,7 @@ export default class Tricot extends Component {
               <div className="knit__scarf">
                 <img src={stitchFront} alt="" className="upper-stitch upper-stitch--front" />
                 <img src={stitchBack} alt="" className="upper-stitch upper-stitch--back" />
-                {end && <img src={knit} className="knit-tip reverse" alt="" />}
                 <Scarf tempo={tempo} lines={lines} answers={answers} />
-                <img src={knit} className="knit-tip" alt="" />
               </div>
             </div>
           </div>

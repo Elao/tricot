@@ -1,0 +1,23 @@
+.song-selector {
+  display: flex;
+  align-self: center;
+  font-size: 18px;
+  width: 220px;
+  border: solid 2px $text--dark;
+  padding: 5px 15px;
+  border-radius: 2px;
+  background-color: #d0ecef;
+}
+
+.song-selector__list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-selector__button {
+  align-self: flex-start;
+  font-size: 20px;
+  position: relative;
+  top: 5px;
+}

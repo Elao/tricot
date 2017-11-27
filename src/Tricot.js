@@ -6,6 +6,7 @@ import KeyCatcher from './KeyCatcher';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
 import Credits from './Credits';
+import SongSelector from './SongSelector';
 import Scarf from './Scarf';
 import Help from './Help';
 import End from './End';
@@ -16,8 +17,7 @@ import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
 import stitchFront from '../assets/images/upper-stitch--front.svg';
 import stitchBack from '../assets/images/upper-stitch--back.svg';
-import * as ChristmasSong from './track/ChristmasSong';
-import * as JingleBells from './track/JingleBells';
+import Songs from './track';
 
 export default class Tricot extends Component {
   /**
@@ -48,19 +48,16 @@ export default class Tricot extends Component {
     this.stop = this.stop.bind(this);
     this.tick = this.tick.bind(this);
     this.validate = this.validate.bind(this);
+    this.loadSong = this.loadSong.bind(this);
     this.onKey = this.onKey.bind(this);
 
     this.timer = new Timer(this.tick);
   }
 
-  componentDidMount() {
-    this.loadSong();
-  }
-
   /**
    * Load a song
    */
-  loadSong(song = ChristmasSong) {
+  loadSong(song = Songs[0]) {
     const { audio, loop, bpm, delay, tempo, warmup } = song;
 
     this.setState({
@@ -91,7 +88,7 @@ export default class Tricot extends Component {
     const { ZONE } = this.constructor;
     const { tempo, warmup } = this.state;
 
-    this.setState({ index: -warmup });
+    this.setState({ index: -warmup.length });
     this.timer.start(tempo);
     this.audio.start(tempo, tempo * (1 - ZONE / 2));
   }
@@ -190,6 +187,7 @@ export default class Tricot extends Component {
         {end && <End answers={answers} replay={this.onKey} />}
         <KeyCatcher onKey={this.onKey} keys={Key} />
         <div className="options">
+          <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
           <Credits />
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />

@@ -1,8 +1,8 @@
 import jingleBells from '../../assets/audio/jinglebells.mp3';
 
+export const title = 'Jingle Bells';
 export const audio = jingleBells;
-export const tempo = 306.5;
-export const bpm = 60000 / tempo;
+export const bpm = 98;
+export const tempo = Math.round(60000 / 190);
 export const delay = 106;
-export const loop = false;
-export const warmup = 8;
+export const warmup = [1, 2, 3, 4, 1, 2, 3, 4];

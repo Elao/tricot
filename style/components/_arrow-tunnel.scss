@@ -44,18 +44,18 @@
     &.success:before {
       color: $primary;
       animation: puff-out .6s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
-      transition: color ease-in .1s;
     }
+
     &.error:before {
-      color: $primary--dark;
+      color: #999;
       animation: shake .6s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-      transition: color ease-in .1s;
     }
 
     &.down:before {
       margin-right: auto;
       margin-left: auto;
     }
+
     &.left:before { margin-right: auto; }
     &.right:before { margin-left: auto; }
 
@@ -91,7 +91,7 @@
   box-sizing: border-box;
 
   .arrow {
-    color: #86c0b6;
+    color: #68a5b3;
     font-size: $zone * $arrow-height;
 
     &.down { margin: 0 auto; }
@@ -99,7 +99,8 @@
     &.right { margin-left: auto; }
 
     &.active {
-      animation: pressed .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+      animation: highlightZone 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both infinite;
+      transform-origin: center center;
     }
   }
 }

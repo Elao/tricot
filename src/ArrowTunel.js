@@ -55,18 +55,23 @@ export default class ArrowTunel extends Component {
   }
 
   renderHighlight(arrow) {
-    const { pressed } = this.props;
+    const { pressed, arrows, current, tempo } = this.props;
+    const expected = arrows[current];
+    const style = { animationDuration: `${tempo}ms` };
     const classes = [
       'icon arrow',
       Key.getClass(arrow),
-      `${Key.getClass(arrow)}--empty`,
     ];
 
-    if (arrow === pressed) {
+    if (arrow !== pressed) {
+      classes.push(`${Key.getClass(arrow)}--empty`);
+    }
+
+    if (arrow === expected) {
       classes.push('active');
     }
 
-    return <li className={classes.join(' ')}></li>;
+    return <li style={style} className={classes.join(' ')}></li>;
   }
 
   renderCountdown(value, index) {

@@ -4,11 +4,15 @@ export default class KeyCatcher extends Component {
   constructor() {
     super();
 
+    this.key = null;
+
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
   }
 
   /**
@@ -18,7 +22,7 @@ export default class KeyCatcher extends Component {
    */
   onKeyDown(event) {
     const { key } = event;
-    const { keys, onKey } = this.props;
+    const { keys } = this.props;
 
     if (!keys.accepts(key)) {
       return;
@@ -26,7 +30,18 @@ export default class KeyCatcher extends Component {
 
     event.preventDefault();
 
-    onKey(key);
+    this.setKey(key);
+  }
+
+  onKeyUp() {
+    this.setKey(null);
+  }
+
+  setKey(key = null) {
+    if (key !== this.key) {
+      this.key = key;
+      this.props.onKey(this.key);
+    }
   }
 
   render() {

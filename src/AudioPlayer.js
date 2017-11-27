@@ -14,6 +14,7 @@ export default class AudioPlayer extends Component {
     };
 
     this.bellInterval = null;
+    this.fadeInterval = null;
 
     this.bells = [new Audio(BELL), new Audio(BELL)];
     this.fire = new Audio(FIRE);
@@ -37,6 +38,7 @@ export default class AudioPlayer extends Component {
     this.toggle = this.toggle.bind(this);
     this.disable = this.disable.bind(this);
     this.end = this.end.bind(this);
+    this.fadeOut = this.fadeOut.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
   }
@@ -132,8 +134,21 @@ export default class AudioPlayer extends Component {
     this.bellInterval = clearInterval(this.bellInterval);
 
     this.final.play();
-    this.song.pause();
-    this.song.currentTime = 0;
+    this.fadeInterval = setInterval(this.fadeOut, 16);
+  }
+
+  /**
+   * Fade out volume of the song
+   */
+  fadeOut() {
+    this.song.volume = Math.max(0, this.song.volume - 0.01);
+
+    if (this.song.volume <= 0) {
+      this.fadeInterval = clearInterval(this.fadeInterval);
+      this.song.pause();
+      this.song.currentTime = 0;
+      this.song.volume = 0.8;
+    }
   }
 
   /**

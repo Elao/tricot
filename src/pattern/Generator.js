@@ -10,26 +10,23 @@ export default class Generator {
     /**
      * Generate a full pattern
      *
-     * @param {Number} composed
+     * @param {Number} length Number of line to generate
      *
      * @return {Array}
      */
-    static generate(composed) {
-        const lines = [];
+    static generate(length) {
+        const lines = [...this.random(this.getValues(HERO))];
+        let iteration = 1;
 
-        lines.push(
-            ...this.random(SIMPLE),
-            ...this.random(COMPOSED),
-            ...this.random(MEDIUM),
-            ...this.random(COMPOSED),
-            ...this.random(SIMPLE),
-            ...this.random(BIG),
-            ...this.random(SIMPLE),
-            ...this.random(COMPOSED),
-            ...this.random(MEDIUM),
-            ...this.random(COMPOSED),
-            ...this.random(SIMPLE),
-        );
+        while (lines.length < length) {
+            const big = (iteration++ % 3 === 0);
+            const type = big ? Object.assign({}, MEDIUM, BIG) :  Object.assign({}, SIMPLE, COMPOSED);
+            const pool = this.getValues(type, (length - lines.length) / 2);
+            const pattern = pool !== null ? this.random(pool) : one;
+
+            lines.unshift(...pattern);
+            lines.push(...pattern.reverse());
+        }
 
         return lines;
     }
@@ -42,7 +39,7 @@ export default class Generator {
      *
      * @return {String}
      */
-    static messUp(line, errors = 3) {
+    static messUp(line, errors = LINE / 10) {
         const messedUp = Array.from(line);
 
         for (let i = 0; i < errors; i++) {
@@ -58,14 +55,33 @@ export default class Generator {
      * Get a random pattern within the given set
      *
      * @param {Array} patterns
+     * @param {Array} spacer
      *
      * @return {Array}
      */
     static random(patterns, spacer = one) {
-        const values = Object.values(patterns);
-        const pattern = values[Math.floor(Math.random() * values.length)];
+        const pattern = patterns[Math.floor(Math.random() * patterns.length)];
 
-        return this.margin(pattern.slice(0).reverse());
+        return this.margin(pattern.slice(0).reverse(), spacer);
+    }
+
+    /**
+     * Filter patterns values by size
+     *
+     * @param {Array} patterns
+     * @param {Number} limit
+     * @param {Array} spacer
+     *
+     * @return {Array|null}
+     */
+    static getValues(patterns, limit = null, spacer = one) {
+        let values = Object.values(patterns);
+
+        if (limit !== null) {
+            values = values.filter(value => (value.length + (spacer.length * 2)) <= limit);
+        }
+
+        return values.length ? values : null;
     }
 
     /**

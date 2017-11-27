@@ -10,10 +10,10 @@
 @media (max-width: $screen-md-max) {
   .upper-stitch {
     top: -20px;
-    width: 140%;
+    width: 720px;
   }
 }
 
-@media (max-width: $screen-md-max) and (orientation: landscape) {
+@media (max-width: $screen-sm-max) {
   .upper-stitch { width: 100%; }
 }

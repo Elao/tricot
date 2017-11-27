@@ -46,10 +46,7 @@
 }
 
 @media (max-width: $screen-xs-max) {
-  .needle {
-    width: 450px;
-
-  }
+  .needle { width: 465px; }
   .needle--left { left: -70%; }
   .needle--right { right: -70%; }
 }

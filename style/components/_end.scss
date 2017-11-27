@@ -22,3 +22,14 @@
     }
   }
 }
+
+@media (max-width: $screen-sm-max) {
+  .end {
+    .end__title {
+      margin: 130px 0 30px;
+
+      .icon { font-size: 50px; }
+      h3 { font-size: 45px; }
+    }
+  }
+}

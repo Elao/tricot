@@ -13,6 +13,7 @@
   transform: translate3d(-50%, -50%, 0);
   text-align: center;
   z-index: 101;
+  box-sizing: border-box;
 
   p {
     margin-top: 0;
@@ -64,34 +65,6 @@
     }
 
     &:last-of-type { font-size: 20px; }
-  }
-
-  .statistics {
-    display: flex;
-    margin-bottom: 45px;
-
-    dl {
-      display: flex;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      text-align: center;
-      padding: 3px;
-
-      &:nth-of-type(1) { border-right: solid 1px; }
-    }
-
-    dd {
-      margin: 0;
-      margin-right: 15px;
-      font-size: 19px;
-    }
-
-    dt {
-      font-size: 26px;
-      font-weight: 500;
-    }
   }
 }
 
@@ -149,3 +122,54 @@
     }
   }
 }
+
+@media (max-width: $screen-lg-max) {
+  .modal--credits { top: 50px; }
+}
+
+@media (max-width: $screen-md-max) {
+  .modal {
+    width: 95vw;
+    max-width: 95vw;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .modal {
+    .modal__buttons {
+      flex-direction: column;
+      width: 80%;
+      margin: 30px auto 0 auto;
+
+      .button,
+      a { margin: 5px 0; }
+    }
+  }
+
+  .modal--end {
+    margin: 0 auto;
+    padding: 20px 10px;
+
+    p:first-of-type { font-size: 18px; }
+    p:last-of-type { font-size: 15px; }
+  }
+
+  .modal--credits {
+    padding: 20px 25px;
+    font-size: 15px;
+    top: 20px;
+
+    .close {
+      padding: 0;
+      font-size: 17px;
+    }
+
+    h3 {
+      margin: 5px 0 10px;
+      font-size: 18px;
+    }
+
+    p { font-size: 15px; }
+  }
+}
+

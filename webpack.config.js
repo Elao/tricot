@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const meta = require('./package.json');
 const production = process.env.NODE_ENV === 'production';
 const plugins = [
@@ -11,6 +12,9 @@ const plugins = [
   new ExtractTextPlugin({
     filename: 'app.css',
     allChunks: true,
+  }),
+  new HtmlWebpackPlugin({
+    template: `${__dirname}/index.html`,
   }),
 ];
 

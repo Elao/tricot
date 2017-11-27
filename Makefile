@@ -44,7 +44,12 @@ watch:
 ## Build application
 build: export NODE_ENV = production
 build:
+	rm -rf dist/*
 	./node_modules/.bin/webpack
+
+## Start a local server
+serve:
+	php -S 0.0.0.0:8000 -t ./dist
 
 ##########
 # Deploy #

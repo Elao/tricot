@@ -1,25 +1,21 @@
 .song-selector {
   display: flex;
-  justify-content: flex-end;
-  align-items: start;
+  align-self: center;
+  font-size: 18px;
+  width: 220px;
+  border: solid 2px $text--dark;
+  padding: 5px 15px;
+}
+
+.song-selector__list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-selector__button {
+  align-self: flex-start;
+  font-size: 20px;
   position: relative;
-  height: 1em;
-
-  .song--list {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 1em;
-  }
-
-  .icon {
-    height: 1em;
-  }
-
-  .song--label {
-    flex: 0;
-    font-size: 1em;
-    line-height: 1em;
-    margin: 0;
-  }
+  top: 5px;
 }

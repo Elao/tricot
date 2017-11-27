@@ -45,7 +45,7 @@ export default class SongSelector extends Component {
     }
 
     return (
-      <label key={id} htmlFor={id} className={`song--choice ${selected}`}>
+      <label key={id} htmlFor={id} className={`song ${selected}`}>
         <input
           type="radio"
           name="song-selector"
@@ -55,9 +55,9 @@ export default class SongSelector extends Component {
           disabled={disabled || !open}
           onChange={this.onChange}
         />
-        <em className="song--title">{title}</em>
-        <span className={`song--difficulty song--difficulty-${difficulty}`}>
-          {'❄️'.repeat(difficulty)}
+        <span className="song__title">
+          {title}
+          <span className={`icon difficulty difficulty--${difficulty}`}></span>
         </span>
       </label>
     );
@@ -74,8 +74,8 @@ export default class SongSelector extends Component {
 
     return (
       <div name="song-selector" className={`song-selector ${openClass}`}>
-        <div className="song--list">{songs.map(this.renderSong)}</div>
-        <button type="button" className={`icon select-${openClass}`} onClick={this.toggle}></button>
+        <div className="song-selector__list">{songs.map(this.renderSong)}</div>
+        <button type="button" className={`song-selector__button icon select-${openClass}`} onClick={this.toggle}></button>
       </div>
     );
   }

@@ -35,7 +35,11 @@
   &.fullscreen-on:before { content: "\e989"; }
   &.close:before { content: "\ea0f"; }
   &.credits:before { content: "\e90b"; }
-  &.select-open:before { content: "▲"; }
-  &.select-closed:before { content: "▼"; }
+  &.select-open:before { content: "\ea41"; }
+  &.select-closed:before { content: "\ea43"; }
+  &.difficulty--1:before { content: "\e90c"; }
+  &.difficulty--2:before { content: "\e90c\e90c"; }
+  &.difficulty--3:before { content: "\e90c\e90c\e90c"; }
+  &.difficulty--4:before { content: "\e90c\e90c\e90c\e90c"; }
 }
 

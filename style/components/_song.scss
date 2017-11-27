@@ -1,0 +1,38 @@
+.song {
+  margin: 0;
+
+  .open & {
+    &:hover {
+      text-indent: 1px;
+      transition: text-indent ease-in .15s;
+      cursor: pointer;
+    }
+  }
+
+  input { display: none; }
+
+  .difficulty {
+    font-size: 13px;
+    margin-left: 7px;
+    letter-spacing: 2px;
+  }
+}
+
+.song.true {
+  &:hover { pointer-events: none; }
+
+  .song__title { color: lighten($text--dark, 15%); }
+
+  .closed & {
+    .song__title { color: $text--dark; }
+  }
+}
+
+.song__title {
+  font-weight: 400;
+  font-style: italic;
+  color: $text--dark;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+}

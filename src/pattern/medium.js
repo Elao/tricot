@@ -55,3 +55,19 @@ export const simpleTree = [
     repeat('      v     '),
     repeat('      v     '),
 ];
+
+export const snowFlakeRect = [
+    repeat('    v   v   v   v '),
+    repeat('v v  v  vv vv  v  '),
+    repeat(' v      vv vv     '),
+    repeat('        vv vv     '),
+    repeat('    vvvv v v vvvv '),
+    repeat(' v   vvvv v vvvv  '),
+    repeat('v v      vvv      '),
+    repeat(' v   vvvv v vvvv  '),
+    repeat('    vvvv v v vvvv '),
+    repeat('        vv vv     '),
+    repeat(' v      vv vv     '),
+    repeat('v v  v  vv vv  v  '),
+    repeat('    v   v   v   v '),
+];

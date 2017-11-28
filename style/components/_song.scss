@@ -32,7 +32,15 @@
   font-weight: 400;
   font-style: italic;
   color: $text--dark;
-  padding: 4px 0;
+  padding: 5px 0;
   display: inline-flex;
   align-items: center;
+}
+
+@media (max-width: $screen-sm-max) {
+  .song {
+    .difficulty {
+      font-size: 11px;
+    }
+  }
 }

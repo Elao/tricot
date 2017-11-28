@@ -55,9 +55,9 @@ h1 {
   text-align: center;
   color: #fff;
   text-shadow: $text-shadow;
-  font-size: 55px;
+  font-size: 110px;
   position: absolute;
-  top: 120px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -91,7 +91,10 @@ h1 {
 
   .container { width: 100%; }
 
-  h1 { top: 100px; }
+  h1 {
+    font-size: 90px;
+    top: 80px;
+  }
 }
 
 @media (max-width: $screen-md-max) {
@@ -101,9 +104,16 @@ h1 {
     background-repeat: repeat-x;
   }
 
-  h1 { font-size: 50px; }
+  h1 { top: 100px; }
 }
 
-@media (max-width: $screen-md-max) and (orientation: landscape) {
-  h1 { top: 25px; }
+@media (max-width: $screen-sm-max) {
+  header {
+    img {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  h1 { font-size: 50px; }
 }

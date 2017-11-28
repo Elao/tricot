@@ -1,29 +1,36 @@
 .options {
   position: absolute;
-  top: 0;
+  top: 20px;
   right: 0;
   z-index: 100;
   display: flex;
-  width: 100%;
   justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
   z-index: 101;
 
   button {
     background: none;
     border: 0;
     color: $text--dark;
-    font-size: 1em;
+    font-size: 1.5em;
     line-height: 1em;
     overflow: visible;
-    padding: 0;
     cursor: pointer;
     text-shadow: $text-shadow;
     outline: none;
+    margin: .5em;
   }
 }
 
-@media (max-width: $screen-md-max) {
+@media (max-width: $screen-sm-max) {
   .options {
-    button { font-size: 20px; }
+    top: 10px;
+
+    button {
+      font-size: 20px;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }

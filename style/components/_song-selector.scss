@@ -2,11 +2,13 @@
   display: flex;
   align-self: center;
   font-size: 18px;
-  width: 220px;
+  width: 270px;
   border: solid 2px $text--dark;
-  padding: 5px 15px;
+  padding: 5px 20px;
   border-radius: 2px;
   background-color: #d0ecef;
+  box-sizing: border-box;
+  margin-right: 10px;
 }
 
 .song-selector__list {
@@ -17,7 +19,24 @@
 
 .song-selector__button {
   align-self: flex-start;
-  font-size: 20px;
+  font-size: 16px !important;
+  margin: 0 !important;
+  padding: 0 0 0 15px;
   position: relative;
-  top: 5px;
+  top: 8px;
+}
+
+@media (max-width: $screen-sm-max) {
+  .song-selector {
+    font-size: 12px;
+    width: 170px;
+    padding: 5px;
+    margin: 0 10px;
+  }
+
+  .song-selector__button {
+    font-size: 14px !important;
+    padding-left: 5px;
+    top: 5px;
+  }
 }

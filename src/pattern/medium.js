@@ -40,3 +40,18 @@ export const largeLine = [
   repeat(' v       v'),
   repeat('v         '),
 ];
+
+export const simpleTree = [
+    repeat('      v     '),
+    repeat('      v     '),
+    repeat('     vvv    '),
+    repeat('    vvvvv   '),
+    repeat('     vvv    '),
+    repeat('    vvvvv   '),
+    repeat('   vvvvvvv  '),
+    repeat('    vvvvv   '),
+    repeat('   vvvvvvv  '),
+    repeat('  vvvvvvvvv '),
+    repeat('      v     '),
+    repeat('      v     '),
+];

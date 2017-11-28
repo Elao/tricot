@@ -21,6 +21,11 @@
     outline: none;
     margin: .5em;
   }
+
+  &.hidden {
+    top: -100%;
+    transition: ease-in .2s;
+  }
 }
 
 @media (max-width: $screen-sm-max) {

@@ -58,7 +58,7 @@ export default class Tricot extends Component {
    * Load a song
    */
   loadSong(song = Songs[0]) {
-    const { audio, loop, bpm, delay, tempo, warmup } = song;
+    const { audio, loop, bpm, delay, tempo, warmup, duration } = song;
 
     this.setState({
       audio,
@@ -67,11 +67,13 @@ export default class Tricot extends Component {
       delay,
       tempo,
       warmup,
+      duration,
     });
   }
 
   reset() {
-    const lines = Generator.generate();
+    const { duration, warmup, tempo, bpm } = this.state;
+    const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
     const partition = Key.getRandoms(lines.length);
 
     this.setState({

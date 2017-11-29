@@ -2,7 +2,7 @@
   width: 900px;
   font-size: 18px;
   font-weight: 400;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .95);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, .2);
   padding: 60px 30px;
@@ -41,7 +41,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, .4);
   z-index: 100;
 }
 
@@ -101,23 +101,35 @@
 }
 
 .modal--credits {
+  width: 700px;
   position: absolute;
-  top: 80px;
   transform: translateX(-50%);
   padding: 25px 30px 60px;
   display: flex;
   flex-direction: column;
+  font-size: 16px;
+  border-radius: 5px;
+  animation: fade 0.3s ease-in both;
 
   .close {
-    margin-left: auto;
-    margin-bottom: auto;
+    position: absolute;
+    right: 25px;
     border: none;
-    font-size: 20px;
+    font-size: 28px;
     background: transparent;
     color: $text;
     cursor: pointer;
     outline: none;
   }
+
+  h3 {
+    text-transform: uppercase;
+    margin: 20px 0;
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  p { font-size: 16px; }
 
   ul {
     list-style: none;
@@ -128,6 +140,7 @@
   a {
     color: $text--dark;
     font-weight: 500;
+    text-decoration: none;
 
     &:hover,
     &:active,

@@ -10,6 +10,7 @@ import Help from './Help';
 import End from './End';
 import * as Key from './game/Key';
 import KeyCatcher from './game/KeyCatcher';
+import ResetCatcher from './game/ResetCatcher';
 import Timer from './game/Timer';
 import '../assets/images/elao.svg';
 import needleLeft from '../assets/images/needle-left.png';
@@ -50,10 +51,11 @@ export default class Tricot extends Component {
     this.validate = this.validate.bind(this);
     this.loadSong = this.loadSong.bind(this);
     this.checkStop = this.checkStop.bind(this);
-    this.onKey = this.onKey.bind(this);
+    this.reset = this.reset.bind(this);
 
     this.timer = new Timer(this.tick);
-    this.catcher = new KeyCatcher(Key, this.onKey);
+    this.keyCatcher = new KeyCatcher(Key, this.validate);
+    this.resetCatcher = new ResetCatcher(Key, this.reset);
   }
 
   /**
@@ -77,6 +79,9 @@ export default class Tricot extends Component {
     if (!this.state.ready) {
       return;
     }
+
+    this.resetCatcher.detachEvents();
+    this.keyCatcher.attachEvents();
 
     const { duration, warmup, bpm } = this.state;
     const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
@@ -106,9 +111,11 @@ export default class Tricot extends Component {
    */
   stop() {
     if (this.timer.stop()) {
-      this.setState({ index: null, ready: false });
+      this.keyCatcher.detachEvents();
+      this.resetCatcher.attachEvents();
       this.timer.stop();
       this.audio.end();
+      this.setState({ index: null, ready: false });
       setTimeout(() => this.setState({ ready: true }), 2000);
     }
   }
@@ -116,18 +123,20 @@ export default class Tricot extends Component {
   /**
    * Validate the answer
    *
-   * @param {String} answer
+   * @param {String} pressed
    * @param {Number} date
    */
-  validate(answer, date = Date.now()) {
-    const { ZONE } = this.constructor;
+  validate(pressed, date = Date.now()) {
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
+      const { ZONE } = this.constructor;
       const ratio = 1 - (this.timer.getTime(date) / tempo);
-      const succes = ratio <= ZONE() && answer === partition[index];
+      const succes = ratio <= ZONE() && pressed === partition[index];
 
-      this.setState({ answers: answers.concat([succes]) });
+      this.setState({ answers: answers.concat([succes]), pressed });
+    } else {
+      this.setState({ pressed });
     }
   }
 
@@ -151,18 +160,6 @@ export default class Tricot extends Component {
     if (partition.length === answers.length) {
       this.stop();
     }
-  }
-
-  onKey(pressed) {
-    if (pressed !== null) {
-      if (this.state.index !== null) {
-        this.validate(pressed);
-      } else {
-        this.reset();
-      }
-    }
-
-    this.setState({ pressed });
   }
 
   /**
@@ -195,14 +192,14 @@ export default class Tricot extends Component {
     return (
       <div>
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
-        {end && <End answers={answers} replay={this.onKey} ready={ready} />}
+        {end && <End answers={answers} replay={this.reset} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
           <Credits />
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
         </div>
-        <div className="container main-container">
+        <div className="container main-container" ref={this.resetCatcher.setTarget}>
           {!end && <ArrowTunel warmup={warmup} arrows={partition} answers={answers} current={index} tempo={tempo} pressed={pressed} />}
           <div className="knit-container">
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />

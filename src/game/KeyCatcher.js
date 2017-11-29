@@ -13,11 +13,20 @@ export default class KeyCatcher {
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onTouchStart = this.onTouchStart.bind(this);
     this.onTouchEnd = this.onTouchEnd.bind(this);
+  }
 
+  attachEvents() {
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
     window.addEventListener('touchstart', this.onTouchStart);
     window.addEventListener('touchend', this.onTouchEnd);
+  }
+
+  detachEvents() {
+    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
+    window.removeEventListener('touchstart', this.onTouchStart);
+    window.removeEventListener('touchend', this.onTouchEnd);
   }
 
   /**
@@ -28,13 +37,10 @@ export default class KeyCatcher {
   onKeyDown(event) {
     const { key } = event;
 
-    if (!this.keys.accepts(key)) {
-      return;
+    if (this.keys.accepts(key)) {
+      event.preventDefault();
+      this.setKey(key);
     }
-
-    event.preventDefault();
-
-    this.setKey(key);
   }
 
   /**
@@ -48,11 +54,12 @@ export default class KeyCatcher {
    * On touch start
    *
    * @param {Event} event
+   * @param {Boolean} force
    */
-  onTouchStart(event) {
+  onTouchStart(event, force = false) {
+    const { clientX } = event.changedTouches[0];
     const { values } = this.keys;
-    const x = event.changedTouches[0].clientX;
-    const index = Math.floor(x / (window.innerWidth / values.length));
+    const index = Math.floor(clientX / (window.innerWidth / values.length));
 
     this.setKey(values[index]);
   }

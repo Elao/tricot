@@ -9,7 +9,7 @@ export default class End extends Component {
       <div className="end">
         <div className="end__title">
           <span className="icon wool"></span>
-          <h2>Bravo !</h2>
+          <h2>Battre le score</h2>
         </div>
         <div className="modal modal--end">
           <div className="modal--end__results">
@@ -46,8 +46,10 @@ export default class End extends Component {
           <div className="modal__buttons">
             <a href="https://elao.com" target="_blank" className="button">Découvrir élao</a>
             <button className="button button--light" onClick={this.props.replay}>
+              <span className="icon arrow left"></span>
               <span className="icon arrow down"></span>
-              Rejouer
+              <span className="icon arrow right"></span>
+              Battre le score
             </button>
           </div>
         </div>

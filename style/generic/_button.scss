@@ -19,7 +19,7 @@
     transition: ease-in-out .1s;
   }
 
-  span { margin-right: 10px; }
+  span:last-of-type { margin-right: 10px; }
 }
 
 .button--light {

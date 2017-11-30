@@ -72,8 +72,25 @@ export const largeLine = [
 ];
 
 export const mediumLine = [
-    repeat('vv'),
-    repeat(' v'),
-    repeat('v '),
-    repeat('vv'),
+  repeat('vv'),
+  repeat(' v'),
+  repeat('v '),
+  repeat('vv'),
+];
+
+export const arrowsUpDown = [
+  repeat('v   v   '),
+  repeat(' v v    '),
+  repeat('  v   v '),
+  repeat('     v v'),
+  repeat('v   v   '),
+];
+
+export const croco = [
+  repeat('v   '),
+  repeat(' v v'),
+  repeat('v   '),
+  repeat('  v '),
+  repeat(' vvv'),
+  repeat('vvvv'),
 ];

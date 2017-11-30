@@ -9,26 +9,47 @@ export default class End extends Component {
       <div className="end">
         <div className="end__title">
           <span className="icon wool"></span>
-          <h3>Bravo !</h3>
+          <h2>Battre le score</h2>
         </div>
         <div className="modal modal--end">
-          <div className="statistics">
-            <dl>
-              <dd>Score :</dd>
-              <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
-            </dl>
-            <dl>
-              <dd>Plus longue série :</dd>
-              <dt>{getLongestStreak(answers)}</dt>
-            </dl>
+          <div className="modal--end__results">
+            <div className="statistics">
+              <dl>
+                <dd>Score :</dd>
+                <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
+              </dl>
+              <dl>
+                <dd>Plus longue série :</dd>
+                <dt>{getLongestStreak(answers)}</dt>
+              </dl>
+            </div>
+            <div className="social-share">
+              <p>Partager votre écharpe</p>
+              <div className="social-share__buttons">
+                <a href={this.props.link} target="_blank" className="button button--social">
+                  <span className="icon facebook--full"></span>
+                  Sur Facebook
+                </a>
+                <a href={this.props.link} target="_blank" className="button button--social">
+                  <span className="icon twitter"></span>
+                  Sur Twitter
+                </a>
+                <a href={this.props.link} target="_blank" className="button button--social">
+                  <span className="icon linkedin--full"></span>
+                  Sur Linkedin
+                </a>
+              </div>
+            </div>
           </div>
-          <p>Un projet web à tricoter ?</p>
+          <h3>Un projet web à tricoter ?</h3>
           <p>Faites appel à une équipe d'experts.</p>
           <div className="modal__buttons">
             <a href="https://elao.com" target="_blank" className="button">Découvrir élao</a>
             <button className="button button--light" onClick={this.props.replay}>
+              <span className="icon arrow left"></span>
               <span className="icon arrow down"></span>
-              Rejouer
+              <span className="icon arrow right"></span>
+              Battre le score
             </button>
           </div>
         </div>

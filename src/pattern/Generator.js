@@ -1,3 +1,4 @@
+import { encode, decode } from 'base64-arraybuffer';
 import { LINE } from './constants';
 import { one, two } from './spacer';
 import * as SIMPLE from './simple';
@@ -7,6 +8,14 @@ import * as BIG from './big';
 import * as HERO from './hero';
 
 export default class Generator {
+    static DICTIONARY = [...new Set(
+        one
+        .concat(...(Object.values(SIMPLE)))
+        .concat(...(Object.values(MEDIUM)))
+        .concat(...(Object.values(BIG)))
+        .concat(...(Object.values(HERO)))
+    )];
+
     /**
      * Generate a full pattern
      *
@@ -98,5 +107,48 @@ export default class Generator {
             ...pattern,
             ...spacer,
         ];
+    }
+
+    /**
+    * Load a scarf from Base64 string
+    *
+    * @param {String} base64
+    *
+    * @return {Object}
+    */
+    static load(base64) {
+        const buffer = decode(base64);
+        const view = new Int8Array(buffer);
+        const lines = [];
+        const answers = [];
+
+        Array.from(view).forEach((lineNumber, index) => {
+            answers[index] = lineNumber >= 0;
+            lines[index] = this.DICTIONARY[Math.abs(lineNumber) - 1];
+        });
+
+        return { lines, answers };
+    }
+
+    /**
+    * Export a scarf to Base64 string
+    *
+    * @param {Array} lines
+    * @param {Array} answers
+    *
+    * @return {String}
+    */
+    static export(lines, answers = []) {
+        const buffer = new ArrayBuffer(lines.length);
+        const view = new Int8Array(buffer);
+
+        lines.forEach((line, index) => {
+            const success = typeof answers[index] === 'boolean' && answers[index];
+            const lineNumber = this.DICTIONARY.indexOf(line) + 1;
+
+            view[index] = lineNumber * (success ? 1 : -1);
+        });
+
+        return encode(buffer);
     }
 }

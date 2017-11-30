@@ -19,7 +19,7 @@
     transition: ease-in-out .1s;
   }
 
-  span { margin-right: 10px; }
+  span:last-of-type { margin-right: 10px; }
 }
 
 .button--light {
@@ -33,5 +33,34 @@
     background-color: $primary;
     color: #fff;
     transition: ease-in-out .1s;
+  }
+}
+
+.button--social {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
+  color: #000;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  padding: 0;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+    color: #000;
+  }
+
+  .icon {
+    font-size: 30px;
+    margin-bottom: 7px;
+    margin-right: 0;
+
+    &.facebook--full { color: #3b5999; }
+    &.twitter { color: #1da1f3; }
+    &.linkedin--full { color: #0077b4; }
   }
 }

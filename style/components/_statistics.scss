@@ -1,0 +1,27 @@
+.statistics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: solid 1px;
+  flex: 1;
+  padding-right: 50px;
+
+  dl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    text-align: center;
+  }
+
+  dd {
+    margin: 0;
+    margin-right: 15px;
+    font-size: 19px;
+  }
+
+  dt {
+    font-size: 26px;
+    font-weight: 500;
+  }
+}

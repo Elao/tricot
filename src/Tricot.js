@@ -48,10 +48,12 @@ export default class Tricot extends Component {
     this.tick = this.tick.bind(this);
     this.validate = this.validate.bind(this);
     this.loadSong = this.loadSong.bind(this);
+    this.checkStop = this.checkStop.bind(this);
     this.onKey = this.onKey.bind(this);
 
     this.timer = new Timer(this.tick);
     this.catcher = new KeyCatcher(Key, this.onKey);
+    this.end = Date.now();
   }
 
   /**
@@ -72,6 +74,10 @@ export default class Tricot extends Component {
   }
 
   reset() {
+    if (Date.now() - this.end < 1000) {
+      return;
+    }
+
     const { duration, warmup, bpm } = this.state;
     const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
     const partition = Key.getRandoms(lines.length);
@@ -80,7 +86,7 @@ export default class Tricot extends Component {
       lines,
       partition,
       answers: [],
-    }, this.start);
+    }, () => setTimeout(this.start, 0));
   }
 
   /**
@@ -101,7 +107,7 @@ export default class Tricot extends Component {
   stop() {
     if (this.timer.stop()) {
       this.setState({ index: null });
-
+      this.end = Date.now();
       this.timer.stop();
       this.audio.end();
     }
@@ -118,7 +124,7 @@ export default class Tricot extends Component {
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
-      const ratio = 1 - ((this.timer.getTime(date) % tempo) / tempo);
+      const ratio = 1 - (this.timer.getTime(date) / tempo);
       const succes = ratio <= ZONE() && answer === partition[index];
 
       this.setState({ answers: answers.concat([succes]) });
@@ -130,18 +136,21 @@ export default class Tricot extends Component {
    */
   tick() {
     const { partition, index, answers } = this.state;
-
-    if (partition.length === answers.length) {
-      return this.stop();
-    }
-
     const state = { index: index + 1 };
 
     if (index === answers.length) {
       state.answers = answers.concat([false]);
     }
 
-    this.setState(state);
+    this.setState(state, this.checkStop);
+  }
+
+  checkStop() {
+    const { partition, answers } = this.state;
+
+    if (partition.length === answers.length) {
+      this.stop();
+    }
   }
 
   onKey(pressed) {

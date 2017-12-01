@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import BELL from '../assets/audio/bell.mp3';
-import FIRE from '../assets/audio/fire.mp3';
-import WIND from '../assets/audio/wind.mp3';
+import BACKGROUND from '../assets/audio/background.mp3';
 import MERRY_CHRISTMAS from '../assets/audio/merry_christmas.mp3';
 
 export default class AudioPlayer extends Component {
@@ -13,26 +11,18 @@ export default class AudioPlayer extends Component {
       authorized: true,
     };
 
-    this.bellInterval = null;
-    this.fadeInterval = null;
+    this.fadeFrame = null;
 
-    this.bells = [new Audio(BELL), new Audio(BELL)];
-    this.fire = new Audio(FIRE);
-    this.wind = new Audio(WIND);
+    this.background = new Audio(BACKGROUND);
     this.song = new Audio();
     this.final = new Audio(MERRY_CHRISTMAS);
 
-    this.fire.loop = true;
-    this.wind.loop = true;
-    this.bells.delay = 20;
+    this.background.loop = true;
 
-    this.song.volume = 0.8;
-    this.bells.forEach(bell => bell.volume = 0.3);
+    this.song.volume = 1;
     this.final.volume = 0.8;
-    this.fire.volume = 0.6;
-    this.wind.volume = 0.3;
+    this.background.volume = 0.3;
 
-    this.playBell = this.playBell.bind(this);
     this.playSong = this.playSong.bind(this);
     this.playBackground = this.playBackground.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -41,6 +31,8 @@ export default class AudioPlayer extends Component {
     this.fadeOut = this.fadeOut.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
+
+    this.final.addEventListener('ended', this.playBackground);
   }
 
   componentDidMount() {
@@ -57,9 +49,7 @@ export default class AudioPlayer extends Component {
     }
 
     if (muted !== prevState.muted) {
-      this.bells.forEach(bell => bell.muted = muted);
-      this.fire.muted = muted;
-      this.wind.muted = muted;
+      this.background.muted = muted;
       this.song.muted = muted;
       this.final.muted = muted;
 
@@ -78,6 +68,8 @@ export default class AudioPlayer extends Component {
    * @param {Number} delay
    */
   start(tempo, delay = 0) {
+    this.stopBackground();
+
     this.song.playbackRate = (60000 / tempo) / this.props.bpm;
 
     if (this.song.playbackRate > 1.5) {
@@ -89,7 +81,6 @@ export default class AudioPlayer extends Component {
     }
 
     setTimeout(this.playSong, delay - (this.props.delay / this.song.playbackRate));
-    setTimeout(() => this.bellInterval = setInterval(this.playBell, tempo), delay - this.bells.delay);
   }
 
   /**
@@ -100,54 +91,42 @@ export default class AudioPlayer extends Component {
   }
 
   /**
-   * Play bell
-   */
-  playBell() {
-    let bell = this.bells.find(bell => bell.currentTime === 0 || bell.ended);
-
-    if (!bell) {
-      const { volume, playbackRate, muted } = this.bells[0];
-
-      bell = new Audio(BELL);
-      bell.volume = volume;
-      bell.playbackRate = playbackRate;
-      bell.muted = muted;
-
-      this.bells.push(bell);
-    }
-
-    bell.play();
-  }
-
-  /**
    * Play background ambiance
    */
   playBackground() {
-    this.wind.play().then(this.onSuccess).catch(this.onError);
-    this.fire.play();
+    this.background.play().then(this.onSuccess).catch(this.onError);
+  }
+
+  /**
+   * Stop playing background ambiance
+   */
+  stopBackground() {
+    this.background.pause();
+    this.background.currentTime = 0;
   }
 
   /**
    * End
    */
   end() {
-    this.bellInterval = clearInterval(this.bellInterval);
-
-    this.final.play();
-    this.fadeInterval = setInterval(this.fadeOut, 16);
+    this.fadeOut();
   }
 
   /**
    * Fade out volume of the song
    */
   fadeOut() {
-    this.song.volume = Math.max(0, this.song.volume - 0.01);
+    this.fadeFrame = requestAnimationFrame(this.fadeOut);
 
     if (this.song.volume <= 0) {
-      this.fadeInterval = clearInterval(this.fadeInterval);
+      cancelAnimationFrame(this.fadeFrame);
+      this.fadeFrame = null;
       this.song.pause();
       this.song.currentTime = 0;
-      this.song.volume = 0.8;
+      this.song.volume = 1;
+      this.final.play();
+    } else {
+      this.song.volume = Math.max(0, this.song.volume - 0.05);
     }
   }
 

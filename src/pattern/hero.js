@@ -54,3 +54,27 @@ export const tree = [
   repeat('   v v     v v     v v       v v       v v     v v     v v  '),
   repeat('    v       v       v         v         v       v       v   ')
 ];
+
+export const large = [
+  repeat('vvvvvvvvvvvvvvvvvv'),
+  repeat('vvvvv  v v  vvvvv '),
+  repeat(' vvv  v v v  vvv v'),
+  repeat('v v  v vvv v  v vv'),
+  repeat('vv  v vv vv v  vvv'),
+  repeat('v  v vv   vv v  vv'),
+  repeat('  v vv     vv v  v'),
+  repeat(' v vv   v   vv v  '),
+  repeat('v vv   vvv   vv v '),
+  repeat(' vv   v v v   vv v'),
+  repeat('vv   vvv vvv   vv '),
+  repeat(' vv   v v v   vv v'),
+  repeat('v vv   vvv   vv v '),
+  repeat(' v vv   v   vv v  '),
+  repeat('  v vv     vv v  v'),
+  repeat('v  v vv   vv v  vv'),
+  repeat('vv  v vv vv v  vvv'),
+  repeat('v v  v vvv v  v vv'),
+  repeat(' vvv  v v v  vvv v'),
+  repeat('vvvvv  v v  vvvvv '),
+  repeat('vvvvvvvvvvvvvvvvvv')
+];

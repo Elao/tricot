@@ -71,3 +71,20 @@ export const snowFlakeRect = [
   repeat('v v  v  vv vv  v  '),
   repeat('    v   v   v   v '),
 ];
+
+export const line = [
+  repeat('vvvvvvvvvvvv'),
+  repeat('            '),
+  repeat('            '),
+  repeat('   v     v  '),
+  repeat('  v v   v v '),
+  repeat(' v   v v   v'),
+  repeat('v  v  v  v  '),
+  repeat(' v   v v   v'),
+  repeat('  v v   v v '),
+  repeat('   v     v  '),
+  repeat('            '),
+  repeat('            '),
+  repeat('vvvvvvvvvvvv'),
+  repeat('v v v v v v ')
+];

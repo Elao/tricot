@@ -135,7 +135,7 @@ export default class Tricot extends Component {
    * Tick
    */
   tick() {
-    const { partition, index, answers } = this.state;
+    const { index, answers } = this.state;
     const state = { index: index + 1 };
 
     if (index === answers.length) {

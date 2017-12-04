@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Key from './game/Key';
+import * as Key from './game/Key';
 
 export default class ArrowTunel extends Component {
   constructor() {
@@ -39,7 +39,7 @@ export default class ArrowTunel extends Component {
    * @return {Component}
    */
   renderArrow(arrow, index) {
-    const { current, answers } = this.props;
+    const { answers } = this.props;
     const classes = [
       'icon arrow',
       Key.getClass(arrow),

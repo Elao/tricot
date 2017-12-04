@@ -23,9 +23,9 @@ export default class End extends Component {
             </dl>
           </div>
           <p>Un projet web à tricoter ?</p>
-          <p>Faites appel à une équipe d'experts.</p>
+          <p>Faites appel à une équipe d&apos;experts.</p>
           <div className="modal__buttons">
-            <a href="https://elao.com" target="_blank" className="button">Découvrir élao</a>
+            <a href="https://elao.com" target="_blank" rel="noopener noreferrer" className="button">Découvrir élao</a>
             <button className="button button--light" onClick={this.props.replay}>
               <span className="icon arrow down"></span>
               Rejouer

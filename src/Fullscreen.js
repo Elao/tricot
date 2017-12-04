@@ -50,7 +50,7 @@ export default class Fullscreen extends Component {
         document.addEventListener('MSFullscreenChange', this.onChange);
     }
 
-    onChange(event) {
+    onChange() {
         this.setState({ fullscreen: this.constructor.isFullscreen() });
     }
 

@@ -39,5 +39,5 @@ export function getLongestStreak(answers) {
 export function getProgress(index, answers) {
   if (index < 0) { return 0; }
 
-  return index / partition.length;
+  return index / answers.length;
 }

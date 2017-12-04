@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-
-export default class KeyCatcher extends Component {
-  constructor() {
-    super();
-
+export default class KeyCatcher {
+  /**
+   * @param {Array} keys
+   * @param {Function} onKey
+   */
+  constructor(keys, onKey) {
+    this.keys = keys;
+    this.onKey = onKey;
     this.key = null;
 
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
-  }
 
-  componentDidMount() {
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
   }
@@ -22,9 +22,8 @@ export default class KeyCatcher extends Component {
    */
   onKeyDown(event) {
     const { key } = event;
-    const { keys } = this.props;
 
-    if (!keys.accepts(key)) {
+    if (!this.keys.accepts(key)) {
       return;
     }
 
@@ -40,11 +39,7 @@ export default class KeyCatcher extends Component {
   setKey(key = null) {
     if (key !== this.key) {
       this.key = key;
-      this.props.onKey(this.key);
+      this.onKey(this.key);
     }
-  }
-
-  render() {
-    return null;
   }
 }

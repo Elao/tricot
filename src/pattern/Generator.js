@@ -1,5 +1,5 @@
 import { LINE } from './constants';
-import { one, two } from './spacer';
+import { one } from './spacer';
 import * as SIMPLE from './simple';
 import * as COMPOSED from './composed';
 import * as MEDIUM from './medium';

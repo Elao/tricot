@@ -72,12 +72,8 @@ export default class SongSelector extends Component {
     );
   }
 
-  renderWidget(content) {
-    return ;
-  }
-
   render() {
-    const { checked, open } = this.state;
+    const { open } = this.state;
     const { songs, disabled } = this.props;
     const closed = disabled || !open;
     const openClass = closed ? 'closed' : 'open';

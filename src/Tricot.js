@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Generator from './pattern/Generator';
-import { spacer, line, sin, largeSin } from './pattern/simple';
 import ArrowTunel from './ArrowTunel';
-import KeyCatcher from './KeyCatcher';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
 import Credits from './Credits';
@@ -10,7 +8,8 @@ import SongSelector from './SongSelector';
 import Scarf from './Scarf';
 import Help from './Help';
 import End from './End';
-import Key from './game/Key';
+import * as Key from './game/Key';
+import KeyCatcher from './game/KeyCatcher';
 import Timer from './game/Timer';
 import '../assets/images/elao.svg';
 import needleLeft from '../assets/images/needle-left.png';
@@ -25,7 +24,7 @@ export default class Tricot extends Component {
    *
    * @type {Number}
    */
-  static ZONE = 0.5;
+  static ZONE() { return 0.5; }
 
   constructor() {
     super();
@@ -52,6 +51,7 @@ export default class Tricot extends Component {
     this.onKey = this.onKey.bind(this);
 
     this.timer = new Timer(this.tick);
+    this.catcher = new KeyCatcher(Key, this.onKey);
   }
 
   /**
@@ -72,7 +72,7 @@ export default class Tricot extends Component {
   }
 
   reset() {
-    const { duration, warmup, tempo, bpm } = this.state;
+    const { duration, warmup, bpm } = this.state;
     const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
     const partition = Key.getRandoms(lines.length);
 
@@ -92,7 +92,7 @@ export default class Tricot extends Component {
 
     this.setState({ index: -warmup.length });
     this.timer.start(tempo);
-    this.audio.start(tempo, tempo * (1 - ZONE / 2));
+    this.audio.start(tempo, tempo * (1 - ZONE() / 2));
   }
 
   /**
@@ -119,7 +119,7 @@ export default class Tricot extends Component {
 
     if (index === answers.length) {
       const ratio = 1 - ((this.timer.getTime(date) % tempo) / tempo);
-      const succes = ratio <= ZONE && answer === partition[index];
+      const succes = ratio <= ZONE() && answer === partition[index];
 
       this.setState({ answers: answers.concat([succes]) });
     }
@@ -128,7 +128,7 @@ export default class Tricot extends Component {
   /**
    * Tick
    */
-  tick(duration) {
+  tick() {
     const { partition, index, answers } = this.state;
 
     if (partition.length === answers.length) {
@@ -187,7 +187,6 @@ export default class Tricot extends Component {
       <div>
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
         {end && <End answers={answers} replay={this.onKey} />}
-        <KeyCatcher onKey={this.onKey} keys={Key} />
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
           <Credits />

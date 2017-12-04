@@ -35,7 +35,7 @@ export default class Scarf extends Component {
 
   componentDidMount() {
     this.setState({
-      pompoms: new Array(20).fill(null).map(value => Math.random() > 0.5)
+      pompoms: new Array(20).fill(null).map(() => Math.random() > 0.5)
     });
   }
 
@@ -66,7 +66,7 @@ export default class Scarf extends Component {
   append(pattern) {
     let { x, y, white, red } = this.state;
 
-    Array.from(pattern).forEach((value, index) => {
+    Array.from(pattern).forEach(value => {
       if (x >= LINE) {
         x = 0;
         y++;
@@ -95,7 +95,6 @@ export default class Scarf extends Component {
    * @return {Component}
    */
   renderPompom(reverse, index) {
-    const { answers } = this.props;
     const scale = reverse ? -1 : 1;
     const width = (LINE * WIDTH) / this.state.pompoms.length;
 
@@ -103,16 +102,16 @@ export default class Scarf extends Component {
       <use
         key={index}
         xlinkHref={`${pompom}#pompom`}
-        x={index * width * (reverse ? -1 : 1) - (reverse ? width : 0)}
+        x={index * width * scale - (reverse ? width : 0)}
         y={0}
-        transform={`scale(${reverse ? -1 : 1}, 1)`}
+        transform={`scale(${scale}, 1)`}
       ></use>
     );
   }
 
   render() {
-    const { tempo, answers, lines } = this.props;
-    const { white, red, y, pompoms } = this.state;
+    const { answers, lines } = this.props;
+    const { white, red, pompoms } = this.state;
     const pompomHeight = 90;
     const end = lines.length > 0 && lines.length === answers.length;
     const patternheight = answers.length * HEIGHT + 8;

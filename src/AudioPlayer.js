@@ -50,7 +50,7 @@ export default class AudioPlayer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { muted, authorized } = this.state;
-    const { source, bpm, delay } = this.props;
+    const { source } = this.props;
 
     if (source && (source !== prevProps.source)) {
       this.song.src = source;

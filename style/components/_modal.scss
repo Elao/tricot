@@ -14,6 +14,18 @@
   text-align: center;
   z-index: 101;
 
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    border: none;
+    font-size: 28px;
+    background: transparent;
+    color: $text;
+    cursor: pointer;
+    outline: none;
+  }
+
   p {
     margin-top: 0;
     margin-bottom: 1px;
@@ -111,17 +123,6 @@
   border-radius: 5px;
   animation: fade 0.3s ease-in both;
 
-  .close {
-    position: absolute;
-    right: 25px;
-    border: none;
-    font-size: 28px;
-    background: transparent;
-    color: $text;
-    cursor: pointer;
-    outline: none;
-  }
-
   h3 {
     text-transform: uppercase;
     margin: 20px 0;
@@ -147,5 +148,23 @@
     &:focus {
       color: $text--dark;
     }
+  }
+}
+
+.modal--privacy {
+  padding: 25px;
+
+  ul, p, & {
+    text-align: left;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .privacy--iframe {
+    border: 0;
+    width: 100%;
+    background-color: #E5E5E5;
   }
 }

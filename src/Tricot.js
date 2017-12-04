@@ -4,6 +4,7 @@ import ArrowTunel from './ArrowTunel';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
 import Credits from './Credits';
+import Privacy from './Privacy';
 import SongSelector from './SongSelector';
 import Scarf from './Scarf';
 import Help from './Help';
@@ -217,6 +218,7 @@ export default class Tricot extends Component {
           </div>
         </div>
         {beforeStart && <Help />}
+        <Privacy />
       </div>
     );
   }

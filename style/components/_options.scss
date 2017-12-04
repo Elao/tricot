@@ -26,3 +26,20 @@
     outline: none;
   }
 }
+
+.modal--privacy--button {
+  background: none;
+  border: 0;
+  color: $text--dark;
+  font-size: 1em;
+  line-height: 1em;
+  overflow: visible;
+  padding: 0;
+  margin: 1em;
+  cursor: pointer;
+  text-shadow: $text-shadow;
+  outline: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

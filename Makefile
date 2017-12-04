@@ -29,6 +29,10 @@ help:
 install:
 	npm install
 
+## Lint
+lint:
+	./node_modules/.bin/eslint index.js src
+
 #########
 # Build #
 #########

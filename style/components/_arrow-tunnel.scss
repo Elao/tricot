@@ -50,7 +50,7 @@
 
     &.error:before {
       color: #999;
-      animation: shake 400ms cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+      animation: shake 600ms linear both;
     }
 
     &.down:before {

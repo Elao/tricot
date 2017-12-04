@@ -1,95 +1,95 @@
 @keyframes knit-left {
-  0% { transform: rotate(-2deg) translateX(0); }
-  50% { transform: rotate(0deg) translateX(30px); }
-  100% { transform: rotate(-2deg) translateX(0); }
+  0% { transform: rotate3d(0, 0, 1, -2deg) translate3d(0, 0, 0); }
+  50% { transform: rotate3d(0, 0, 1, 0deg) translate3d(30px, 0, 0); }
+  100% { transform: rotate3d(0, 0, 1, -2deg) translate3d(0, 0, 0); }
 }
 
 @keyframes knit-right {
-  0% { transform: rotate(1deg) translateX(0); }
-  30% { transform: rotate(0deg) translateX(-30px); }
-  90% { transform: rotate(1deg) translateX(0); }
+  0% { transform: rotate3d(0, 0, 1, 1deg) translate3d(0, 0, 0); }
+  30% { transform: rotate3d(0, 0, 1, 0deg) translate3d(-30px, 0, 0); }
+  90% { transform: rotate3d(0, 0, 1, 1deg) translate3d(0, 0, 0); }
 }
 
 @keyframes knit-error-left {
-  0% { transform: rotate(-2deg) translateX(0); }
-  10% { transform: rotate(0deg) translateX(40px); }
-  20% { transform: rotate(-2deg) translateX(0); }
-  20% { transform: translate(-2px, 2px); }
-  30% { transform: translate(-2px, -2px); }
-  50% { transform: translate(2px, 2px); }
-  70% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% { transform: rotate3d(0, 0, 1, -2deg) translate3d(0, 0, 0); }
+  10% { transform: rotate3d(0, 0, 1, 0deg) translate3d(40px, 0, 0); }
+  20% { transform: rotate3d(0, 0, 1, -2deg) translate3d(0, 0, 0); }
+  20% { transform: translate3d(-2px, 2px, 0); }
+  30% { transform: translate3d(-2px, -2px, 0); }
+  50% { transform: translate3d(2px, 2px, 0); }
+  70% { transform: translate3d(2px, -2px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes knit-error-right {
-  0% { transform: rotate(1deg) translateX(0); }
-  10% { transform: rotate(0deg) translateX(-40px); }
-  20% { transform: rotate(1deg) translateX(0); }
-  20% { transform: translate(-2px, 2px); }
-  30% { transform: translate(-2px, -2px); }
-  50% { transform: translate(2px, 2px); }
-  70% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% { transform: rotate3d(0, 0, 1, 1deg) translate3d(0, 0, 0); }
+  10% { transform: rotate3d(0, 0, 1, 0deg) translate3d(-40px, 0, 0); }
+  20% { transform: rotate3d(0, 0, 1, 1deg) translate3d(0, 0, 0); }
+  20% { transform: translate3d(-2px, 2px, 0); }
+  30% { transform: translate3d(-2px, -2px, 0); }
+  50% { transform: translate3d(2px, 2px, 0); }
+  70% { transform: translate3d(2px, -2px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes shake {
   0%,
-  100% { transform: translateX(0); }
+  100% { transform: translate3d(0, 0, 0); }
 
   10%,
   30%,
   50%,
-  70% { transform: translateX(-8px); }
+  70% { transform: translate3d(-20px, 0, 0); }
 
   20%,
   40%,
-  60% { transform: translateX(8px); }
+  60% { transform: translate3d(20px, 0, 0); }
 
-  80% { transform: translateX(4px); }
+  80% { transform: translate3d(10px, 0, 0); }
 
-  90% { transform: translateX(-4px); }
+  90% { transform: translate3d(-10px, 0, 0); }
 }
 
 @keyframes puff-out {
   0% {
-    transform: scale(1);
     transform-origin: center center;
-    filter: blur(0px);
+    transform: scale3d(1, 1, 1);
+    //filter: blur(0px);
     opacity: 1;
   }
 
   100% {
-    transform: scale(2);
     transform-origin: center center;
-    filter: blur(2px);
+    transform: scale3d(2, 2, 1);
+    //filter: blur(2px);
     opacity: 0;
   }
 }
 
 @keyframes highlightZone {
   0% {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
   #{$zone * 100%} {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
   #{(1 - $zone / 2) * 100%} {
-    transform: scale(1.2);
+    transform: scale3d(1.4, 1.4, 1.4);
   }
   100% {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 
 @keyframes slide {
   0% {
-    transform: translateY(-200%);
+    transform: translate3d(0, -200%, 0);
     opacity: 0;
   }
 
   100% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }

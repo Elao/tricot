@@ -19,10 +19,10 @@ const plugins = [
 ];
 
 if (production) {
-  plugins.concat([
+  plugins.push(
     new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
-    new webpack.optimize.UglifyJsPlugin(),
-  ]);
+    new webpack.optimize.UglifyJsPlugin()
+  );
 }
 
 module.exports = {

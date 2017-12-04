@@ -1,27 +1,67 @@
-import Enum from '../utils/Enum';
+export const LEFT = 'ArrowLeft';
+export const RIGHT = 'ArrowRight';
+export const DOWN = 'ArrowDown';
 
 /**
- * Available Keys
+ * CSS classes
+ *
+ * @type {Object}
  */
-export default class Key extends Enum {
+export const values = [
+  LEFT,
+  RIGHT,
+  DOWN,
+];
 
-  static LEFT = 'ArrowLeft';
-  static RIGHT = 'ArrowRight';
-  static DOWN = 'ArrowDown';
+/**
+ * CSS classes
+ *
+ * @type {Object}
+ */
+export const classes = new Map([
+  [LEFT, 'left'],
+  [RIGHT, 'right'],
+  [DOWN, 'down'],
+]);
 
-  static values = [
-    Key.LEFT,
-    Key.RIGHT,
-    Key.DOWN,
-  ];
+/**
+ * Get class
+ *
+ * @param {String} value
+ *
+ * @return {String}
+ */
+export function getClass(value) {
+  return classes.get(value);
+}
 
-  static classes = {
-    [Key.LEFT]: 'left',
-    [Key.RIGHT]: 'right',
-    [Key.DOWN]: 'down',
-  };
+/**
+ * Get random value from the set
+ *
+ * @return {String|Integer}
+ */
+export function getRandom() {
+  return values[Math.floor(Math.random() * values.length)];
+}
 
-  static getClass(value) {
-    return this.classes[value];
-  }
+/**
+ * Generate an array of the given length filled with random values
+ *
+ * @param {Number} length
+ *
+ * @return {Array}
+ */
+export function getRandoms(length = 50) {
+  return new Array(length).fill(null).map(() => getRandom());
+}
+
+/**
+ * Does the value exist in the set?
+ *
+ * @param {String} value
+ *
+ * @return {Boolean}
+ */
+export function accepts(value) {
+  return values.includes(value);
 }

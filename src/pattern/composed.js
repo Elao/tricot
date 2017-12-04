@@ -1,5 +1,5 @@
-import { one, two } from './spacer';
-import { spacer, line, sin, largeSin } from './simple';
+import { one } from './spacer';
+import { line, sin, largeSin } from './simple';
 
 export const twoLineLargeSin = [
   ...line,

@@ -4,6 +4,7 @@ import ArrowTunel from './ArrowTunel';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
 import Credits from './Credits';
+import Privacy from './Privacy';
 import SongSelector from './SongSelector';
 import Scarf from './Scarf';
 import Help from './Help';
@@ -42,6 +43,11 @@ export default class Tricot extends Component {
       index: null,
       pressed: null,
       ready: true,
+    };
+
+    this.modals = {
+      credits: null,
+      privacy: null,
     };
 
     this.start = this.start.bind(this);
@@ -185,6 +191,7 @@ export default class Tricot extends Component {
 
   render() {
     const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay, ready } = this.state;
+    const { privacy, credits } = this.modals;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
     const beforeStart = !playing && answers.length === 0;
@@ -198,7 +205,7 @@ export default class Tricot extends Component {
         {end && <End answers={answers} replay={this.onKey} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
-          <Credits />
+          {credits && credits.renderButton()}
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
         </div>
@@ -217,6 +224,11 @@ export default class Tricot extends Component {
           </div>
         </div>
         {beforeStart && <Help />}
+        <div className="legals">
+          {privacy && privacy.renderButton()}
+        </div>
+        <Privacy ref={modal => this.modals.privacy = modal}/>
+        <Credits ref={modal => this.modals.credits = modal}/>
       </div>
     );
   }

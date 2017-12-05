@@ -1,28 +1,37 @@
-.options {
+.options, .legals {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 100;
   display: flex;
-  width: 100%;
   justify-content: flex-end;
   align-items: start;
   font-size: 25px;
+  padding: 0 0.6em;
 
   & > * {
-    margin: 1em;
+    padding: 1em 0.6em;
   }
 
   button {
     background: none;
-    border: 0;
+    border: none;
     color: $text--dark;
     font-size: 1em;
     line-height: 1em;
     overflow: visible;
-    padding: 0;
     cursor: pointer;
     text-shadow: $text-shadow;
     outline: none;
+  }
+}
+
+.legals {
+  top: unset;
+  bottom: 0;
+  font-size: 15px;
+
+  button {
+    text-shadow: none;
   }
 }

@@ -19,6 +19,15 @@
     transition: ease-in-out .1s;
   }
 
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:active,
+  &[disabled]:focus {
+    background-color: $text;
+    border-color: $text;
+    color: #fff;
+  }
+
   span { margin-right: 10px; }
 }
 
@@ -33,5 +42,14 @@
     background-color: $primary;
     color: #fff;
     transition: ease-in-out .1s;
+  }
+
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:active,
+  &[disabled]:focus {
+    color: $text;
+    border-color: $text;
+    background-color: transparent;
   }
 }

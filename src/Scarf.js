@@ -51,7 +51,7 @@ export default class Scarf extends Component {
         this.append(success ? line : Generator.messUp(line), y);
       });
     } else if (answers.length < current) {
-      this.reset()
+      this.reset();
     }
   }
 
@@ -72,6 +72,9 @@ export default class Scarf extends Component {
     });
   }
 
+  /**
+   * Reset scarf content
+   */
   reset() {
     this.white = '';
     this.red = '';

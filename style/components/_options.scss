@@ -27,19 +27,27 @@
   }
 }
 
-.modal--privacy--button {
+.options--modal {
   background: none;
-  border: 0;
+  top: unset;
+  bottom: 0;
+  border: none;
   color: $text--dark;
-  font-size: 1em;
   line-height: 1em;
   overflow: visible;
   padding: 0;
-  margin: 1em;
   cursor: pointer;
   text-shadow: $text-shadow;
   outline: none;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+
+  &.modal-privacy-button {
+    margin: 1em;
+    right: 3em;
+    font-size: 1em;
+  }
+
+  &.modal-credits-button {
+    margin: 13px 1em;
+    right: 0;
+  }
 }

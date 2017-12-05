@@ -17,7 +17,7 @@ personnelles ont été mises en place :</p>
 
         <h3>Désactiver le suivi</h3>
         <iframe
-          className="privacy--iframe"
+          className="privacy-iframe"
           src="https://piwik.elao.com/index.php?module=CoreAdminHome&action=optOut&language=fr"
         ></iframe>
       </Modal>

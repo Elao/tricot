@@ -32,7 +32,7 @@ export default class Modal extends Component {
     const { icon, label, hash } = this.props;
 
     return (
-      <button className={`modal--${hash}--button ${icon ? `icon ${icon}` : ''}`} onClick={this.open}>
+      <button className={`options options--modal modal-${hash}-button ${icon ? `icon ${icon}` : ''}`} onClick={this.open}>
         {label || ''}
       </button>
     );

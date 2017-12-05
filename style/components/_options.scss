@@ -17,7 +17,7 @@
     line-height: 1em;
     overflow: visible;
     cursor: pointer;
-    text-shadow: $text-shadow;
+    text-shadow: shadow();
     outline: none;
     margin: .5em;
   }

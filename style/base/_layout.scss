@@ -54,10 +54,10 @@ h1 {
   font-family: 'Courgette', cursive;
   text-align: center;
   color: #fff;
-  text-shadow: $text-shadow;
-  font-size: 110px;
+  text-shadow: shadow(0.4, 20px);
+  font-size: 55px;
   position: absolute;
-  top: 60px;
+  top: 120px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -92,7 +92,7 @@ h1 {
   .container { width: 100%; }
 
   h1 {
-    font-size: 90px;
+    font-size: 70px;
     top: 80px;
   }
 }
@@ -104,7 +104,10 @@ h1 {
     background-repeat: repeat-x;
   }
 
-  h1 { top: 100px; }
+  h1 {
+    font-size: 60px;
+    top: 100px;
+  }
 }
 
 @media (max-width: $screen-sm-max) {

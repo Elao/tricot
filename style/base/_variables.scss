@@ -16,4 +16,6 @@ $screen-lg-max: 1200px;
 $arrow-height: 20vh;
 $zone: 0.5;
 
-$text-shadow: 0 0 10px rgba(104, 165, 179, .2);
+@function shadow($opacity: .2, $spead: 10px) {
+  @return 0 0 $spead rgba(104, 165, 179, $opacity);
+}

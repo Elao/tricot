@@ -107,9 +107,10 @@ export default class Tricot extends Component {
     const { ZONE } = this.constructor;
     const { tempo, warmup } = this.state;
 
-    this.setState({ index: -warmup.length });
-    this.timer.start(tempo);
-    this.audio.start(tempo, tempo * (1 - ZONE() / 2));
+    this.audio.start(tempo, tempo * (1 - ZONE() / 2), () => {
+      this.setState({ index: -warmup.length });
+      this.timer.start(tempo);
+    });
   }
 
   /**
@@ -118,7 +119,6 @@ export default class Tricot extends Component {
   stop() {
     if (this.timer.stop()) {
       this.keyCatcher.detachEvents();
-      this.resetCatcher.attachEvents();
       this.timer.stop();
       this.audio.end();
       this.setState({ index: null, ready: false });
@@ -132,7 +132,7 @@ export default class Tricot extends Component {
    * @param {String} pressed
    * @param {Number} date
    */
-  validate(pressed, date = Date.now()) {
+  validate(pressed, date) {
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
@@ -192,7 +192,7 @@ export default class Tricot extends Component {
    * @return {String|null}
    */
   getTitle() {
-    const { answers, index, tempo } = this.state;
+    const { answers, index } = this.state;
 
     if (index === null && answers.length === 0) {
       return <h1>Appuie en rythme sur les touches pour tricoter</h1>;

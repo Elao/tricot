@@ -13,6 +13,7 @@ export default class KeyCatcher {
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onTouchStart = this.onTouchStart.bind(this);
     this.onTouchEnd = this.onTouchEnd.bind(this);
+    this.prevent = this.prevent.bind(this);
   }
 
   attachEvents() {
@@ -20,6 +21,7 @@ export default class KeyCatcher {
     window.addEventListener('keyup', this.onKeyUp);
     window.addEventListener('touchstart', this.onTouchStart);
     window.addEventListener('touchend', this.onTouchEnd);
+    window.addEventListener('touchmove', this.prevent);
   }
 
   detachEvents() {
@@ -27,6 +29,7 @@ export default class KeyCatcher {
     window.removeEventListener('keyup', this.onKeyUp);
     window.removeEventListener('touchstart', this.onTouchStart);
     window.removeEventListener('touchend', this.onTouchEnd);
+    window.removeEventListener('touchmove', this.prevent);
   }
 
   /**
@@ -54,10 +57,12 @@ export default class KeyCatcher {
    * On touch start
    *
    * @param {Event} event
-   * @param {Boolean} force
    */
-  onTouchStart(event, force = false) {
-    const { clientX } = event.changedTouches[0];
+  onTouchStart(event) {
+    event.preventDefault();
+
+    const { changedTouches } = event;
+    const { clientX } = changedTouches[0];
     const { values } = this.keys;
     const index = Math.floor(clientX / (window.innerWidth / values.length));
 
@@ -77,15 +82,20 @@ export default class KeyCatcher {
     }
   }
 
+  prevent(event) {
+    event.preventDefault();
+  }
+
   /**
    * Set current key
    *
    * @param {String} key
+   * @param {Number} time
    */
-  setKey(key = null) {
+  setKey(key = null, time = Date.now()) {
     if (key !== this.key) {
       this.key = key;
-      this.onKey(this.key);
+      this.onKey(this.key, time);
     }
   }
 }

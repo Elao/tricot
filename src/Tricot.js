@@ -41,6 +41,7 @@ export default class Tricot extends Component {
       warmup: null,
       index: null,
       pressed: null,
+      ready: true,
     };
 
     this.start = this.start.bind(this);
@@ -48,6 +49,7 @@ export default class Tricot extends Component {
     this.tick = this.tick.bind(this);
     this.validate = this.validate.bind(this);
     this.loadSong = this.loadSong.bind(this);
+    this.checkStop = this.checkStop.bind(this);
     this.onKey = this.onKey.bind(this);
 
     this.timer = new Timer(this.tick);
@@ -72,6 +74,10 @@ export default class Tricot extends Component {
   }
 
   reset() {
+    if (!this.state.ready) {
+      return;
+    }
+
     const { duration, warmup, bpm } = this.state;
     const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
     const partition = Key.getRandoms(lines.length);
@@ -80,7 +86,7 @@ export default class Tricot extends Component {
       lines,
       partition,
       answers: [],
-    }, this.start);
+    }, () => setTimeout(this.start, 0));
   }
 
   /**
@@ -100,10 +106,10 @@ export default class Tricot extends Component {
    */
   stop() {
     if (this.timer.stop()) {
-      this.setState({ index: null });
-
+      this.setState({ index: null, ready: false });
       this.timer.stop();
       this.audio.end();
+      setTimeout(() => this.setState({ ready: true }), 2000);
     }
   }
 
@@ -118,7 +124,7 @@ export default class Tricot extends Component {
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
-      const ratio = 1 - ((this.timer.getTime(date) % tempo) / tempo);
+      const ratio = 1 - (this.timer.getTime(date) / tempo);
       const succes = ratio <= ZONE() && answer === partition[index];
 
       this.setState({ answers: answers.concat([succes]) });
@@ -129,19 +135,22 @@ export default class Tricot extends Component {
    * Tick
    */
   tick() {
-    const { partition, index, answers } = this.state;
-
-    if (partition.length === answers.length) {
-      return this.stop();
-    }
-
+    const { index, answers } = this.state;
     const state = { index: index + 1 };
 
     if (index === answers.length) {
       state.answers = answers.concat([false]);
     }
 
-    this.setState(state);
+    this.setState(state, this.checkStop);
+  }
+
+  checkStop() {
+    const { partition, answers } = this.state;
+
+    if (partition.length === answers.length) {
+      this.stop();
+    }
   }
 
   onKey(pressed) {
@@ -175,7 +184,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay } = this.state;
+    const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay, ready } = this.state;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
     const beforeStart = !playing && answers.length === 0;
@@ -186,7 +195,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
-        {end && <End answers={answers} replay={this.onKey} />}
+        {end && <End answers={answers} replay={this.onKey} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
           <Credits />

@@ -3,7 +3,7 @@ import { getSuccessRatio, getLongestStreak } from './utils/StatTool';
 
 export default class End extends Component {
   render() {
-    const { answers } = this.props;
+    const { answers, ready, replay } = this.props;
 
     return (
       <div className="end">
@@ -26,7 +26,7 @@ export default class End extends Component {
           <p>Faites appel à une équipe d&apos;experts.</p>
           <div className="modal__buttons">
             <a href="https://elao.com" target="_blank" rel="noopener noreferrer" className="button">Découvrir élao</a>
-            <button className="button button--light" onClick={this.props.replay}>
+            <button className="button button--light" disabled={!ready} onClick={replay}>
               <span className="icon arrow down"></span>
               Rejouer
             </button>

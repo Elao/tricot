@@ -12,49 +12,46 @@ export default class Scarf extends Component {
    *
    * @return {String}
    */
-  static createCrochet(x, y) {
-    const pX = (x + 0.92) * WIDTH - 5 ;
-    const pY = (y + 0.4) * -HEIGHT - 4;
+  static createCrochet(x, y = 0) {
+    const pX = (x + 0.92) * WIDTH - 5;
+    const pY = (y + 0.4) * HEIGHT + 4;
 
     return `M ${pX} ${pY} a 2.8 8.5 -19 1 0 0 10 M ${pX} ${pY} a 2.8 8.5 19 1 1 0 10 z`;
+  }
+
+  /**
+   * Generate random pompoms
+   *
+   * @param {Number} length
+   *
+   * @return {Array}
+   */
+  static generatePompoms(length = 18) {
+    return new Array(length).fill(null).map(() => Math.random() > 0.5);
   }
 
   constructor() {
     super();
 
-    this.state = {
-      x: LINE,
-      y: -1,
-      white: '',
-      red: '',
-      pompoms: [],
-    };
+    this.white = '';
+    this.red = '';
+    this.pompoms = this.constructor.generatePompoms();
 
     this.renderPompom = this.renderPompom.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      pompoms: new Array(20).fill(null).map(() => Math.random() > 0.5)
-    });
-  }
-
   componentWillReceiveProps(nextProps) {
-    const { lines, answers} = nextProps;
-    const { length } = answers;
+    const { lines, answers } = nextProps;
+    const current = this.props.answers.length;
 
-    if (length > this.props.answers.length) {
-      const success = answers[length - 1];
-      const line = lines[length - 1];
-
-      this.append(success ? line : Generator.messUp(line));
-    } else if (length < this.props.answers.length) {
-      this.setState({
-        x: LINE,
-        y: -1,
-        white: '',
-        red: '',
+    if (answers.length && answers.length > current) {
+      answers.slice(current).forEach((success, index) => {
+        const line = lines[index + current];
+        const y = lines.length - (current + index + 1);
+        this.append(success ? line : Generator.messUp(line), y);
       });
+    } else if (answers.length < current) {
+      this.reset();
     }
   }
 
@@ -63,27 +60,25 @@ export default class Scarf extends Component {
    *
    * @param {String} pattern
    */
-  append(pattern) {
-    let { x, y, white, red } = this.state;
-
-    Array.from(pattern).forEach(value => {
-      if (x >= LINE) {
-        x = 0;
-        y++;
-      }
-
-      const crochet = Scarf.createCrochet(x, y);
+  append(pattern, y) {
+    Array.from(pattern).forEach((value, index) => {
+      const crochet = Scarf.createCrochet(index, y);
 
       if (value === 'v') {
-        white += crochet;
+        this.white += crochet;
       } else {
-        red += crochet;
+        this.red += crochet;
       }
-
-      x++;
     });
+  }
 
-    this.setState({ x, y, red, white });
+  /**
+   * Reset scarf content
+   */
+  reset() {
+    this.white = '';
+    this.red = '';
+    this.pompoms = this.constructor.generatePompoms();
   }
 
   /**
@@ -96,7 +91,7 @@ export default class Scarf extends Component {
    */
   renderPompom(reverse, index) {
     const scale = reverse ? -1 : 1;
-    const width = (LINE * WIDTH) / this.state.pompoms.length;
+    const width = (LINE * WIDTH) / this.pompoms.length;
 
     return (
       <use
@@ -111,27 +106,28 @@ export default class Scarf extends Component {
 
   render() {
     const { answers, lines } = this.props;
-    const { white, red, pompoms } = this.state;
+    const { pompoms, white, red } = this;
     const pompomHeight = 90;
     const end = lines.length > 0 && lines.length === answers.length;
-    const patternheight = answers.length * HEIGHT + 8;
-    const svgHeight = patternheight + pompomHeight + (end ? pompomHeight : 0);
+    const patternHeight = lines.length * HEIGHT;
+    const svgHeight = patternHeight + pompomHeight * 2;
+    const currentHeight = (answers.length * HEIGHT) + (pompomHeight * (end ? 2 : 1));
 
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
-        height={svgHeight}
-        preserveAspectRatio="xMidYMax slice"
-        viewBox={`0 ${-(patternheight + (end ? pompomHeight : 0))} ${LINE * WIDTH} ${svgHeight}`}
+        height={currentHeight}
+        preserveAspectRatio="xMidYMin slice"
+        viewBox={`0 ${svgHeight - currentHeight - pompomHeight} ${LINE * WIDTH} ${currentHeight}`}
       >
-        <g id="knit-end" transform={`translate(0, ${-(lines.length * HEIGHT - 10)}) scale(1, -1)`}>
+        <rect id="background" x="3" y="8" width="714" height={Math.max(patternHeight - 12, 0)} fill="#681615" />
+        <g id="knit-end" transform="translate(0, 12) scale(1, -1)">
           {pompoms.map(this.renderPompom)}
         </g>
-        <g id="knit-start" transform="translate(0, -10)">
+        <g id="knit-start" transform={`translate(0, ${patternHeight - 8})`}>
           {pompoms.map(this.renderPompom)}
         </g>
-        <rect id="background" x="3" y={11 - patternheight} width="714" height={Math.max(patternheight - 18, 0)} fill="#681615" />
         <path id="white" d={white} fill={COLOR_WHITE}></path>
         <path id="red" d={red} fill={COLOR_RED}></path>
       </svg>

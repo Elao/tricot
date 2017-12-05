@@ -19,19 +19,21 @@ export default class ArrowTunel extends Component {
 
     if (current === null) {
       return {
-        transform: `translate3d(0, ${(-height)}vh, 0)`,
+        transform: `translate3d(0, ${-height}vh, 0)`,
         transitionDuration: '0ms',
       };
     }
 
+    const duration = arrows.length + warmup.length;
+
     return {
-      transform: `translateY(${((current + warmup.length) * height)}vh)`,
-      transitionDuration: `${arrows.length === 0 ? 0 : tempo}ms`,
+      transform: `translate3d(0, ${duration * height}vh, 0)`,
+      transitionDuration: `${(duration + 1) * tempo}ms`,
     };
   }
 
   /**
-   * Render one arrows
+   * Render one arrow
    *
    * @param {String} arrow
    * @param {Number} index
@@ -40,52 +42,41 @@ export default class ArrowTunel extends Component {
    */
   renderArrow(arrow, index) {
     const { answers } = this.props;
-    const classes = [
-      'icon arrow',
-      Key.getClass(arrow),
-    ];
+    let classeName = `icon arrow ${Key.getClass(arrow)}`;
 
     if (index < answers.length) {
-      classes.push(answers[index] ? 'success' : 'error');
+      classeName = classeName.concat(answers[index] ? ' success' : ' error');
     }
 
-    return (
-      <li key={`${arrow}-${index}`} className={classes.join(' ')}></li>
-    );
+    return <li key={`${arrow}-${index}`} className={classeName}></li>;
   }
 
   renderHighlight(arrow) {
     const { pressed, arrows, current, tempo } = this.props;
-    const expected = arrows[current];
     const style = { animationDuration: `${tempo}ms` };
-    const classes = [
-      'icon arrow',
-      Key.getClass(arrow),
-    ];
+    let classeName = `icon arrow ${Key.getClass(arrow)}`;
 
     if (arrow !== pressed) {
-      classes.push(`${Key.getClass(arrow)}--empty`);
+      classeName = classeName.concat(` ${Key.getClass(arrow)}--empty`);
     }
 
-    if (arrow === expected) {
-      classes.push('active');
+    if (arrow === arrows[current]) {
+      classeName = classeName.concat(' active');
     }
 
-    return <li style={style} className={classes.join(' ')}></li>;
+    return <li style={style} className={classeName}></li>;
   }
 
   renderCountdown(value, index) {
     const { current, warmup, tempo } = this.props;
-    const classes = ['arrow countdown'];
-    const style = { animationDelay: `${tempo * 0.5}ms` };
+    const style = { animationDelay: `${current !== null ? tempo * 0.5 : 0}ms` };
+    let className = 'arrow countdown';
 
-    if ((current + warmup.length) >= index) {
-      classes.push('success');
+    if ((current !== null) && (current + warmup.length) >= index) {
+      className = className.concat(' success');
     }
 
-    return <li key={`countdown-${index}`} style={style} className={classes.join(' ')}>
-      {value}
-    </li>;
+    return <li key={`countdown-${index}`} style={style} className={className}>{value}</li>;
   }
 
   render() {

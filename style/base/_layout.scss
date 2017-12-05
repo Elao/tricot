@@ -61,6 +61,11 @@ h1 {
   transform: translateX(-50%);
   width: 100%;
   font-weight: 400;
+  transition: opacity 400ms 1s ease-in;
+
+  &.fade {
+    opacity: 0;
+  }
 }
 
 #root {

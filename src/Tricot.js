@@ -189,6 +189,29 @@ export default class Tricot extends Component {
     return `active ${errorClass}`;
   }
 
+  /**
+   * Get page title
+   *
+   * @return {String|null}
+   */
+  getTitle() {
+    const { answers, index, tempo } = this.state;
+
+    if (index === null && answers.length === 0) {
+      return <h1>Appuie en rythme sur les touches pour tricoter</h1>;
+    }
+
+    if (index < 0) {
+      return <h1>Préparez-vous ...</h1>;
+    }
+
+    if (index < 4) {
+      return <h1 className="fade">C&apos;est parti !</h1>;
+    }
+
+    return null;
+  }
+
   render() {
     const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay, ready } = this.state;
     const { privacy, credits } = this.modals;
@@ -201,7 +224,7 @@ export default class Tricot extends Component {
 
     return (
       <div>
-        {beforeStart && <h1>Appuie en rythme sur les touches pour tricoter</h1>}
+        {this.getTitle(index, answers)}
         {end && <End answers={answers} replay={this.onKey} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />

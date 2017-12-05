@@ -45,6 +45,11 @@ export default class Tricot extends Component {
       ready: true,
     };
 
+    this.modals = {
+      credits: null,
+      privacy: null,
+    };
+
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.tick = this.tick.bind(this);
@@ -186,6 +191,7 @@ export default class Tricot extends Component {
 
   render() {
     const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay, ready } = this.state;
+    const { privacy, credits } = this.modals;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
     const beforeStart = !playing && answers.length === 0;
@@ -199,7 +205,7 @@ export default class Tricot extends Component {
         {end && <End answers={answers} replay={this.onKey} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
-          <Credits />
+          {credits && credits.renderButton()}
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
         </div>
@@ -218,7 +224,11 @@ export default class Tricot extends Component {
           </div>
         </div>
         {beforeStart && <Help />}
-        <Privacy />
+        <div className="legals">
+          {privacy && privacy.renderButton()}
+        </div>
+        <Privacy ref={modal => this.modals.privacy = modal}/>
+        <Credits ref={modal => this.modals.credits = modal}/>
       </div>
     );
   }

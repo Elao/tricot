@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import Modal from './utils/Modal';
 
 export default class Credits extends Component {
+  renderButton() {
+    return this.modal.renderButton();
+  }
+
   render() {
     return (
-      <Modal hash="credits" icon="credits">
+      <Modal hash="credits" icon="credits" ref={modal => this.modal = modal}>
         <p>
           Knittar Hero est un projet <a href="https://github.com/Elao/tricot" target="_blank" rel="noopener noreferrer">open-source</a> réalisé par <a href="https://elao.com" target="blank">élao</a>.
         </p>

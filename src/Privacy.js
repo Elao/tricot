@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import Modal from './utils/Modal';
 
 export default class Privacy extends Component {
+  renderButton() {
+    return this.modal.renderButton();
+  }
+
   render() {
     return (
-      <Modal hash="privacy" label="Cookies et confidentialité">
+      <Modal hash="privacy" label="Cookies et confidentialité" ref={modal => this.modal = modal}>
         <h3>Cookies et protection des données</h3>
         <p>Nous traquons le nombre de visites sur Knittar Hero.</p>
 

@@ -1,11 +1,16 @@
 .modal {
   width: 900px;
+  max-width: calc(100% - 50px);
+  max-height: calc(100% - 50px);
+  overflow: auto;
   font-size: 18px;
+  box-sizing: border-box;
   font-weight: 400;
   background: rgba(255, 255, 255, .95);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, .2);
-  padding: 60px 30px;
+  margin: 0;
+  padding: 25px;
   border: solid 2px rgba(255, 255, 255, .5);
   position: fixed;
   top: 50%;
@@ -15,7 +20,7 @@
   z-index: 101;
 
   .close {
-    position: absolute;
+    position: fixed;
     right: 25px;
     top: 25px;
     border: none;
@@ -107,16 +112,8 @@
   }
 }
 
-.modal--audio {
-  h2 { font-size: 30px; }
-  .icon { padding-right: 20px; }
-}
-
 .modal--credits {
   width: 700px;
-  position: absolute;
-  transform: translateX(-50%);
-  padding: 25px 30px 60px;
   display: flex;
   flex-direction: column;
   font-size: 16px;
@@ -152,10 +149,12 @@
 }
 
 .modal--privacy {
-  padding: 25px;
-
   ul, p, & {
     text-align: left;
+  }
+
+  h3:first-of-type {
+    margin-top: 0;
   }
 
   p {

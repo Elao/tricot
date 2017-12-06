@@ -90,7 +90,7 @@ export default class Tricot extends Component {
     this.keyCatcher.attachEvents();
 
     const { duration, warmup, bpm } = this.state;
-    const lines = Generator.generate(Math.round(duration / (60000 / bpm)) - warmup.length);
+    const lines = Generator.generate(duration - warmup.length);
     const partition = Key.getRandoms(lines.length);
 
     this.setState({
@@ -133,6 +133,10 @@ export default class Tricot extends Component {
    * @param {Number} date
    */
   validate(pressed, date) {
+    if (pressed === null) {
+      return this.setState({ pressed });
+    }
+
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
@@ -141,8 +145,6 @@ export default class Tricot extends Component {
       const succes = ratio <= ZONE() && pressed === partition[index];
 
       this.setState({ answers: answers.concat([succes]), pressed });
-    } else {
-      this.setState({ pressed });
     }
   }
 

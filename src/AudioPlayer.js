@@ -101,20 +101,24 @@ export default class AudioPlayer extends Component {
    * @param {Function} callback
    */
   start(tempo, delay, callback) {
-    this.song.playbackRate = (60000 / tempo) / this.props.bpm;
+    const { bpm, delay: songDelay } = this.props;
 
-    if (this.song.playbackRate > 1.5) {
-      this.song.playbackRate = this.song.playbackRate / 2;
-    }
+    if (bpm) {
+      this.song.playbackRate = (60000 / tempo) / this.props.bpm;
 
-    if (this.song.playbackRate < 0.75) {
-      this.song.playbackRate = this.song.playbackRate * 2;
+      if (this.song.playbackRate > 1.5) {
+        this.song.playbackRate = this.song.playbackRate / 2;
+      }
+
+      if (this.song.playbackRate < 0.75) {
+        this.song.playbackRate = this.song.playbackRate * 2;
+      }
     }
 
     this.load(this.song);
 
     this.playSong(() => {
-      setTimeout(this.playSong, delay - (this.props.delay / this.song.playbackRate));
+      setTimeout(this.playSong, delay - (songDelay / this.song.playbackRate));
       callback();
     });
   }
@@ -226,8 +230,10 @@ export default class AudioPlayer extends Component {
   /**
    * Audio API not authorized
    */
-  onError() {
-    this.setState({ authorized: null });
+  onError(error) {
+    if (error instanceof DOMException) {
+      this.setState({ authorized: null });
+    }
   }
 
   /**

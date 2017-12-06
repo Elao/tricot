@@ -1,7 +1,7 @@
-import * as DeckTheHalls from './DeckTheHalls';
-import * as JoyToTheWorld from './JoyToTheWorld';
-import * as SilentNight from './SilentNight';
-import * as JingleBells from './JingleBells';
+import * as DeckTheHalls from './DeckTheHalls95';
+import * as JoyToTheWorld from './JoyToTheWorld120';
+import * as SilentNight from './SilentNight160';
+import * as JingleBells from './JingleBells190';
 
 const songs = [
   DeckTheHalls,

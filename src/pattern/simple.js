@@ -94,3 +94,17 @@ export const croco = [
   repeat(' vvv'),
   repeat('vvvv'),
 ];
+
+export const wave = [
+  repeat('v    '),
+  repeat(' v  v'),
+  repeat('  vv '),
+];
+
+export const crossAndBox = [
+  repeat('  v   v   v '),
+  repeat(' v   vvv   v'),
+  repeat('v   vv vv   '),
+  repeat(' v   vvv   v'),
+  repeat('  v   v   v '),
+];

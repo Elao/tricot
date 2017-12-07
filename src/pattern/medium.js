@@ -88,3 +88,52 @@ export const line = [
   repeat('vvvvvvvvvvvv'),
   repeat('v v v v v v ')
 ];
+
+export const zalando1 = [
+  repeat('vv     vv    v v   '),
+  repeat('vvv   vvv     v    '),
+  repeat(' vvv vvv    vv vv  '),
+  repeat('  vv vv    vvv vvv '),
+  repeat('    v     vvv   vvv'),
+  repeat('   v v    vv     vv'),
+];
+
+export const zalando3 = [
+  repeat('           v      '), 
+  repeat('          vvv     '),
+  repeat('          v v     '),
+  repeat('         vv vv    '),
+  repeat('     vvvvv vvvvvvv'),
+  repeat('      vv  vvvvvvv '),
+  repeat('  v    vvvvvvvvv  '),
+  repeat(' v v    vvvvvvv   '),
+  repeat('  v    vvvvvvvvv  '),
+  repeat('       vvvv vvvv  '),
+  repeat('      vvv     vvv '),
+  repeat('      vv       vv '),
+];
+
+export const zalando4 = [
+  repeat('           v      '), 
+  repeat('          vvv     '),
+  repeat('         vvvvv    '),
+  repeat('        vvvvvvv   '),
+  repeat(' v v    v vvvvv   '),
+  repeat(' vvv    v vvvvv   '),
+  repeat('  v     v vvvvv   '),
+  repeat('       vv vvvvvv  '),
+  repeat('      vv vvvvvvvv '),
+  repeat('      vvvvvvvvvvv '),
+  repeat('           v      '),
+  repeat('            v     '),
+];
+
+export const zalando7 = [
+  repeat('           v     '),
+  repeat('         v v v   '),
+  repeat('          v v    '),
+  repeat('        vv v vv  '),
+  repeat('  v v     v v    '),
+  repeat('   v     v v v   '),
+  repeat('  v v      v     '),
+];

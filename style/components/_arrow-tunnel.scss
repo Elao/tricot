@@ -39,7 +39,7 @@
       min-height: $zone * $arrow-height;
       line-height: $zone * $arrow-height;
       font-size: $zone * $arrow-height;
-      margin-top: (1 - $zone) * $arrow-height;
+      margin: ((1 - $zone) / 2 * $arrow-height) 0;
       vertical-align: bottom;
       box-sizing: border-box;
     }
@@ -66,8 +66,8 @@
       height: $zone * $arrow-height;
       min-height: $zone * $arrow-height;
       line-height: $zone * $arrow-height;
+      margin: ((1 - $zone) / 2 * $arrow-height) 0;
       font-size: 3em;
-      margin-top: (1 - $zone) * $arrow-height;
       vertical-align: bottom;
       box-sizing: border-box;
       justify-content: center;
@@ -90,8 +90,8 @@
   transform: translateX(-50%);
   margin: 0;
   padding: 0 15px;
-  bottom: ($zone / 2) * $arrow-height;
-  height: $zone * $arrow-height;
+  bottom: (1 - $zone / 2) * $arrow-height;
+  height: $arrow-height * $zone;
   align-items: center;
   box-sizing: border-box;
 

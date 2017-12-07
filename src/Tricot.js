@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Generator from './pattern/Generator';
+import { ZONE } from './pattern/constants';
 import ArrowTunel from './ArrowTunel';
 import AudioPlayer from './AudioPlayer';
 import Fullscreen from './Fullscreen';
@@ -21,13 +22,6 @@ import stitchBack from '../assets/images/upper-stitch--back.svg';
 import Songs from './track';
 
 export default class Tricot extends Component {
-  /**
-   * Zone when you must presse the key
-   *
-   * @type {Number}
-   */
-  static ZONE() { return 0.5; }
-
   constructor() {
     super();
 
@@ -89,7 +83,7 @@ export default class Tricot extends Component {
     this.resetCatcher.detachEvents();
     this.keyCatcher.attachEvents();
 
-    const { duration, warmup, bpm } = this.state;
+    const { duration, warmup } = this.state;
     const lines = Generator.generate(duration - warmup.length);
     const partition = Key.getRandoms(lines.length);
 
@@ -104,10 +98,9 @@ export default class Tricot extends Component {
    * Start the game
    */
   start() {
-    const { ZONE } = this.constructor;
     const { tempo, warmup } = this.state;
 
-    this.audio.start(tempo, tempo * (1 - ZONE() / 2), () => {
+    this.audio.start(tempo, tempo / 2, () => {
       this.setState({ index: -warmup.length });
       this.timer.start(tempo);
     });
@@ -119,6 +112,7 @@ export default class Tricot extends Component {
   stop() {
     if (this.timer.stop()) {
       this.keyCatcher.detachEvents();
+      this.resetCatcher.attachEvents(false);
       this.timer.stop();
       this.audio.end();
       this.setState({ index: null, ready: false });
@@ -140,9 +134,10 @@ export default class Tricot extends Component {
     const { partition, index, answers, tempo } = this.state;
 
     if (index === answers.length) {
-      const { ZONE } = this.constructor;
-      const ratio = 1 - (this.timer.getTime(date) / tempo);
-      const succes = ratio <= ZONE() && pressed === partition[index];
+      const time = this.timer.getTime(date);
+      const correct = pressed === partition[index];
+      const onBeat = Math.abs(time - (tempo / 2)) <= (ZONE / 2);
+      const succes = correct && onBeat;
 
       this.setState({ answers: answers.concat([succes]), pressed });
     }
@@ -224,7 +219,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {this.getTitle(index, answers)}
-        {end && <End answers={answers} replay={this.onKey} ready={ready} />}
+        {end && <End answers={answers} replay={this.reset} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
           {credits && credits.renderButton()}

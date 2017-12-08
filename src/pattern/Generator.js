@@ -39,13 +39,21 @@ export default class Generator {
      *
      * @return {String}
      */
-    static messUp(line, errors = LINE / 10) {
+    static messUp(line, errors = LINE / 10, holes = 2) {
         const messedUp = Array.from(line);
 
         for (let i = 0; i < errors; i++) {
             const index = Math.floor(Math.random() * messedUp.length);
 
             messedUp[index] = messedUp[index] === 'v' ? ' ' : 'v';
+        }
+
+        for (let i = 0; i < errors; i++) {
+            const index = Math.floor(Math.random() * messedUp.length);
+
+            if (Math.random() < 0.2) {
+                messedUp[index] = 'x';
+            }
         }
 
         return messedUp.join('');

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const meta = require('./package.json');
 const production = process.env.NODE_ENV === 'production';
 const plugins = [
@@ -15,11 +16,14 @@ const plugins = [
   }),
   new HtmlWebpackPlugin({
     template: `${__dirname}/index.html`,
-    favicon: 'assets/images/favicon.ico',
+    favicon: 'assets/favicon.ico',
     url: process.env.APP_URL || '',
     piwikHost: process.env.PIWIK_HOST || null,
     piwikId: process.env.PIWIK_ID || null,
   }),
+  new CopyWebpackPlugin([{
+    from: `${__dirname}/public`
+  }])
 ];
 
 if (production) {

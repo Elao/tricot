@@ -16,8 +16,6 @@ import ResetCatcher from './game/ResetCatcher';
 import Timer from './game/Timer';
 import Songs from './track';
 import '../assets/images/elao.svg';
-import '../assets/images/cover.png';
-import '../assets/images/favicon.ico';
 import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
 import stitchFront from '../assets/images/upper-stitch--front.svg';

@@ -15,6 +15,10 @@ const plugins = [
   }),
   new HtmlWebpackPlugin({
     template: `${__dirname}/index.html`,
+    favicon: 'assets/images/favicon.ico',
+    url: process.env.APP_URL || '',
+    piwikHost: process.env.PIWIK_HOST || null,
+    piwikId: process.env.PIWIK_ID || null,
   }),
 ];
 
@@ -53,7 +57,7 @@ module.exports = {
         options: { name: '[path][name].[ext]' },
       },
       {
-        test: /images\/(.+)\.(svg|png)$/,
+        test: /images\/(.+)\.(svg|png|ico)$/,
         loader: 'file-loader',
         options: { name: '[path][name].[ext]' },
       },

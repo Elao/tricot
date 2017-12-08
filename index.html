@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Knittar Hero</title>
-    <meta name="description" content="Tricote une e-charpe !">
+    <meta name="description" content="Tricote-toi une e-charpe !">
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
@@ -10,10 +10,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="/custom_icon.png">
-    <link rel="apple-touch-startup-image" href="/launch.png">
+    <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.options.url %>/assets/images/appicon.png">
+    <link rel="apple-touch-startup-image" href="<%= htmlWebpackPlugin.options.url %>/assets/images/cover.png">
     <meta name="apple-mobile-web-app-title" content="Knittar Hero">
     <meta name="apple-mobile-web-app-status-bar-style" content="light-translucent">
+    <meta name="og:title" content="Knittar Hero">
+    <meta name="og:description" content="Tricote-toi une e-charpe !">
+    <meta name="og:image" content="<%= htmlWebpackPlugin.options.url %>/assets/images/cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@elao">
+    <meta name="twitter:creator" content="@elao">
+    <% if (htmlWebpackPlugin.options.piwikHost) { %>
     <!-- Piwik -->
     <script type="text/javascript">
       var _paq = _paq || [];
@@ -23,14 +30,15 @@
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//piwik.elao.com/";
+        var u="//<%= htmlWebpackPlugin.options.piwikHost %>/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '2']);
+        _paq.push(['setSiteId', '<%= htmlWebpackPlugin.options.piwikId %>']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
       })();
     </script>
     <!-- End Piwik Code -->
+    <% } %>
   </head>
   <body>
     <header>

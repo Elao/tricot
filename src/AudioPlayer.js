@@ -47,6 +47,7 @@ export default class AudioPlayer extends Component {
     this.song = null;
     this.fadeFrame = null;
     this.songCallback = null;
+    this.endCallback = null;
 
     this.playSong = this.playSong.bind(this);
     this.playBackground = this.playBackground.bind(this);
@@ -150,6 +151,11 @@ export default class AudioPlayer extends Component {
     this.stop();
     this.audio.addEventListener('ended', this.playBackground);
     this.play(this.final);
+
+    if (typeof this.endCallback === 'function') {
+      this.endCallback();
+      this.endCallback = null;
+    }
   }
 
   /**
@@ -188,7 +194,9 @@ export default class AudioPlayer extends Component {
   /**
    * End
    */
-  end() {
+  end(callback = null) {
+    this.endCallback = callback;
+
     if (this.audio.volume === 1) {
       this.playFinal();
     } else {
@@ -207,7 +215,7 @@ export default class AudioPlayer extends Component {
       this.fadeFrame = null;
       this.playFinal();
     } else {
-      this.audio.volume = Math.max(0, this.audio.volume - 0.05);
+      this.audio.volume = Math.max(0, this.audio.volume - 0.025);
     }
   }
 

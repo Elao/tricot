@@ -67,8 +67,8 @@
   position: static;
   transform: none;
   margin: 50px auto;
-  background: rgba(255, 255, 255, .7);
-  animation: slide 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  background: rgba(255, 255, 255, 0.7);
+  animation: slide 1s ease-out both;
 
   p {
     margin-top: 0;

@@ -52,6 +52,7 @@ export default class Tricot extends Component {
     this.loadSong = this.loadSong.bind(this);
     this.checkStop = this.checkStop.bind(this);
     this.reset = this.reset.bind(this);
+    this.final = this.final.bind(this);
 
     this.timer = new Timer(this.tick);
     this.keyCatcher = new KeyCatcher(Key, this.validate);
@@ -114,10 +115,16 @@ export default class Tricot extends Component {
       this.keyCatcher.detachEvents();
       this.resetCatcher.attachEvents(false);
       this.timer.stop();
-      this.audio.end();
-      this.setState({ index: null, ready: false });
-      setTimeout(() => this.setState({ ready: true }), 2000);
+      this.audio.end(this.final);
     }
+  }
+
+  /**
+   * On final
+   */
+  final() {
+    this.setState({ index: null, ready: false });
+    setTimeout(() => this.setState({ ready: true }), 2000);
   }
 
   /**

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSuccessRatio, getLongestStreak } from './utils/StatTool';
+import { getSuccessRatio, getLongestStreak, countSuccess, countError } from './utils/StatTool';
 
 export default class End extends Component {
   render() {
@@ -12,15 +12,27 @@ export default class End extends Component {
           <h3>Bravo !</h3>
         </div>
         <div className="modal modal--end">
-          <div className="statistics">
-            <dl>
-              <dd>Score :</dd>
-              <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
-            </dl>
-            <dl>
-              <dd>Plus longue série :</dd>
-              <dt>{getLongestStreak(answers)}</dt>
-            </dl>
+          <div className="statistics-container">
+            <div className="statistics statistics--score">
+              <dl>
+                <dd>Score :</dd>
+                <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
+              </dl>
+            </div>
+            <div className="statistics statistics--details">
+              <dl>
+                <dd>Plus longue série :</dd>
+                <dt>{getLongestStreak(answers)}</dt>
+              </dl>
+              <dl>
+                <dd>Mailles ratées :</dd>
+                <dt>{countError(answers)}</dt>
+              </dl>
+              <dl>
+                <dd>Mailles réussies :</dd>
+                <dt>{countSuccess(answers)}</dt>
+              </dl>
+            </div>
           </div>
           <p>Un projet web à tricoter ?</p>
           <p>Faites appel à une équipe d&apos;experts.</p>

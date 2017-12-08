@@ -24,25 +24,18 @@
     padding: 3px 0;
     position: relative;
     top: 0;
-    //font-size: 16px !important;
-    //margin: 0 !important;
-    //padding: 0 0 0 15px;
-    //top: 8px;
   }
 }
 
 @media (max-width: $screen-sm-max) {
   .options .song-selector {
     font-size: 12px;
-    width: 170px;
-    padding: 5px;
-    margin: 0 10px;
+    width: 160px;
+    padding: 0 5px;
+    margin: 0 0.4em;
 
     .song-selector__button {
-      //font-size: 14px !important;
       font-size: 14px;
-      //padding-left: 5px;
-      //top: 5px;
     }
   }
 }

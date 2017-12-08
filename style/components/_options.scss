@@ -44,6 +44,12 @@
 
 @media (max-width: $screen-sm-max) {
   .options {
+    padding: 0 0.4em;
+
+    & > * {
+      padding: 1em 0.4em;
+    }
+
     button {
       font-size: 20px;
       margin-left: 0;

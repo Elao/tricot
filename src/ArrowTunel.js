@@ -27,8 +27,8 @@ export default class ArrowTunel extends Component {
     const duration = arrows.length + warmup.length;
 
     return {
-      transform: `translate3d(0, ${duration * height}vh, 0)`,
-      transitionDuration: `${(duration + 1) * tempo}ms`,
+      transform: `translate3d(0, ${(duration - 1) * height}vh, 0)`,
+      transitionDuration: `${duration * tempo}ms`,
     };
   }
 

@@ -29,10 +29,10 @@ export default class Modal extends Component {
   }
 
   renderButton() {
-    const { icon, label, hash } = this.props;
+    const { icon, label } = this.props;
 
     return (
-      <button className={icon ? `icon ${icon}` : ''} onClick={this.open}>
+      <button type="button" className={icon ? `icon ${icon}` : ''} onClick={this.open}>
         {label || ''}
       </button>
     );
@@ -51,7 +51,7 @@ export default class Modal extends Component {
       <div>
         <div className="modal__blur" onClick={this.close}></div>
         <div className={`modal modal--${hash}`}>
-          <button className="icon close" onClick={this.close}></button>
+          <button type="button" className="icon close" onClick={this.close}></button>
           {children}
         </div>
       </div>

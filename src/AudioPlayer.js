@@ -264,10 +264,10 @@ export default class AudioPlayer extends Component {
             </h2>
             <p>Knittar Hero a besoin de votre autorisation pour jouer de la musique sur cet appareil.</p>
             <div className="modal__buttons">
-              <button className="button button--light" onClick={this.disable}>
+              <button type="button" className="button button--light" onClick={this.disable}>
                 Annuler
               </button>
-              <button className="button" onClick={this.playBackground}>
+              <button type="button" className="button" onClick={this.playBackground}>
                 Autoriser
               </button>
             </div>
@@ -276,6 +276,6 @@ export default class AudioPlayer extends Component {
       );
     }
 
-    return (<button className={`audio icon ${muted ? 'audio-off' : 'audio-on'}`} onClick={this.toggle} />);
+    return (<button type="button" className={`audio icon ${muted ? 'audio-off' : 'audio-on'}`} onClick={this.toggle} />);
   }
 }

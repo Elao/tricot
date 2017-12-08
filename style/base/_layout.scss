@@ -4,6 +4,7 @@ body {
   padding: 0;
   height: 100vh;
   perspective: 1000px;
+  touch-action: manipulation;
 }
 
 body {
@@ -34,8 +35,11 @@ body {
       display: none;
     }
   }
-}
 
+  a, button {
+    cursor: 'pointer';
+  }
+}
 header {
   position: absolute;
   top: 0;

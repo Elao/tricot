@@ -18,9 +18,12 @@ export default class ResetCatcher {
     this.attachEvents();
   }
 
-  attachEvents() {
+  attachEvents(touch = true) {
     window.addEventListener('keydown', this.onKey);
-    this.target.addEventListener('touchstart', this.onTouch);
+
+    if (touch) {
+      this.target.addEventListener('touchstart', this.onTouch);
+    }
   }
 
   detachEvents() {
@@ -45,7 +48,8 @@ export default class ResetCatcher {
   /**
    * On touch
    */
-  onTouch() {
+  onTouch(event) {
+    event.preventDefault();
     this.callback();
   }
 }

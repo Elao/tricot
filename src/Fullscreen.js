@@ -67,6 +67,6 @@ export default class Fullscreen extends Component {
             return null;
         }
 
-        return <button className={`fullscreen icon ${fullscreen ? 'fullscreen-off' : 'fullscreen-on'}`} onClick={this.toggle} />
+        return <button type="button" className={`fullscreen icon ${fullscreen ? 'fullscreen-off' : 'fullscreen-on'}`} onClick={this.toggle} />
     }
 }

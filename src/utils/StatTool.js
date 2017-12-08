@@ -41,3 +41,29 @@ export function getProgress(index, answers) {
 
   return index / answers.length;
 }
+
+/**
+ * Get number of success
+ *
+ * @param {Array} answers
+ *
+ * @return {Number}
+ */
+export function countSuccess(answers) {
+  if (!answers) { return [0, 0]; }
+
+  return answers.filter(answer => answer).length;
+}
+
+/**
+ * Get number of errors
+ *
+ * @param {Array} answers
+ *
+ * @return {Number}
+ */
+export function countError(answers) {
+  if (!answers) { return [0, 0]; }
+
+  return answers.filter(answer => !answer).length;
+}

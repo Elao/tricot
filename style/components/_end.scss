@@ -8,7 +8,7 @@
     .icon {
       font-size: 90px;
       color: #fff;
-      text-shadow: $text-shadow;
+      text-shadow: shadow();
       margin-right: 20px;
     }
 
@@ -18,7 +18,18 @@
       margin: 0;
       color: #fff;
       font-family: 'Courgette', cursive;
-      text-shadow: $text-shadow;
+      text-shadow: shadow();
+    }
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .end {
+    .end__title {
+      margin: 130px 0 30px;
+
+      .icon { font-size: 50px; }
+      h3 { font-size: 45px; }
     }
   }
 }

@@ -4,6 +4,7 @@ body {
   padding: 0;
   height: 100vh;
   perspective: 1000px;
+  touch-action: manipulation;
 }
 
 body {
@@ -20,9 +21,12 @@ body {
 
   &.end {
     justify-content: flex-start;
-    height: unset;
+    height: auto;
 
-    .knit { height: unset; }
+    .knit {
+      height: auto;
+      margin-bottom: 2em;
+    }
 
     .upper-stitch { display: none; }
 
@@ -31,11 +35,15 @@ body {
       display: none;
     }
   }
-}
 
+  a, button {
+    cursor: 'pointer';
+  }
+}
 header {
   position: absolute;
   top: 0;
+  z-index: 1;
 
   a {
     display: flex;
@@ -53,7 +61,7 @@ h1 {
   font-family: 'Courgette', cursive;
   text-align: center;
   color: #fff;
-  text-shadow: $text-shadow;
+  text-shadow: shadow(0.4, 20px);
   font-size: 55px;
   position: absolute;
   top: 120px;
@@ -62,6 +70,8 @@ h1 {
   width: 100%;
   font-weight: 400;
   transition: opacity 400ms 1s ease-in;
+  padding: 0 1em;
+  box-sizing: border-box;
 
   &.fade {
     opacity: 0;
@@ -83,6 +93,8 @@ h1 {
   position: relative;
 }
 
+.knit-container { position: relative; }
+
 @media (max-width: $screen-lg-max) {
   header {
     img {
@@ -93,5 +105,32 @@ h1 {
 
   .container { width: 100%; }
 
-  h1 { top: 100px; }
+  h1 {
+    font-size: 50px;
+    top: 80px;
+  }
+}
+
+@media (max-width: $screen-md-max) {
+  body {
+    background: url(../assets/images/landscape--mobile.svg);
+    background-position: center top;
+    background-repeat: repeat-x;
+  }
+
+  h1 {
+    font-size: 40px;
+    top: 100px;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  header {
+    img {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  h1 { font-size: 32px; }
 }

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $secondary;
+  background-color: transparent;
   color: $text;
   text-transform: uppercase;
   font-weight: 500;
@@ -15,9 +15,16 @@
   bottom: 0;
 }
 
-@media (max-width: $screen-lg-max) {
+@media (max-width: $screen-sm-max) {
   .rules {
     height: 70px;
-    font-size: 15px;
+    font-size: 16px;
+    flex-direction: column;
+    bottom: 30px;
+    line-height: 0.8em;
+
+    > span:first-of-type { margin-bottom: 5px; }
+
+    .icon { margin: 0 2px; }
   }
 }

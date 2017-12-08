@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 70vh;
   position: relative;
   overflow: hidden;
   width: 720px;
   margin: 0 auto;
   padding: 0 15px;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .arrow-tunnel__slider {
@@ -38,14 +39,13 @@
       min-height: $zone * $arrow-height;
       line-height: $zone * $arrow-height;
       font-size: $zone * $arrow-height;
-      margin-top: (1 - $zone) * $arrow-height;
+      margin: ((1 - $zone) / 2 * $arrow-height) 0;
       vertical-align: bottom;
       box-sizing: border-box;
     }
 
     &.success:before {
-      color: $primary;
-      animation: puff-out 400ms cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+      animation: puff-out 400ms ease-out both;
     }
 
     &.error:before {
@@ -65,15 +65,15 @@
       height: $zone * $arrow-height;
       min-height: $zone * $arrow-height;
       line-height: $zone * $arrow-height;
+      margin: ((1 - $zone) / 2 * $arrow-height) 0;
       font-size: 3em;
-      margin-top: (1 - $zone) * $arrow-height;
       vertical-align: bottom;
       box-sizing: border-box;
       justify-content: center;
       color: $text;
 
       &.success {
-        animation: puff-out 400ms cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+        animation: puff-out 200ms ease-out both;
       }
     }
   }
@@ -89,8 +89,8 @@
   transform: translateX(-50%);
   margin: 0;
   padding: 0 15px;
-  bottom: ($zone / 2) * $arrow-height;
-  height: $zone * $arrow-height;
+  bottom: (1 - $zone / 2) * $arrow-height - ($arrow-height / 8);
+  height: $arrow-height * $zone;
   align-items: center;
   box-sizing: border-box;
 
@@ -109,15 +109,17 @@
   }
 }
 
-@media (max-width: $screen-sm-max) {
-  /*.arrow-tunnel {
-    margin-bottom: 50px;
-  }
+@media (max-width: $screen-lg-max) {
+  .arrow-tunnel { height: 67vh; }
+}
 
-  .arrow-tunnel__highlight {
-    top: -23px;
-    right: 20%;
-    height: 80px;
-    width: 80px;
-  }*/
+@media (max-width: $screen-md-max) {
+  .arrow-tunnel {
+    width: 100%;
+    height: 65vh;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .arrow-tunnel { height: 73vh; }
 }

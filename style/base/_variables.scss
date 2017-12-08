@@ -9,11 +9,13 @@ $success: #91c6ad;
 $error: #f53e3a;
 
 $screen-xs-max: 376px;
-$screen-sm-max: 416px;
+$screen-sm-max: 560px;
 $screen-md-max: 769px;
 $screen-lg-max: 1200px;
 
 $arrow-height: 20vh;
 $zone: 0.5;
 
-$text-shadow: 0 0 10px rgba(104, 165, 179, .2);
+@function shadow($opacity: .2, $spead: 10px) {
+  @return 0 0 $spead rgba(104, 165, 179, $opacity);
+}

@@ -26,8 +26,10 @@ export default class End extends Component {
           <p>Faites appel à une équipe d&apos;experts.</p>
           <div className="modal__buttons">
             <a href="https://elao.com" target="_blank" rel="noopener noreferrer" className="button">Découvrir élao</a>
-            <button className="button button--light" disabled={!ready} onClick={replay}>
+            <button type="button" className="button button--light" disabled={!ready} onClick={replay}>
+              <span className="icon arrow left"></span>
               <span className="icon arrow down"></span>
+              <span className="icon arrow right"></span>
               Rejouer
             </button>
           </div>

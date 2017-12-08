@@ -14,6 +14,7 @@ export const COLOR_WHITE = '#ffffff';
 export const WIDTH = 12;
 export const HEIGHT = 13;
 export const LINE = 60;
+export const ZONE = 200;
 
 /**
  * Repeat a pattern to fit the width of the line

@@ -1,0 +1,45 @@
+.statistics {
+  display: flex;
+  margin-bottom: 45px;
+
+  dl {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    text-align: center;
+    padding: 3px;
+
+    &:nth-of-type(1) { border-right: solid 1px; }
+  }
+
+  dd {
+    margin: 0;
+    margin-right: 15px;
+    font-size: 19px;
+  }
+
+  dt {
+    font-size: 26px;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: $screen-md-max) {
+  .statistics {
+    flex-direction: column;
+    margin-bottom: 25px;
+
+    dl { padding: 0; }
+
+    dl:nth-of-type(1) { border-right: none; }
+
+    dd {
+      font-size: 14px;
+      margin-right: 7px;
+    }
+
+    dt { font-size: 20px; }
+  }
+}

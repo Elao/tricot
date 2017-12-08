@@ -53,3 +53,17 @@
     background-color: transparent;
   }
 }
+
+@media (max-width: $screen-lg-max) {
+  .button {
+    .icon { display: none; }
+  }
+}
+
+@media (max-width: $screen-md-max) {
+  .button {
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}

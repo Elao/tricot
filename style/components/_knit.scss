@@ -4,9 +4,12 @@
   padding-top: 20px;
   overflow: hidden;
 
-  .end & { overflow: auto; }
+  .end & {
+    overflow: auto;
+    height: auto;
+    margin-bottom: 2em;
+  }
 }
-
 .knit__scarf {
   position: relative;
   width: 720px;
@@ -29,7 +32,13 @@
 }
 
 @media (max-width: $screen-sm-max) {
-  .knit { padding-top: 25px; }
+  .knit {
+    padding-top: 25px;
+
+    .end & {
+      margin-bottom: 0;
+    }
+  }
 
   .knit__scarf {
     svg {

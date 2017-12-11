@@ -229,6 +229,8 @@ export default class Tricot extends Component {
         {end && <End answers={answers} replay={this.reset} ready={ready} />}
         <div className="options">
           <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
+
+          <span className="icon stop"></span>
           {credits && credits.renderButton()}
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />

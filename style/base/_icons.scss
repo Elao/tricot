@@ -41,5 +41,6 @@
   &.difficulty--2:before { content: "\e90c\e90c"; }
   &.difficulty--3:before { content: "\e90c\e90c\e90c"; }
   &.difficulty--4:before { content: "\e90c\e90c\e90c\e90c"; }
+  &.stop:before { content: "\ea17"; }
 }
 

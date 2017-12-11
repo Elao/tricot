@@ -48,15 +48,15 @@ export default class AudioPlayer extends Component {
     this.song = null;
     this.fadeFrame = null;
     this.songCallback = null;
-    this.endCallback = null;
 
+    this.play = this.play.bind(this);
     this.playSong = this.playSong.bind(this);
     this.playBackground = this.playBackground.bind(this);
     this.toggle = this.toggle.bind(this);
     this.disable = this.disable.bind(this);
     this.end = this.end.bind(this);
     this.fadeOut = this.fadeOut.bind(this);
-    this.onCanPlayThrough = this.onCanPlayThrough.bind(this);
+    this.onReady = this.onReady.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
   }
@@ -88,11 +88,13 @@ export default class AudioPlayer extends Component {
   /**
    * Song's ready to play
    */
-  onCanPlayThrough() {
+  onReady() {
     this.stop();
-    this.audio.removeEventListener('canplaythrough', this.onCanPlayThrough);
-    this.songCallback();
-    this.songCallback = null;
+    this.audio.removeEventListener('loadeddata', this.onReady);
+    setTimeout(() => {
+      this.songCallback();
+      this.songCallback = null;
+    }, 10);
   }
 
   /**
@@ -131,7 +133,7 @@ export default class AudioPlayer extends Component {
   playSong(callback = null) {
     if (typeof callback === 'function') {
       this.songCallback = callback;
-      this.audio.addEventListener('canplaythrough', this.onCanPlayThrough);
+      this.audio.addEventListener('loadeddata', this.onReady);
     }
 
     this.play();
@@ -148,14 +150,13 @@ export default class AudioPlayer extends Component {
   /**
    * Play finale
    */
-  playFinal() {
-    this.stop();
+  playFinal(mobile = this.audio.volume === 1) {
     this.audio.addEventListener('ended', this.playBackground);
-    this.play(this.final);
 
-    if (typeof this.endCallback === 'function') {
-      this.endCallback();
-      this.endCallback = null;
+    if (mobile) {
+      this.play(this.final);
+    } else {
+      this.final.play();
     }
   }
 
@@ -167,6 +168,8 @@ export default class AudioPlayer extends Component {
   play(audio = null) {
     if (audio) {
       this.load(audio);
+
+      return setTimeout(this.play, 0);
     }
 
     this.audio.play().then(this.onSuccess).catch(this.onError);
@@ -195,14 +198,12 @@ export default class AudioPlayer extends Component {
   /**
    * End
    */
-  end(callback = null) {
-    this.endCallback = callback;
-
-    if (this.audio.volume === 1) {
-      this.playFinal();
-    } else {
+  end() {
+    if (this.audio.volume < 1) {
       this.fadeOut();
     }
+
+    this.playFinal();
   }
 
   /**
@@ -214,7 +215,8 @@ export default class AudioPlayer extends Component {
     if (this.audio.volume <= 0) {
       cancelAnimationFrame(this.fadeFrame);
       this.fadeFrame = null;
-      this.playFinal();
+      this.stop();
+      this.audio.dispatchEvent(new Event('ended'));
     } else {
       this.audio.volume = Math.max(0, this.audio.volume - 0.025);
     }

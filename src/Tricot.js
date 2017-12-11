@@ -10,6 +10,7 @@ import SongSelector from './SongSelector';
 import Scarf from './Scarf';
 import Help from './Help';
 import End from './End';
+import Scroller from './Scroller';
 import * as Key from './game/Key';
 import KeyCatcher from './game/KeyCatcher';
 import ResetCatcher from './game/ResetCatcher';
@@ -258,6 +259,7 @@ export default class Tricot extends Component {
         <div className="container main-container" ref={this.resetCatcher.setTarget}>
           {!end && <ArrowTunel warmup={warmup} arrows={partition} answers={answers} current={index} tempo={tempo} pressed={pressed} />}
           <div className="knit-container">
+            {end && <Scroller direction="bottom" speed={1} />}
             <img src={needleLeft} alt="" className={`needle needle--left ${needleClass}`} />
             <img src={needleRight} alt="" className={`needle needle--right ${needleClass}`} />
             <div className="knit">
@@ -267,6 +269,7 @@ export default class Tricot extends Component {
                 <Scarf tempo={tempo} lines={lines} answers={answers} />
               </div>
             </div>
+            {end && <Scroller direction="top" speed={10} />}
           </div>
         </div>
         {beforeStart && <Help />}

@@ -93,7 +93,34 @@ h1 {
   position: relative;
 }
 
-.knit-container { position: relative; }
+.knit-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .scroller{
+    background: none;
+    border: none;
+    font-size: 2em;
+    line-height: 2em;
+    overflow: visible;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(104, 165, 179, 0.2);
+    outline: none;
+
+    &.up {
+      margin-bottom: 1em;
+    }
+
+    &:before {
+      color: $primary;
+      border: 2px solid $primary;
+      border-radius: 1em;
+      padding: 0.2em;
+    }
+  }
+}
 
 @media (max-width: $screen-lg-max) {
   header {

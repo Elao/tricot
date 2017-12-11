@@ -59,10 +59,14 @@ export default class KeyCatcher {
    * @param {Event} event
    */
   onTouchStart(event) {
+    const { clientX, clientY } = event.changedTouches[0];
+
+    if (clientY < 100) {
+      return true;
+    }
+
     event.preventDefault();
 
-    const { changedTouches } = event;
-    const { clientX } = changedTouches[0];
     const { values } = this.keys;
     const index = Math.floor(clientX / (window.innerWidth / values.length));
 

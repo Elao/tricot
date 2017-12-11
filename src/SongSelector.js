@@ -33,15 +33,13 @@ export default class SongSelector extends Component {
   }
 
   renderSong(song, index) {
-    const { disabled } = this.props;
     const { open, checked } = this.state;
     const { title } = song;
     const id = title.split(' ').join('').toLowerCase();
     const difficulty = index + 1;
     const selected = index === checked;
-    const closed = disabled || !open;
 
-    if (closed && !selected) {
+    if (!open && !selected) {
       return null;
     }
 
@@ -52,7 +50,7 @@ export default class SongSelector extends Component {
       </span>
     );
 
-    if (closed) {
+    if (!open) {
       return <p key={id} className={`song ${selected}`}>{label}</p>;
     }
 
@@ -64,7 +62,7 @@ export default class SongSelector extends Component {
           id={id}
           value={index}
           checked={index === checked}
-          disabled={closed}
+          disabled={!open}
           onChange={this.onChange}
         />
         {label}
@@ -74,12 +72,11 @@ export default class SongSelector extends Component {
 
   render() {
     const { open } = this.state;
-    const { songs, disabled } = this.props;
-    const closed = disabled || !open;
-    const openClass = closed ? 'closed' : 'open';
+    const { songs } = this.props;
+    const openClass = open ? 'open' : 'closed';
 
     return (
-      <div name="song-selector" className={`song-selector ${openClass}`} onClick={closed ? this.toggle : undefined}>
+      <div name="song-selector" className={`song-selector ${openClass}`} onClick={open ? undefined : this.toggle}>
         <div className="song-selector__list">{songs.map(this.renderSong)}</div>
         <button type="button" className={`song-selector__button icon select-${openClass}`} onClick={this.toggle}></button>
       </div>

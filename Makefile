@@ -47,6 +47,9 @@ watch:
 
 ## Build application
 build: export NODE_ENV = production
+build: export APP_URL = https://noel.elao.com
+build: export PIWIK_HOST = piwik.elao.com
+build: export PIWIK_ID = 2
 build:
 	rm -rf dist/*
 	./node_modules/.bin/webpack

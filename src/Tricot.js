@@ -14,12 +14,12 @@ import * as Key from './game/Key';
 import KeyCatcher from './game/KeyCatcher';
 import ResetCatcher from './game/ResetCatcher';
 import Timer from './game/Timer';
+import Songs from './track';
 import '../assets/images/elao.svg';
 import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
 import stitchFront from '../assets/images/upper-stitch--front.svg';
 import stitchBack from '../assets/images/upper-stitch--back.svg';
-import Songs from './track';
 
 export default class Tricot extends Component {
   constructor() {

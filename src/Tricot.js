@@ -47,6 +47,7 @@ export default class Tricot extends Component {
 
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
+    this.cancel = this.cancel.bind(this);
     this.tick = this.tick.bind(this);
     this.validate = this.validate.bind(this);
     this.loadSong = this.loadSong.bind(this);
@@ -114,8 +115,26 @@ export default class Tricot extends Component {
     if (this.timer.stop()) {
       this.keyCatcher.detachEvents();
       this.resetCatcher.attachEvents(false);
-      this.timer.stop();
       this.audio.end(this.final);
+    }
+  }
+
+  /**
+   * Cancel current game
+   */
+  cancel() {
+    if (this.timer.stop()) {
+      this.audio.stop();
+      this.keyCatcher.detachEvents();
+      this.resetCatcher.attachEvents();
+      this.setState({
+        index: null,
+        lines: [],
+        partition: [],
+        answers: [],
+        ready: true,
+      });
+      this.audio.playBackground();
     }
   }
 
@@ -228,9 +247,10 @@ export default class Tricot extends Component {
         {this.getTitle(index, answers)}
         {end && <End answers={answers} replay={this.reset} ready={ready} />}
         <div className="options">
-          <SongSelector songs={Songs} disabled={playing} onChange={this.loadSong} />
-
-          <span className="icon stop"></span>
+          {playing
+            ? <button type="button" className="icon stop" onClick={this.cancel}></button>
+            : <SongSelector songs={Songs} onChange={this.loadSong} />
+          }
           {credits && credits.renderButton()}
           <Fullscreen />
           <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />

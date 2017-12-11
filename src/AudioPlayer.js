@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BACKGROUND from '../assets/audio/background.mp3';
 import MERRY_CHRISTMAS from '../assets/audio/merry_christmas.mp3';
+import * as Memory from './utils/Memory';
 import Songs from './track';
 
 export default class AudioPlayer extends Component {
@@ -61,7 +62,7 @@ export default class AudioPlayer extends Component {
   }
 
   componentDidMount() {
-    this.mute(JSON.parse(localStorage.getItem('muted')) || false);
+    this.mute(Memory.isMuted());
     this.playBackground();
   }
 
@@ -76,7 +77,7 @@ export default class AudioPlayer extends Component {
     if (muted !== prevState.muted) {
       this.audio.muted = muted;
 
-      localStorage.setItem('muted', JSON.stringify(muted));
+      Memory.setMuted(muted);
 
       if (authorized === false) {
         this.playBackground();

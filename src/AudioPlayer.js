@@ -61,6 +61,15 @@ export default class AudioPlayer extends Component {
     this.onError = this.onError.bind(this);
   }
 
+  /**
+   * Is on mobile?
+   *
+   * @return {Boolean}
+   */
+  get mobile() {
+    return this.audio.src === 1;
+  }
+
   componentDidMount() {
     this.mute(Memory.isMuted());
     this.playBackground();
@@ -94,7 +103,7 @@ export default class AudioPlayer extends Component {
     setTimeout(() => {
       this.songCallback();
       this.songCallback = null;
-    }, 10);
+    }, this.mobile ? 10 : 0);
   }
 
   /**
@@ -150,10 +159,10 @@ export default class AudioPlayer extends Component {
   /**
    * Play finale
    */
-  playFinal(mobile = this.audio.volume === 1) {
+  playFinal() {
     this.audio.addEventListener('ended', this.playBackground);
 
-    if (mobile) {
+    if (this.mobile) {
       this.play(this.final);
     } else {
       this.final.play();
@@ -199,7 +208,7 @@ export default class AudioPlayer extends Component {
    * End
    */
   end() {
-    if (this.audio.volume < 1) {
+    if (!this.mobile) {
       this.fadeOut();
     }
 

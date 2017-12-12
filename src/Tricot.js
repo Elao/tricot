@@ -15,6 +15,8 @@ import KeyCatcher from './game/KeyCatcher';
 import ResetCatcher from './game/ResetCatcher';
 import Timer from './game/Timer';
 import Songs from './track';
+import { getSuccessRatio } from './utils/StatTool';
+import * as Memory from './utils/Memory';
 import '../assets/images/elao.svg';
 import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
@@ -30,7 +32,6 @@ export default class Tricot extends Component {
       partition: [],
       answers: [],
       audio: null,
-      loop: null,
       bpm: null,
       delay: null,
       tempo: null,
@@ -38,6 +39,7 @@ export default class Tricot extends Component {
       index: null,
       pressed: null,
       ready: true,
+      next: null,
     };
 
     this.modals = {
@@ -63,29 +65,38 @@ export default class Tricot extends Component {
   /**
    * Load a song
    */
-  loadSong(song = Songs[0]) {
-    const { audio, loop, bpm, delay, tempo, warmup, duration } = song;
+  loadSong(song = Songs[0], callback = null) {
+    const { audio, bpm, delay, tempo, warmup, duration } = song;
+
+    if (this.state.audio === audio) {
+      return;
+    }
 
     this.setState({
       audio,
-      loop,
       bpm,
       delay,
       tempo,
       warmup,
       duration,
-    });
+      next: null,
+    }, callback);
   }
 
   reset() {
-    if (!this.state.ready) {
+    const { ready, next, duration, warmup } = this.state;
+
+    if (!ready) {
       return;
+    }
+
+    if (next !== null) {
+      return this.songSelector.select(next, this.reset);
     }
 
     this.resetCatcher.detachEvents();
     this.keyCatcher.attachEvents();
 
-    const { duration, warmup } = this.state;
     const lines = Generator.generate(duration - warmup.length);
     const partition = Key.getRandoms(lines.length);
 
@@ -133,6 +144,7 @@ export default class Tricot extends Component {
         partition: [],
         answers: [],
         ready: true,
+        next: null,
       });
       this.audio.playBackground();
     }
@@ -142,8 +154,19 @@ export default class Tricot extends Component {
    * On final
    */
   final() {
-    this.setState({ index: null, ready: false });
+    const ratio = getSuccessRatio(this.state.answers);
+    const next = Memory.getSong() + 1;
+    const nextAvailable = ratio > 0.66 && next < Songs.length && !Memory.getScore(next);
+
+    this.setState({
+      index: null,
+      ready: false,
+      next: nextAvailable ? next : null
+    });
+
     setTimeout(() => this.setState({ ready: true }), 2000);
+
+    Memory.setScore(ratio);
   }
 
   /**
@@ -233,7 +256,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { partition, lines, answers, index, pressed, tempo, warmup, audio, loop, bpm, delay, ready } = this.state;
+    const { partition, lines, answers, index, pressed, tempo, warmup, audio, bpm, delay, ready, next } = this.state;
     const { privacy, credits } = this.modals;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
@@ -245,15 +268,15 @@ export default class Tricot extends Component {
     return (
       <div>
         {this.getTitle(index, answers)}
-        {end && <End answers={answers} replay={this.reset} ready={ready} />}
+        {end && <End answers={answers} replay={this.reset} ready={ready} next={next !== null} />}
         <div className="options">
           {playing
             ? <button type="button" className="icon stop" onClick={this.cancel}></button>
-            : <SongSelector songs={Songs} onChange={this.loadSong} />
+            : <SongSelector songs={Songs} onChange={this.loadSong} ref={element => this.songSelector = element} />
           }
           {credits && credits.renderButton()}
           <Fullscreen />
-          <AudioPlayer source={audio} loop={loop} bpm={bpm} delay={delay} ref={element => this.audio = element} />
+          <AudioPlayer source={audio} bpm={bpm} delay={delay} ref={element => this.audio = element} />
         </div>
         <div className="container main-container" ref={this.resetCatcher.setTarget}>
           {!end && <ArrowTunel warmup={warmup} arrows={partition} answers={answers} current={index} tempo={tempo} pressed={pressed} />}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as Memory from './utils/Memory';
 
 export default class SongSelector extends Component {
   constructor() {
@@ -15,17 +16,17 @@ export default class SongSelector extends Component {
   }
 
   componentDidMount() {
-    this.select(JSON.parse(localStorage.getItem('song')) || 0);
+    this.select(Memory.getSong());
   }
 
   toggle() {
     this.setState({ open: !this.state.open });
   }
 
-  select(checked = 0) {
+  select(checked = 0, callback = null) {
     this.setState({ checked, open: false });
-    this.props.onChange(this.props.songs[checked]);
-    localStorage.setItem('song', JSON.stringify(checked));
+    this.props.onChange(this.props.songs[checked], callback);
+    Memory.setSong(checked);
   }
 
   onChange(event) {

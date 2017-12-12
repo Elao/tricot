@@ -3,7 +3,7 @@ import { getSuccessRatio, getLongestStreak, countSuccess, countError } from './u
 
 export default class End extends Component {
   render() {
-    const { answers, ready, replay } = this.props;
+    const { answers, ready, replay, next } = this.props;
 
     return (
       <div className="end">
@@ -42,7 +42,7 @@ export default class End extends Component {
               <span className="icon arrow left"></span>
               <span className="icon arrow down"></span>
               <span className="icon arrow right"></span>
-              Rejouer
+              {next ? 'Niveau suivant !' : 'Rejouer !'}
             </button>
           </div>
         </div>

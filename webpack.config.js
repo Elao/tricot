@@ -11,7 +11,7 @@ const plugins = [
     `Copyright 2017 ${meta.author.name}`,
   ].join('\n')),
   new ExtractTextPlugin({
-    filename: 'app.css',
+    filename: 'app.[hash:8].css',
     allChunks: true,
   }),
   new HtmlWebpackPlugin({
@@ -37,7 +37,7 @@ module.exports = {
   entry: './index.js',
   output: {
     path: `${__dirname}/dist`,
-    filename: `app.js`,
+    filename: `app.[hash:8].js`,
   },
   module: {
     loaders: [

@@ -114,6 +114,7 @@ export default class Tricot extends Component {
   start() {
     const { tempo, warmup } = this.state;
 
+    window.scrollTo(0, 0);
     this.audio.start(tempo, tempo / 2, () => {
       this.setState({ index: -warmup.length });
       this.timer.start(tempo);
@@ -127,7 +128,8 @@ export default class Tricot extends Component {
     if (this.timer.stop()) {
       this.keyCatcher.detachEvents();
       this.resetCatcher.attachEvents(false);
-      this.audio.end(this.final);
+      this.audio.end();
+      this.final();
     }
   }
 

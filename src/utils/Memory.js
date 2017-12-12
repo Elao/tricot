@@ -33,12 +33,10 @@ export function getSong(defaultValue = 0) {
     return JSON.parse(localStorage.getItem(SONG)) || defaultValue;
 }
 
-/*
+/**
  * Set song index
  *
  * @param {Number} index
- *
- * @return {Number}
  */
 export function setSong(index) {
     localStorage.setItem(SONG, JSON.stringify(index));

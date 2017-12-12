@@ -23,11 +23,6 @@ body {
     justify-content: flex-start;
     height: auto;
 
-    .knit {
-      height: auto;
-      margin-bottom: 2em;
-    }
-
     .upper-stitch { display: none; }
 
     .needle {
@@ -125,8 +120,8 @@ h1 {
 @media (max-width: $screen-lg-max) {
   header {
     img {
-      width: 80px;
-      height: 80px;
+      width: 78px;
+      height: 78px;
     }
   }
 

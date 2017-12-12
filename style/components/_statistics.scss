@@ -1,5 +1,5 @@
 .statistics-container {
-  margin-bottom: 45px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: row;
 
@@ -11,11 +11,11 @@
     &:nth-of-type(1) { border-right: solid 1px; }
 
     &.statistics--score {
-      font-size: 36px;
+      font-size: 32px;
     }
 
     &.statistics--details {
-      font-size: 19px;
+      font-size: 18px;
     }
 
     dl {
@@ -25,7 +25,7 @@
       align-items: center;
       margin: 0;
       text-align: center;
-      padding: 3px;
+      padding: 0 4px;
     }
 
     dd {
@@ -41,22 +41,23 @@
   }
 }
 
-@media (max-width: $screen-md-max) {
+@media (max-width: $screen-sm-max) {
   .statistics-container {
     flex-direction: column;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     .statistics {
       &:nth-of-type(1) {
         border: none;
+        margin-bottom: 10px;
       }
 
       &.statistics--score {
-        font-size: 26px;
+        font-size: 24px;
       }
 
       &.statistics--details {
-        font-size: 14px;
+        font-size: 12px;
       }
 
       dl { padding: 0; }

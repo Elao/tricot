@@ -66,7 +66,7 @@
 .modal--end {
   position: static;
   transform: none;
-  margin: 50px auto;
+  margin: 40px auto;
   background: rgba(255, 255, 255, 0.7);
   animation: slide 1s ease-out both;
 
@@ -142,14 +142,9 @@
   }
 }
 
-@media (max-width: $screen-lg-max) {
-  //.modal--credits { top: 50px; }
-}
-
 @media (max-width: $screen-md-max) {
-  .modal {
-    //width: 95vw;
-    //max-width: 95vw;
+  .modal--end {
+    margin: 30px auto;
   }
 }
 
@@ -166,8 +161,8 @@
   }
 
   .modal--end {
-    margin: 0 auto;
-    padding: 20px 10px;
+    margin: 20px auto;
+    padding: 10px;
 
     p:first-of-type { font-size: 18px; }
     p:last-of-type { font-size: 15px; }

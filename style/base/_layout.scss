@@ -98,21 +98,18 @@ h1 {
     background: none;
     border: none;
     font-size: 2em;
-    line-height: 2em;
+    line-height: 1em;
     overflow: visible;
     cursor: pointer;
     text-shadow: 0 0 10px rgba(104, 165, 179, 0.2);
     outline: none;
 
-    &.up {
+    &.select-open {
       margin-bottom: 1em;
     }
 
     &:before {
       color: $primary;
-      border: 2px solid $primary;
-      border-radius: 1em;
-      padding: 0.2em;
     }
   }
 }

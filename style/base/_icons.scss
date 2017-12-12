@@ -20,27 +20,28 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  &.up:before { content: "\e903"; }
-  &.right:before { content: "\e902"; }
   &.down:before { content: "\e900"; }
   &.left:before { content: "\e901"; }
+  &.right:before { content: "\e902"; }
+  &.up:before { content: "\e903"; }
   &.wool:before { content: "\e904"; }
   &.audio-off:before { content: "\e905"; }
   &.audio-on:before { content: "\e906"; }
   &.down--empty:before { content: "\e907"; }
   &.left--empty:before { content: "\e908"; }
   &.right--empty:before { content: "\e909"; }
-  &.top--empty:before { content: "\e90a"; }
-  &.fullscreen-off:before { content: "\e98a"; }
-  &.fullscreen-on:before { content: "\e989"; }
-  &.close:before { content: "\e90d"; }
+  &.up--empty:before { content: "\e90a"; }
   &.credits:before { content: "\e90b"; }
-  &.select-open:before { content: "\ea41"; }
-  &.select-closed:before { content: "\ea43"; }
   &.difficulty--1:before { content: "\e90c"; }
   &.difficulty--2:before { content: "\e90c\e90c"; }
   &.difficulty--3:before { content: "\e90c\e90c\e90c"; }
   &.difficulty--4:before { content: "\e90c\e90c\e90c\e90c"; }
+  &.close:before { content: "\e90d"; }
+  &.fullscreen-on:before { content: "\e989"; }
+  &.fullscreen-off:before { content: "\e98a"; }
   &.stop:before { content: "\ea17"; }
+  &.select-open:before { content: "\ea41"; }
+  &.select-closed:before { content: "\ea43"; }
+  &.link:before { content: "\e9cb"; }
 }
 

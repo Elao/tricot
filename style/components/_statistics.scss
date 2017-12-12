@@ -7,6 +7,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-width: 50%;
+    align-items: center;
 
     &:nth-of-type(1) { border-right: solid 1px; }
 
@@ -37,6 +39,55 @@
     dt {
       font-size: 1.4em;
       font-weight: 500;
+    }
+
+    .share {
+      font-size: 18px;
+      line-height: 1em;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      background: none;
+      padding: 6px 8px;
+      margin: 8px 0 0;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &.share--button {
+        color: $primary;
+        border: 1px solid $primary;
+
+        &:hover {
+          color: $primary--dark;
+          border-color: $primary--dark;
+        }
+      }
+
+      &.share--link {
+        border: 1px solid $text;
+        background: white;
+        user-select: all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 80%;
+        text-align: left;
+
+        a, & {
+          color: $text;
+        }
+
+        &:hover, &:hover a {
+          color: $text--dark;
+          border-color: $text--dark;
+        }
+      }
+
+      .icon {
+        margin-right: 0.4em;
+      }
     }
   }
 }

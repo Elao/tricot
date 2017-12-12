@@ -21,5 +21,8 @@
     },
     "globals": {
         "Map": true,
+        "Set": true,
+        "Int8Array": true,
+        "ArrayBuffer": true,
     }
 }

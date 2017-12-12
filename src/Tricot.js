@@ -18,6 +18,7 @@ import Timer from './game/Timer';
 import Songs from './track';
 import { getSuccessRatio } from './utils/StatTool';
 import * as Memory from './utils/Memory';
+import shorten from './utils/shorten';
 import '../assets/images/elao.svg';
 import needleLeft from '../assets/images/needle-left.png';
 import needleRight from '../assets/images/needle-right.png';
@@ -41,6 +42,8 @@ export default class Tricot extends Component {
       pressed: null,
       ready: true,
       next: null,
+      link: null,
+      shared: false,
     };
 
     this.modals = {
@@ -57,10 +60,21 @@ export default class Tricot extends Component {
     this.checkStop = this.checkStop.bind(this);
     this.reset = this.reset.bind(this);
     this.final = this.final.bind(this);
+    this.getLink = this.getLink.bind(this);
 
     this.timer = new Timer(this.tick);
     this.keyCatcher = new KeyCatcher(Key, this.validate);
     this.resetCatcher = new ResetCatcher(Key, this.reset);
+  }
+
+  componentDidMount() {
+    const { hash } = window.location;
+
+    if (hash && hash.length > 10) {
+      const { lines, answers } = Generator.load(decodeURIComponent(hash.slice(1)));
+
+      this.setState({ lines, answers, shared: true });
+    }
   }
 
   /**
@@ -105,6 +119,7 @@ export default class Tricot extends Component {
       lines,
       partition,
       answers: [],
+      link: null,
     }, () => setTimeout(this.start, 0));
   }
 
@@ -236,6 +251,25 @@ export default class Tricot extends Component {
   }
 
   /**
+   * Get share link
+   *
+   * @return {String}
+   */
+  getLink() {
+    if (this.state.link) {
+      return;
+    }
+
+    const { lines, answers } = this.state;
+    const hash = Generator.export(lines, answers);
+
+    shorten(
+      `${window.origin}/#${hash}`,
+      link => this.setState({ link })
+    );
+  }
+
+  /**
    * Get page title
    *
    * @return {String|null}
@@ -259,7 +293,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { partition, lines, answers, index, pressed, tempo, warmup, audio, bpm, delay, ready, next } = this.state;
+    const { partition, lines, answers, index, pressed, tempo, warmup, audio, bpm, delay, ready, next, link, shared } = this.state;
     const { privacy, credits } = this.modals;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
@@ -271,7 +305,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {this.getTitle(index, answers)}
-        {end && <End answers={answers} replay={this.reset} ready={ready} next={next !== null} />}
+        {end && <End answers={answers} replay={this.reset} ready={ready} next={next !== null} link={link} getLink={this.getLink} shared={shared}  />}
         <div className="options">
           {playing
             ? <button type="button" className="icon stop" onClick={this.cancel}></button>

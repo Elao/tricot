@@ -23,14 +23,15 @@ const plugins = [
   }),
   new CopyWebpackPlugin([{
     from: `${__dirname}/public`
-  }])
+  }]),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
+  }),
 ];
 
 if (production) {
-  plugins.push(
-    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
-    new webpack.optimize.UglifyJsPlugin()
-  );
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = {

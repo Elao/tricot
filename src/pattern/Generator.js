@@ -1,4 +1,6 @@
+import { encode, decode } from 'base64-arraybuffer';
 import { LINE } from './constants';
+import Dictionary from './Dictionary';
 import { one } from './spacer';
 import * as SIMPLE from './simple';
 import * as COMPOSED from './composed';
@@ -98,5 +100,48 @@ export default class Generator {
             ...pattern,
             ...spacer,
         ];
+    }
+
+    /**
+     * Load a scarf from Base64 string
+     *
+     * @param {String} base64
+     *
+     * @return {Object}
+     */
+    static load(base64) {
+        const buffer = decode(base64);
+        const view = new Int16Array(buffer);
+        const lines = [];
+        const answers = [];
+
+        Array.from(view).forEach((lineNumber, index) => {
+            answers[index] = lineNumber >= 0;
+            lines[index] = Dictionary[Math.abs(lineNumber) - 1];
+        });
+
+        return { lines, answers };
+    }
+
+    /**
+     * Export a scarf to Base64 string
+     *
+     * @param {Array} lines
+     * @param {Array} answers
+     *
+     * @return {String}
+     */
+    static export(lines, answers = []) {
+        const buffer = new ArrayBuffer(lines.length * 2);
+        const view = new Int16Array(buffer);
+
+        lines.forEach((line, index) => {
+            const success = typeof answers[index] === 'boolean' && answers[index];
+            const lineNumber = Dictionary.indexOf(line) + 1;
+
+            view[index] = lineNumber * (success ? 1 : -1);
+        });
+
+        return encode(buffer);
     }
 }

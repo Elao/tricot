@@ -71,9 +71,16 @@ export default class Tricot extends Component {
     const { hash } = window.location;
 
     if (hash && hash.length > 10) {
-      const { lines, answers } = Generator.load(decodeURIComponent(hash.slice(1)));
+      let data = null;
 
-      this.setState({ lines, answers, shared: true });
+      try {
+        data = Generator.load(decodeURIComponent(hash.slice(1)));
+      } catch(e) {}
+
+      if (data !== null) {
+        const { lines, answers } = data;
+        this.setState({ lines, answers, shared: true });
+      }
     }
   }
 

@@ -118,6 +118,10 @@ export default class Generator {
         Array.from(view).forEach((lineNumber, index) => {
             answers[index] = lineNumber >= 0;
             lines[index] = Dictionary[Math.abs(lineNumber) - 1];
+
+            if (typeof lines[index] === 'undefined') {
+                throw new Error('Invalid pattern');
+            }
         });
 
         return { lines, answers };

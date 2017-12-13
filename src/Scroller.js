@@ -77,7 +77,7 @@ export default class Scroller extends Component {
 
     render() {
         const { direction } = this.props;
-        const className = `scroller icon arrow ${this.top ? 'up' : 'down'}`;
+        const className = `scroller icon ${this.top ? 'select-open' : 'select-closed'}`;
 
         return <button type="button" className={className} onClick={this.scroll}></button>
     }

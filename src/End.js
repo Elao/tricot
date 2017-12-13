@@ -2,14 +2,54 @@ import React, { Component } from 'react';
 import { getSuccessRatio, getLongestStreak, countSuccess, countError } from './utils/StatTool';
 
 export default class End extends Component {
+  getTitle() {
+    if (this.props.shared) {
+      return 'Record à battre ...';
+    }
+
+    return 'Bravo !';
+  }
+
+  getReplayLabel() {
+    if (this.props.shared) {
+      return 'Battre le record !';
+    }
+
+    if (this.props.next) {
+      return 'Niveau suivant !';
+    }
+
+    return 'Rejouer !';
+  }
+
+  renderShare() {
+    const { getLink, link, shared } = this.props;
+
+    if (shared) {
+      return null;
+    }
+
+    if (link) {
+      return <p className="share share--link">
+          <span className="icon link"></span>
+          <a href={link} target="_blank">{link}</a>
+      </p>;
+    }
+
+    return <button type="button" className="share share--button" onClick={getLink}>
+      <span className="icon link"></span>
+      Partager mon e-charpe
+    </button>;
+  }
+
   render() {
-    const { answers, ready, replay, next } = this.props;
+    const { answers, ready, replay } = this.props;
 
     return (
       <div className="end">
         <div className="end__title">
           <span className="icon wool"></span>
-          <h3>Bravo !</h3>
+          <h3>{this.getTitle()}</h3>
         </div>
         <div className="modal modal--end">
           <div className="statistics-container">
@@ -18,6 +58,7 @@ export default class End extends Component {
                 <dd>Score :</dd>
                 <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
               </dl>
+              {this.renderShare()}
             </div>
             <div className="statistics statistics--details">
               <dl>
@@ -42,7 +83,7 @@ export default class End extends Component {
               <span className="icon arrow left"></span>
               <span className="icon arrow down"></span>
               <span className="icon arrow right"></span>
-              {next ? 'Niveau suivant !' : 'Rejouer !'}
+              {this.getReplayLabel()}
             </button>
           </div>
         </div>

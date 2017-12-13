@@ -1,6 +1,7 @@
 import { encode, decode } from 'base64-arraybuffer';
 import { LINE } from './constants';
 import Dictionary from './Dictionary';
+import Songs from '../track';
 import { one } from './spacer';
 import * as SIMPLE from './simple';
 import * as COMPOSED from './composed';
@@ -111,9 +112,14 @@ export default class Generator {
      */
     static load(base64) {
         const buffer = decode(base64);
-        const view = new Int16Array(buffer);
+        const song = new Int16Array(buffer, 0, 2)[0];
+        const view = new Int16Array(buffer, 2);
         const lines = [];
         const answers = [];
+
+        if (song < 0 || song >= Songs.length) {
+            throw new Error('Invalid song');
+        }
 
         Array.from(view).forEach((lineNumber, index) => {
             answers[index] = lineNumber >= 0;
@@ -124,20 +130,24 @@ export default class Generator {
             }
         });
 
-        return { lines, answers };
+        return { song, lines, answers };
     }
 
     /**
      * Export a scarf to Base64 string
      *
+     * @param {Number} song
      * @param {Array} lines
      * @param {Array} answers
      *
      * @return {String}
      */
-    static export(lines, answers = []) {
-        const buffer = new ArrayBuffer(lines.length * 2);
-        const view = new Int16Array(buffer);
+    static export(song, lines, answers = []) {
+        const buffer = new ArrayBuffer((1 + lines.length) * 2);
+        const songView = new Int16Array(buffer, 0, 2);
+        const view = new Int16Array(buffer, 2);
+
+        songView[0] = song;
 
         lines.forEach((line, index) => {
             const success = typeof answers[index] === 'boolean' && answers[index];

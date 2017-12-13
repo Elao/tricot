@@ -22,4 +22,6 @@ songs.sort((songA, songB) => {
   return 0;
 });
 
+songs.forEach((song, index) => song.difficulty = index + 1);
+
 export default songs;

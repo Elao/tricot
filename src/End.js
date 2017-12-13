@@ -42,6 +42,19 @@ export default class End extends Component {
     </button>;
   }
 
+  renderSong() {
+    const { song } = this.props;
+
+    if (!song) {
+      return null;
+    }
+
+    return <p className="song">
+      {song.title}
+      <span className={`icon difficulty difficulty--${song.difficulty}`}></span>
+    </p>;
+  }
+
   render() {
     const { answers, ready, replay } = this.props;
 
@@ -58,6 +71,7 @@ export default class End extends Component {
                 <dd>Score :</dd>
                 <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
               </dl>
+              {this.renderSong()}
               {this.renderShare()}
             </div>
             <div className="statistics statistics--details">

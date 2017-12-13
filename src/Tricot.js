@@ -44,6 +44,7 @@ export default class Tricot extends Component {
       next: null,
       link: null,
       shared: false,
+      song: null,
     };
 
     this.modals = {
@@ -78,8 +79,11 @@ export default class Tricot extends Component {
       } catch(e) {}
 
       if (data !== null) {
-        const { lines, answers } = data;
-        this.setState({ lines, answers, shared: true });
+        const { song, lines, answers } = data;
+
+        this.songSelector.select(song, () => {
+          this.setState({ lines, answers, song, shared: true });
+        });
       }
     }
   }
@@ -106,7 +110,7 @@ export default class Tricot extends Component {
   }
 
   reset() {
-    const { ready, next, duration, warmup } = this.state;
+    const { ready, next, duration, warmup, audio } = this.state;
 
     if (!ready) {
       return;
@@ -127,6 +131,8 @@ export default class Tricot extends Component {
       partition,
       answers: [],
       link: null,
+      shared: false,
+      song: Songs.findIndex(song => song.audio === audio),
     }, () => setTimeout(this.start, 0));
   }
 
@@ -267,8 +273,8 @@ export default class Tricot extends Component {
       return;
     }
 
-    const { lines, answers } = this.state;
-    const hash = Generator.export(lines, answers);
+    const { lines, answers, song } = this.state;
+    const hash = Generator.export(song, lines, answers);
 
     shorten(
       `${window.origin}/#${hash}`,
@@ -300,7 +306,7 @@ export default class Tricot extends Component {
   }
 
   render() {
-    const { partition, lines, answers, index, pressed, tempo, warmup, audio, bpm, delay, ready, next, link, shared } = this.state;
+    const { partition, lines, answers, index, pressed, tempo, warmup, audio, bpm, delay, ready, next, link, shared, song } = this.state;
     const { privacy, credits } = this.modals;
     const needleClass = this.getNeedleClass();
     const playing = index !== null;
@@ -312,7 +318,7 @@ export default class Tricot extends Component {
     return (
       <div>
         {this.getTitle(index, answers)}
-        {end && <End answers={answers} replay={this.reset} ready={ready} next={next !== null} link={link} getLink={this.getLink} shared={shared}  />}
+        {end && <End answers={answers} replay={this.reset} ready={ready} next={next !== null} link={link} getLink={this.getLink} shared={shared} song={Songs[song]} />}
         <div className="options">
           {playing
             ? <button type="button" className="icon stop" onClick={this.cancel}></button>

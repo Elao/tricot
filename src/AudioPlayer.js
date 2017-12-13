@@ -85,6 +85,8 @@ export default class AudioPlayer extends Component {
 
     if (muted !== prevState.muted) {
       this.audio.muted = muted;
+      this.background.muted = muted;
+      this.final.muted = muted;
 
       Memory.setMuted(muted);
 

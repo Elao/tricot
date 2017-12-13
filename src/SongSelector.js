@@ -35,9 +35,8 @@ export default class SongSelector extends Component {
 
   renderSong(song, index) {
     const { open, checked } = this.state;
-    const { title } = song;
+    const { title, difficulty } = song;
     const id = title.split(' ').join('').toLowerCase();
-    const difficulty = index + 1;
     const selected = index === checked;
 
     if (!open && !selected) {

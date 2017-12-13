@@ -41,6 +41,14 @@
       font-weight: 500;
     }
 
+    .song {
+      font-size: 16px;
+
+      .icon {
+        color: $text--dark;
+      }
+    }
+
     .share {
       font-size: 18px;
       line-height: 1em;
@@ -98,6 +106,8 @@
     margin-bottom: 20px;
 
     .statistics {
+      max-width: 100%;
+
       &:nth-of-type(1) {
         border: none;
         margin-bottom: 10px;
@@ -113,6 +123,12 @@
 
       dl { padding: 0; }
       dd { margin-right: 7px; }
+
+      .share {
+        font-size: 12px;
+        padding: 4px 6px;
+        margin: 6px 0 0;
+      }
     }
   }
 }

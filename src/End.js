@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ShareButton from './ShareButton';
 import { getSuccessRatio, getLongestStreak, countSuccess, countError } from './utils/StatTool';
 
 export default class End extends Component {
@@ -22,26 +23,6 @@ export default class End extends Component {
     return 'Rejouer !';
   }
 
-  renderShare() {
-    const { getLink, link, shared } = this.props;
-
-    if (shared) {
-      return null;
-    }
-
-    if (link) {
-      return <p className="share share--link">
-          <span className="icon link"></span>
-          <a href={link} target="_blank">{link}</a>
-      </p>;
-    }
-
-    return <button type="button" className="share share--button" onClick={getLink}>
-      <span className="icon link"></span>
-      Partager mon e-charpe
-    </button>;
-  }
-
   renderSong() {
     const { song } = this.props;
 
@@ -56,7 +37,14 @@ export default class End extends Component {
   }
 
   render() {
-    const { answers, ready, replay } = this.props;
+    const {
+      answers,
+      getLink,
+      link,
+      ready,
+      replay,
+      shared,
+    } = this.props;
 
     return (
       <div className="end">
@@ -72,7 +60,7 @@ export default class End extends Component {
                 <dt>{getSuccessRatio(answers, 100).toFixed(2).replace(/\.?0*$/, '')}%</dt>
               </dl>
               {this.renderSong()}
-              {this.renderShare()}
+              <ShareButton link={link} getLink={getLink} shared={shared} />
             </div>
             <div className="statistics statistics--details">
               <dl>

@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('../assets/icons/icomoon.eot');
-  src:  url('../assets/icons/icomoon.eot') format('embedded-opentype'),
-    url('../assets/icons/icomoon.ttf') format('truetype'),
-    url('../assets/icons/icomoon.woff') format('woff'),
-    url('../assets/icons/icomoon.svg') format('svg');
+  font-family: 'tricot';
+  src:  url('../assets/icons/tricot.eot');
+  src:  url('../assets/icons/tricot.eot') format('embedded-opentype'),
+    url('../assets/icons/tricot.ttf') format('truetype'),
+    url('../assets/icons/tricot.woff') format('woff'),
+    url('../assets/icons/tricot.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 .icon {
-  font-family: 'icomoon' !important;
+  font-family: 'tricot' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -43,5 +43,6 @@
   &.select-open:before { content: "\ea41"; }
   &.select-closed:before { content: "\ea43"; }
   &.link:before { content: "\e9cb"; }
+  &.past:before { content: "\e90f"; }
 }
 

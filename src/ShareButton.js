@@ -30,6 +30,9 @@ export default class ShareButton extends Component {
     }
   }
 
+  /**
+   * @param {Object} event
+   */
   copyLinkToClipboard(event) {
     if (event) {
       event.preventDefault();
@@ -37,15 +40,18 @@ export default class ShareButton extends Component {
 
     // Copy the link url to clipboard
     this.textLink.select();
-    document.execCommand('copy');
+    const isCopied = document.execCommand('copy');
 
-    this.fadeClipboardLabel();
+    this.fadeClipboardLabel(isCopied);
   }
 
-  fadeClipboardLabel() {
+  /**
+   * @param {Boolean} isCopied
+   */
+  fadeClipboardLabel(isCopied) {
     clearTimeout(this.clipboardTimeout);
 
-    this.setState({ linkIsCopied: true }, () => {
+    this.setState({ linkIsCopied: isCopied }, () => {
       this.clipboardTimeout = setTimeout(() => this.setState({ linkIsCopied: false }), this.clipboardDelay);
     });
   }
@@ -63,16 +69,15 @@ export default class ShareButton extends Component {
         <div className="share-button share-button--box">
           <p className="share-button__link">
             <a className="icon past" onClick={this.copyLinkToClipboard} />
-            <a href={link} target="_blank">{link}</a>
+            <input
+              className="share-button__clipboard"
+              ref={(input) => { this.textLink = input; }}
+              defaultValue={link}
+            />
           </p>
-          <div className={`clipboard clipboard--${linkIsCopied ? 'show' : 'hide'}`}>
+          <div className={`clipboard-label clipboard-label--${linkIsCopied ? 'show' : 'hide'}`}>
             <span>Le lien a été copié dans le presse-papier !</span>
           </div>
-          <input
-            className="share-button__clipboard"
-            ref={(input) => { this.textLink = input; }}
-            defaultValue={link}
-          />
         </div>
       );
     }
@@ -83,7 +88,6 @@ export default class ShareButton extends Component {
           <span className="icon link"></span>
           Partager mon e-charpe
         </button>
-        <div className="clipboard" />
       </div>
     );
   }

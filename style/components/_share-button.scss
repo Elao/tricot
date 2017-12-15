@@ -14,20 +14,21 @@
     margin-right: 0.4em;
   }
 
-  .clipboard {
+  .clipboard-label {
+    position: absolute;
     height: 26px;
     line-height: 26px;
     font-size: 12px;
     color: $text--dark;
   }
 
-  .clipboard--show > span {
+  .clipboard-label--show > span {
     visibility: visible;
     opacity: 1;
     transition: opacity .2s linear;
   }
 
-  .clipboard--hide > span {
+  .clipboard-label--hide > span {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s .2s, opacity .2s linear;
@@ -38,21 +39,11 @@
   max-width: 80%;
 }
 
-.share-button__clipboard {
-  // This input must be hidden for the user
-  // but it be able to have focus and selection
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  outline: none;
-  border: none;
-  background: none;
-}
-
 .share-button__button {
   @extend .share-button;
   cursor: pointer;
   color: $primary;
+  margin-bottom: 26px;
   border: 1px solid $primary;
 
   &:hover {
@@ -63,24 +54,23 @@
 
 .share-button__link {
   @extend .share-button;
+  color: $text;
   cursor: pointer;
   border: 1px solid $text;
   background: white;
-  user-select: all;
+  overflow: hidden;
+  text-align: left;
+}
+
+.share-button__clipboard {
+  color: $text;
+  font-size: 18px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: left;
-  margin: inherit !important;
-
-  a, & {
-    color: $text;
-  }
-
-  &:hover, &:hover a {
-    color: $text--dark;
-    border-color: $text--dark;
-  }
+  border: none;
+  background: transparent;
+  outline: none;
 }
 
 @media (max-width: $screen-sm-max) {

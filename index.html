@@ -43,7 +43,7 @@
     <meta name="msapplication-TileColor" content="#d0ecef">
     <meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.options.url %>/app/ms-icon-144x144.png">
     <meta name="theme-color" content="#d0ecef">
-    <% if (htmlWebpackPlugin.options.piwikHost) { %>
+    <% if (htmlWebpackPlugin.options.matomoHost) { %>
     <script type="text/javascript">
       var _paq = _paq || [];
       _paq.push([function visitorCookieTimeoutMiddleware() {
@@ -52,9 +52,9 @@
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//<%= htmlWebpackPlugin.options.piwikHost %>/";
+        var u="//<%= htmlWebpackPlugin.options.matomoHost %>/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '<%= htmlWebpackPlugin.options.piwikId %>']);
+        _paq.push(['setSiteId', '<%= htmlWebpackPlugin.options.matomoId %>']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
       })();

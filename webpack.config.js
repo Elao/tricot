@@ -18,8 +18,8 @@ const plugins = [
     template: `${__dirname}/index.html`,
     favicon: 'assets/favicon.ico',
     url: process.env.APP_URL || '',
-    piwikHost: process.env.PIWIK_HOST || null,
-    piwikId: process.env.PIWIK_ID || null,
+    matomoHost: process.env.MATOMO_HOST || null,
+    matomoId: process.env.MATOMO_ID || null,
   }),
   new CopyWebpackPlugin([{
     from: `${__dirname}/public`

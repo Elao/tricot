@@ -63,4 +63,4 @@ serve:
 ##########
 
 deploy: build
-	rsync -arzv --delete dist/* app@noel.elao.elao.local:/srv/app/current
+	rsync -arzv --progress --delete dist/ app@noel.elao.elao.local:/srv/app/current/

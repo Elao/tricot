@@ -46,9 +46,6 @@
     <% if (htmlWebpackPlugin.options.matomoHost) { %>
     <script type="text/javascript">
       var _paq = _paq || [];
-      _paq.push([function visitorCookieTimeoutMiddleware() {
-        this.setVisitorCookieTimeout(parseInt(this.getVisitorInfo()[2], 10) + 33696000 - Math.round(Date.now() / 1000));
-      }]);
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {

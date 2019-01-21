@@ -64,10 +64,14 @@ export default class Scarf extends Component {
     Array.from(pattern).forEach((value, index) => {
       const crochet = Scarf.createCrochet(index, y);
 
-      if (value === 'v') {
-        this.white += crochet;
-      } else {
-        this.red += crochet;
+      switch (value) {
+        case 'v':
+          this.white += crochet;
+          break;
+        case 'x':
+          break;
+        default:
+          this.red += crochet;
       }
     });
   }

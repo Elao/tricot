@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+
+    #######
+    # App #
+    #######
+
+    app:
+        hostname: elao-tricot
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile
+            target: app
+            args:
+                MANALA_HOST: ${MANALA_HOST:-linux}
+                MANALA_USER_ID: ${MANALA_USER_ID:-1000}
+                MANALA_GROUP_ID: ${MANALA_GROUP_ID:-1000}
+        volumes:
+            - ../..:/srv/app

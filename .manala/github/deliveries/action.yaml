@@ -1,0 +1,32 @@
+name: Release
+description: Release
+author: Elao
+
+inputs:
+  secrets:
+    description: Secrets
+    required: true
+  app:
+    description: App
+    required: false
+  tier:
+    description: Tier
+    required: true
+  ref:
+    description: Ref
+    required: false
+  release:
+    description: Release
+    type: boolean
+    default: ${{ github.job == 'release' && 'true' || 'false' }}
+  deploy:
+    description: Deploy
+    type: boolean
+    default: ${{ github.job == 'deploy' && 'true' || 'false' }}
+  deploy_ref:
+    description: Deploy Ref
+    required: false
+
+runs:
+  using: composite
+  steps:

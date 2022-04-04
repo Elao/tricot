@@ -1,0 +1,24 @@
+---
+
+# Dirs
+release_dir:        ~
+release_target_dir: ~
+
+# Git
+release_git_dir: ~
+release_repo:    ~
+release_ref: master
+
+# Tasks
+release_tasks: []
+
+# Add / Remove
+release_add: []
+release_remove: []
+
+# Author
+release_author: ~
+
+# Regex
+release_git_url_regex: '^(?P<protocol>https|git)(:\/\/|@)(?P<host>[^\/:]+)[\/:](?P<user>[^\/:]+)\/(?P<repository>.+).git$'
+release_email_regex: '^(?P<name>.*) <(?P<email>.*)>$'

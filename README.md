@@ -19,3 +19,7 @@ Simple watcher:
 ## Build
 
     make build
+
+## Serve
+
+    make serve

@@ -7,17 +7,19 @@ ARG MANALA_PROVISION=none
 # System #
 ##########
 
-FROM debian:10-slim AS system
+FROM debian:11-slim AS system
 
 LABEL maintainer="Elao <contact@elao.com>"
 
-ARG MANALA_HOST=linux
+ARG MANALA_HOST_OS=linux
+ARG MANALA_HOST_PATH
 ARG MANALA_USER_ID=1000
 ARG MANALA_GROUP_ID=1000
 
 # Used for checking we're running inside a container
 ENV container="docker"
-ENV MANALA_HOST=${MANALA_HOST}
+ENV MANALA_HOST_OS=${MANALA_HOST_OS}
+ENV MANALA_HOST_PATH=${MANALA_HOST_PATH}
 
 RUN \
     # Disable irrelevants apt-key warnings
@@ -33,15 +35,6 @@ RUN \
         curl \
         make \
         socat \
-    # Openssl packages are broken on buster/arm64, install them from bullseye
-    # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=989604
-    && if [ $(dpkg --print-architecture) = "arm64" ]; then \
-        curl -sSL "http://snapshot.debian.org/archive/debian/20210827T161311Z/pool/main/o/openssl/{openssl,libssl1.1}_1.1.1k-1%2Bdeb11u1_arm64.deb" \
-            -o /var/cache/apt/archives/#1.deb \
-        && dpkg --install \
-            /var/cache/apt/archives/openssl.deb \
-            /var/cache/apt/archives/libssl1.1.deb ; \
-    fi \
     # User
     && addgroup --gid ${MANALA_GROUP_ID} app \
     && adduser --disabled-password --gecos "" app --uid ${MANALA_USER_ID} --ingroup app \
@@ -83,12 +76,13 @@ RUN \
     # Shutdown on SIGINT
     && sed -i "s/^\(ca:.*\)/ca:12345:ctrlaltdel:\/sbin\/shutdown -h now/g" /etc/inittab \
     # Don't bring networking down right before halting system
-    && echo "NETDOWN=no" >> /etc/default/halt \
+    && sed -i "/^NETDOWN=/s/yes/no/" /etc/default/halt \
     # Useless services
     && insserv --remove \
         # rcS / rc2
-        mountall-bootclean.sh mountall.sh checkroot-bootclean.sh checkfs.sh checkroot.sh bootlogs hostname.sh \
-        hwclock.sh mountdevsubfs.sh mountkernfs.sh \
+        bootlogs mountall-bootclean.sh mountall.sh checkfs.sh checkroot-bootclean.sh checkroot.sh hostname.sh \
+        hwclock.sh \
+        mount-configfs mountdevsubfs.sh mountkernfs.sh \
         brightness \
         mountnfs-bootclean.sh mountnfs.sh \
         urandom \
@@ -174,8 +168,9 @@ FROM init-${MANALA_INIT} AS provision-none
 # Ansible
 FROM init-${MANALA_INIT} AS provision-ansible
 
-ARG ANSIBLE_CORE_VERSION=2.11.8
+ARG ANSIBLE_CORE_VERSION=2.11.12
 ARG MANALA_PROVISION_LIMIT
+ARG SYMFONY_IDE
 
 # Locale
 ENV LANG=C.UTF-8
@@ -187,7 +182,6 @@ RUN \
     && export DEBIAN_FRONTEND="noninteractive" \
     && apt-get --quiet --yes -o=Dpkg::Use-Pty=0 --no-install-recommends --verbose-versions install \
         python3 python3-pip \
-        python3-setuptools python3-wheel python3-cryptography \
         python3-apt \
     && pip3 install ansible-core==${ANSIBLE_CORE_VERSION} \
     && mkdir -p /etc/ansible/ \
@@ -196,7 +190,6 @@ RUN \
 force_color = True\n\
 gather_subset = all,!hardware\n\
 display_skipped_hosts = False\n\
-deprecation_warnings = False\n\
 retry_files_enabled = False\n\
 stdout_callback = yaml\n\
 [ssh_connection]\n\

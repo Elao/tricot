@@ -19,7 +19,7 @@ project:
 ##########
 
 system:
-    version: 10
+    version: 11
     nginx:
         configs:
           - template: nginx/gzip.j2
@@ -37,6 +37,11 @@ system:
         version: 8
     php:
         version: 8.1
+    docker:
+        services:
+            app:
+                ports:
+                    - 12600:8000
 
     # ssh:
     #     client:

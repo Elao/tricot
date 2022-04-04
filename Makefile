@@ -42,6 +42,9 @@ build:
 
 ## Start a local server
 serve:
+	echo ""
+	echo "Server can be reach here -> http://elao-tricot.ela.ooo:12600"
+	echo ""
 	php -S 0.0.0.0:8000 -t ./dist
 
 ##########

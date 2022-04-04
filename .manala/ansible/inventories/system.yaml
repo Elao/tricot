@@ -4,7 +4,6 @@ system:
 
         # Ansible
         ansible_connection: local
-        ansible_python_interpreter: /usr/bin/python3
 
         # Variables
         apt_architecture: "{{ ansible_architecture | manala.roles.apt_architecture }}"
@@ -34,9 +33,6 @@ system:
         system_elasticsearch: false
         system_elasticsearch_version: null
         system_elasticsearch_plugins: []
-        # Environment
-        system_environment: false
-        system_env: {}
         # Files
         system_files: false
         system_files_attributes: []
@@ -63,7 +59,6 @@ system:
         system_mysql_version: null
         system_mysql_install_packages:
             - default-mysql-client
-            - libmariadb3
         # Network
         system_network: false
         # Nginx
@@ -83,7 +78,7 @@ system:
         system_ngrok: false
         # NodeJS
         system_nodejs: false
-        system_nodejs_version: 8
+        system_nodejs_version: 10
         system_nodejs_npm: "{{ system_nodejs }}"
         system_nodejs_packages: []
         system_nodejs_yarn: false
@@ -99,6 +94,7 @@ system:
             - fpm
         system_php_extensions: []
         system_php_configs: []
+        system_php_env: {}
         # Redis
         system_redis: false
         system_redis_version: null

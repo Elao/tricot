@@ -9,10 +9,8 @@ _CURRENT_DIR = $(patsubst ./%,%,.$(patsubst $(realpath $(CURDIR)/$(_DIR))%,%,$(C
 # Project #
 ###########
 
-PROJECT_NAME = elao-tricot
-
 define project_host
-$(PROJECT_NAME).ela.ooo$(if $(1),:126$(shell printf "%02d" $(1)))
+elao-tricot.ela.ooo$(if $(1),:126$(shell printf "%02d" $(1)))
 endef
 
 -include $(_DIR)/.manala/make/text.mk

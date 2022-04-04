@@ -21,8 +21,6 @@ system:
             system_cron: false
             # Elasticsearch
             system_elasticsearch: false
-            # Environment
-            system_environment: true
             # Files
             system_files: true
             # Git

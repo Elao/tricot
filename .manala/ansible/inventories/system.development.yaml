@@ -1,0 +1,59 @@
+system:
+
+    hosts:
+
+        ###############
+        # Development #
+        ###############
+
+        development:
+
+            # Alternatives
+            system_alternatives: true
+            # Apt
+            system_apt: true
+            system_apt_packages:
+                - pv # for real-time progress on streams (e.g mysql import)
+                - tcpdump
+            # Certificates
+            system_certificates: true
+            # Cron
+            system_cron: false
+            # Elasticsearch
+            system_elasticsearch: false
+            # Files
+            system_files: true
+            # Git
+            system_git: true
+            # Gomplate
+            system_gomplate: true
+            # InfluxDB
+            system_influxdb: false
+            # Locales
+            system_locales: true
+            # Network
+            system_network: false
+            system_network_hosts: {}
+            # Nginx
+            system_nginx: true
+            # Ngrok
+            system_ngrok: true
+            # NodeJS
+            system_nodejs: true
+            # Oh my zsh
+            system_ohmyzsh: true
+            # Php
+            system_php: true
+            # Redis
+            system_redis: false
+            # Ssh
+            system_ssh: true
+            system_ssh_client_config_template: ssh/development/ssh_config.j2
+            # Supervisor
+            system_supervisor: false
+            # Timezone
+            system_timezone: true
+            # Vim
+            system_vim: true
+            # Zsh
+            system_zsh: true

@@ -1,0 +1,5 @@
+#!/usr/bin/env groovy
+
+stage('¯\\_(ツ)_/¯') {
+    echo 'Because testing is doubting...'
+}

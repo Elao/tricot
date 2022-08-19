@@ -1,0 +1,23 @@
+name: elao-tricot
+
+services:
+
+    #######
+    # App #
+    #######
+
+    app:
+        hostname: elao-tricot
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile
+            target: app
+            args:
+                MANALA_HOST_OS: ${MANALA_HOST_OS:-linux}
+                MANALA_HOST_PATH: ${MANALA_HOST_PATH:-}
+                MANALA_USER_ID: ${MANALA_USER_ID:-1000}
+                MANALA_GROUP_ID: ${MANALA_GROUP_ID:-1000}
+        environment:
+            COMPOSER_MEMORY_LIMIT: -1
+        volumes:
+            - ../..:/srv/app

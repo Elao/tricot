@@ -1,0 +1,116 @@
+system:
+
+    vars:
+
+        # Ansible
+        ansible_connection: local
+
+        # Variables
+        apt_architecture: "{{ ansible_architecture | manala.roles.apt_architecture }}"
+
+        # Alternatives
+        system_alternatives: false
+        # App
+        system_app_group: app
+        system_app_user: app
+        system_app_dir: /srv/app
+        system_app_log_dir: /srv/log
+        system_app_cache_dir: /srv/cache
+        system_app_sessions_dir: /srv/sessions
+        system_app_release_dir: /srv/release
+        # Apt
+        system_apt: false
+        system_apt_repositories: []
+        system_apt_preferences: []
+        system_apt_holds: []
+        # Certificates
+        system_certificates: false
+        system_certificates_name: elao-tricot.ela.ooo
+        # Cron
+        system_cron: false
+        system_cron_files: []
+        # Elasticsearch
+        system_elasticsearch: false
+        system_elasticsearch_version: null
+        system_elasticsearch_plugins: []
+        # Files
+        system_files: false
+        system_files_attributes: []
+        # Git
+        system_git: false
+        # Gomplate
+        system_gomplate: false
+        # InfluxDB
+        system_influxdb: false
+        system_influxdb_config: {}
+        system_influxdb_databases: []
+        system_influxdb_users: []
+        system_influxdb_privileges: []
+        # Locales
+        system_locales: false
+        system_locales_codes: []
+        # MariaDB
+        system_mariadb: false
+        system_mariadb_version: null
+        system_mariadb_install_packages:
+            - mariadb-client
+        # MySQL
+        system_mysql: false
+        system_mysql_version: null
+        system_mysql_install_packages:
+            - default-mysql-client
+        # Network
+        system_network: false
+        # Nginx
+        system_nginx: false
+        system_nginx_configs:
+            - template: nginx/gzip.j2
+            - config: |
+                server {
+                    server_name ~.;
+                    root /srv/app/public;
+                    access_log /srv/log/nginx.access.log;
+                    error_log /srv/log/nginx.error.log;
+                    include conf.d/gzip;
+                }
+              file: app.conf
+        # Ngrok
+        system_ngrok: false
+        # NodeJS
+        system_nodejs: false
+        system_nodejs_version: 10
+        system_nodejs_npm: "{{ system_nodejs }}"
+        system_nodejs_packages: []
+        system_nodejs_yarn: false
+        # Oh my zsh
+        system_ohmyzsh: false
+        # Php
+        system_php: false
+        system_php_version: 8.1
+        system_php_composer: "{{ system_php }}"
+        system_php_composer_version: null
+        system_php_sapis:
+            - cli
+            - fpm
+        system_php_extensions: []
+        system_php_configs: []
+        system_php_env: {}
+        # Redis
+        system_redis: false
+        system_redis_version: null
+        system_redis_server_config: {}
+        # Ssh
+        system_ssh: false
+        system_ssh_client_config: null
+        # Supervisor
+        system_supervisor: false
+        system_supervisor_configs: []
+        # Symfony Cli
+        system_symfony_cli: "{{ system_php }}"
+        # Timezone
+        system_timezone: false
+        system_timezone_default: Etc/UTC
+        # Vim
+        system_vim: false
+        # Zsh
+        system_zsh: false

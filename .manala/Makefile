@@ -1,0 +1,118 @@
+# Relative root dir ("."|".."|"../.."|…)
+_DIR := $(patsubst %/.,%,$(patsubst %.manala/..,%.,$(patsubst %Makefile,%..,$(lastword $(MAKEFILE_LIST)))))
+# Is current dir root ? (""|"1")
+_ROOT = $(if $(filter .,$(_DIR)),1)
+# Relative current dir ("."|"foo"|"foo/bar"|…)
+_CURRENT_DIR = $(patsubst ./%,%,.$(patsubst $(realpath $(CURDIR)/$(_DIR))%,%,$(CURDIR)))
+
+###########
+# Project #
+###########
+
+define project_host
+elao-tricot.ela.ooo$(if $(1),:126$(shell printf "%02d" $(1)))
+endef
+
+-include $(_DIR)/.manala/make/text.mk
+-include $(_DIR)/.manala/make/help.mk
+-include $(_DIR)/.manala/make/os.mk
+-include $(_DIR)/.manala/docker/make.mk
+-include $(_DIR)/.manala/ansible/make.mk
+-include $(_DIR)/.manala/make/try.mk
+-include $(_DIR)/.manala/make/git.mk
+-include $(_DIR)/.manala/make/semver.mk
+
+###############
+# Environment #
+###############
+
+HELP += $(call help_section, Environment)
+
+# Docker commands only available *OUTSIDE* docker environment
+ifndef DOCKER
+
+# Setup commands only available *IN* root directory
+ifdef _ROOT
+HELP += $(call help,setup,                 Setup environment (DEBUG))
+setup:
+	$(_docker_compose) up \
+		--build \
+		--detach \
+		--wait
+	$(setup)
+	$(MAKE) help
+endif
+
+HELP += $(call help,up,                    Start the environment)
+up:
+	$(_docker_compose) start
+	$(MAKE) help.project
+
+HELP += $(call help,halt,                  Stop the environment)
+halt:
+	$(_docker_compose) stop
+
+HELP += $(call help,reload,                Restart the environment)
+reload:
+	$(_docker_compose) restart
+	$(MAKE) help.project
+
+HELP += $(call help,sh,                    Open shell to the environment)
+sh:
+	$(_docker_compose_exec) \
+		sh -c "if [ -x \"$$(command -v zsh)\" ] ; then exec zsh --login ; else exec bash --login ; fi"
+
+HELP += $(call help,destroy,               Stop and delete environment)
+destroy:
+	$(_docker_compose) down \
+		--rmi local \
+		--volumes \
+		--remove-orphans
+
+HELP += $(call help,docker,                Arbitrary docker compose commands)
+ifeq (docker, $(firstword $(MAKECMDGOALS)))
+ARGS := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
+$(eval $(ARGS):;@true)
+docker:
+	$(_docker_compose) $(ARGS)
+endif
+
+endif
+
+HELP += $(call help,provision,             Provision the environment (TAGS|DIFF|VERBOSE|LIMIT))
+provision: SHELL := $(or $(DOCKER_SHELL),$(SHELL))
+provision: _ANSIBLE_PLAYBOOK_INVENTORY = $(_DIR)/.manala/ansible/inventories
+provision: _ANSIBLE_PLAYBOOK_BECOME = 1
+provision:
+	$(call log, Install ansible galaxy collections)
+	$(_ansible_galaxy_collection_install) \
+		$(_DIR)/.manala/ansible/collections/requirements.yaml
+	$(call log, Run ansible playbook)
+	$(_ansible_playbook) \
+		$(_DIR)/.manala/ansible/system.yaml
+
+HELP += $(call help,provision.apt,         Provision the environment - Apt (DIFF|VERBOSE))
+provision.apt: _ANSIBLE_PLAYBOOK_TAGS = apt
+provision.apt: provision
+
+HELP += $(call help,provision.nginx,       Provision the environment - Nginx (DIFF|VERBOSE))
+provision.nginx: _ANSIBLE_PLAYBOOK_TAGS = nginx
+provision.nginx: provision
+
+HELP += $(call help,provision.php,         Provision the environment - Php (DIFF|VERBOSE))
+provision.php: _ANSIBLE_PLAYBOOK_TAGS = php
+provision.php: provision
+
+HELP += $(call help,provision.certificates,Provision the environment - Certificates (DIFF|VERBOSE))
+provision.certificates: _ANSIBLE_PLAYBOOK_TAGS = certificates
+provision.certificates: _ANSIBLE_PLAYBOOK_EXTRA_VARS = certificates_prompt=true
+provision.certificates: provision
+
+########
+# Help #
+########
+
+HELP_PROJECT = $(COLOR_COMMENT)┏(°.°)┛┗(°.°)┓$(COLOR_RESET) ♪♫ Let's party ♫♪ $(COLOR_COMMENT)┗(°.°)┛┏(°.°)┓$(COLOR_RESET)\n
+HELP_PROJECT += $(call help,Http,         http://$(call project_host, 80))
+HELP_PROJECT += $(call help,Https,        https://$(call project_host, 43))
+HELP_PROJECT += $(call help,MailHog,      http://$(call project_host, 25))

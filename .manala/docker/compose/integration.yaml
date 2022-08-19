@@ -1,0 +1,13 @@
+name: app
+
+services:
+
+    #######
+    # App #
+    #######
+
+    app:
+        build:
+            args:
+                MANALA_PROVISION: ansible
+                MANALA_PROVISION_LIMIT: integration

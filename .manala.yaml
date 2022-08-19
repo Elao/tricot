@@ -1,0 +1,51 @@
+####################################################################
+#                         !!! REMINDER !!!                         #
+# Don't forget to run `manala up` each time you update this file ! #
+####################################################################
+
+manala:
+    recipe: elao.app.docker
+
+###########
+# Project #
+###########
+
+project:
+    name: elao-tricot
+    ports_prefix: 126
+
+##########
+# System #
+##########
+
+system:
+    version: 11
+    nginx:
+        configs:
+          - template: nginx/gzip.j2
+          # App
+          - file: app.conf
+            config: |
+                server {
+                    server_name ~.;
+                    root /srv/app/public;
+                    access_log /srv/log/nginx.access.log;
+                    error_log /srv/log/nginx.error.log;
+                    include conf.d/gzip;
+                }
+    nodejs:
+        version: 8
+    php:
+        version: 8.1
+    docker:
+        services:
+            app:
+                ports:
+                    - 12600:8000
+
+    # ssh:
+    #     client:
+    #         config: |
+    #             Host *.elao.run
+    #                 User app
+    #                 ForwardAgent yes
